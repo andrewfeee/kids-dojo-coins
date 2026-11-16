@@ -32,6 +32,8 @@ header h1 .coin-i{display:inline-block;width:2.6rem;height:2.6rem;border-radius:
 .btn:disabled{opacity:.45}
 :focus{outline:none}
 .nav:focus,.nav.kbd-focus{transform:scale(1.07);box-shadow:0 0 0 .4rem #fff,0 0 0 .8rem #ffbe0b,0 .6rem 1.2rem rgba(0,0,0,.35)!important;z-index:5;position:relative}
+html.kbd,html.kbd *{cursor:none!important}
+.nav:focus{outline:.35rem solid #ffbe0b;outline-offset:.15rem}
 #board{flex:1;display:flex;flex-direction:column}
 .kidrow{flex:1;display:grid;grid-template-columns:23rem 1fr;grid-gap:1rem;background:rgba(255,255,255,.55);border-radius:2rem;padding:1rem;margin-bottom:1rem;
  border:.35rem solid #fff;box-shadow:0 .5rem 1.2rem rgba(0,0,0,.12)}
@@ -77,14 +79,12 @@ header h1 .coin-i{display:inline-block;width:2.6rem;height:2.6rem;border-radius:
 .cell.done .bkg{background:#4361ee;color:#fff;box-shadow:0 .12rem 0 #2a3ea8}
 .cell.hasbkg{justify-content:flex-start;padding-top:.3rem}
 #board.many .bkg{font-size:1.05rem;padding:.12rem .3rem;margin-bottom:.15rem}
-.mbk{font-size:1.15rem;font-weight:bold;color:#4361ee;margin-top:.15rem}
-.dbk{font-size:1.4rem;font-weight:bold;border-radius:1rem;padding:.7rem 1rem;margin:.3rem .6rem .3rem 0;background:#4361ee;color:#fff;display:inline-block;box-shadow:0 .25rem 0 #2a3ea8}
 .bkline{display:flex;align-items:center;flex-wrap:wrap;background:rgba(255,255,255,.12);border-radius:1rem;padding:.6rem .8rem;margin:.4rem 0;font-size:1.5rem;font-weight:bold}
 .bkline .sp{flex:1}
 .bkopt{background:rgba(255,255,255,.25);box-shadow:0 .35rem 0 rgba(0,0,0,.25);margin-left:0;margin-right:.6rem}
 .bkopt.sel{background:#ffbe0b;color:#3d2a00;box-shadow:0 .35rem 0 #b88600}
 .timeadj{font-size:2.2rem;min-width:12rem;text-align:center;font-weight:bold;letter-spacing:.05rem}
-header{margin-bottom:.7rem}
+header{margin-bottom:.4rem}
 footer{font-size:1.1rem;color:#1d1b4b;opacity:.75;text-align:center}
 /* overlays */
 .layer{position:fixed;left:0;top:0;right:0;bottom:0;z-index:50;display:none}
@@ -114,33 +114,7 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 #modal p{font-size:2rem;font-weight:bold;margin:0 0 1.5rem}
 .vt{background:rgba(255,255,255,.35);box-shadow:0 .35rem 0 rgba(0,0,0,.2);color:#1d1b4b}
 .vt.sel{background:#fff;color:#7b2cbf;box-shadow:0 .35rem 0 #c9c3e6}
-#month{flex:1;display:flex;flex-direction:column;background:rgba(255,255,255,.55);border-radius:2rem;border:.35rem solid #fff;padding:1rem;margin-bottom:1rem;box-shadow:0 .5rem 1.2rem rgba(0,0,0,.12)}
-.mhead{display:flex;align-items:center;justify-content:center;margin-bottom:.8rem}
-.mhead .btn{margin:0 .6rem}
-.mtitle{font-size:2.6rem;font-weight:bold;min-width:24rem;text-align:center;color:#1d1b4b}
-.mlegend{display:flex;justify-content:center;flex-wrap:wrap;font-size:1.3rem;font-weight:bold;margin-bottom:.6rem}
-.mlegend span{margin:0 1rem;display:flex;align-items:center}
-.mlegend i{display:inline-block;width:1.3rem;height:1.3rem;border-radius:50%;margin-right:.4rem}
-.mgrid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:auto;grid-auto-rows:1fr;grid-gap:.5rem}
-.mdh{text-align:center;font-weight:bold;font-size:1.5rem;background:rgba(255,255,255,.8);border-radius:1rem;padding:.3rem 0}
-.mday{border:none;border-radius:1.1rem;background:#fff;color:#1d1b4b;padding:.35rem .5rem;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;box-shadow:0 .25rem 0 #c9c3e6;min-height:6.2rem;text-align:left;font-family:inherit;transition:transform .12s}
-.mday.other{opacity:.45}
-.mday.today{background:#fff3b8;box-shadow:0 0 0 .3rem #ffbe0b,0 .25rem 0 #e8c44f}
-.mday.future .mk{opacity:.55}
-.mnum{font-size:1.6rem;font-weight:bold;line-height:1.1}
-.mday.today .mnum:after{content:" Today";font-size:1rem;color:#b06f00}
-.mk{display:flex;align-items:center;font-size:1.4rem;font-weight:bold;margin-top:.15rem;white-space:nowrap}
-.mk i{display:inline-block;width:1.3rem;height:1.3rem;border-radius:50%;margin-right:.35rem;flex:none}
-.tk{display:inline-block;width:1.9rem;height:1.9rem;border-radius:.45rem;margin-right:.25rem;text-align:center;line-height:1.9rem;font-size:1.25rem;background:#eee;color:#bbb}
-.tk.y{background:#2bb673;color:#fff}
-.mc{margin-left:.3rem;color:#b06f00}
-.daylist{text-align:left;max-height:70vh;overflow:auto}
-.daykid{display:flex;align-items:center;margin:.6rem 0;flex-wrap:wrap}
-.daykid img{width:4.5rem;height:4.5rem;border-radius:50%;border:.3rem solid;object-fit:cover;margin-right:.8rem}
-.daykid .nm{font-size:1.8rem;font-weight:bold;min-width:9rem}
-.dtask{font-size:1.4rem;font-weight:bold;border:none;border-radius:1rem;padding:.7rem 1rem;margin:.3rem .6rem .3rem 0;background:#f1efff;color:#1d1b4b;box-shadow:0 .25rem 0 #c9c3e6;font-family:inherit}
-.dtask.done{background:radial-gradient(circle at 50% 35%,#fff3a0,#ffd23f 55%,#f4a100);color:#5a3500;box-shadow:0 .25rem 0 #b06f00}
-.dnote{font-size:1.2rem;color:#555;margin:.4rem 0 1rem}
+
 #modal .mbox.wide{min-width:60rem}
 #toast{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%);background:#1d1b4b;color:#fff;font-size:1.6rem;padding:.8rem 1.6rem;border-radius:2rem;z-index:80;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
@@ -173,7 +147,9 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 .hc{flex:1;min-width:0;display:flex;flex-direction:column;gap:.22rem;justify-content:center}
 .bk{font-size:var(--bk);font-weight:bold;line-height:1.15;background:var(--kc);color:var(--kt);border-radius:.6rem;padding:.12rem .45rem;overflow-wrap:break-word;box-shadow:0 .12rem 0 rgba(0,0,0,.2)}
 .bk b{white-space:nowrap}
-.task{font-family:inherit;font-size:var(--tk);font-weight:bold;line-height:1.15;border:.2rem solid var(--kc);border-radius:.8rem;background:#fff;color:#1d1b4b;padding:.18rem .45rem;text-align:left;box-shadow:0 .2rem 0 rgba(0,0,0,.18);overflow-wrap:break-word;transition:transform .12s;width:100%}
+.task .tval{position:absolute;right:.25rem;bottom:.05rem;font-size:max(11px,.85rem);font-weight:bold;line-height:1;color:#c98a00;text-shadow:0 0 .15rem #fff8d6}
+.task.done .tval{color:#7a5200}
+.task{position:relative;padding-right:1.1rem!important;font-family:inherit;font-size:var(--tk);font-weight:bold;line-height:1.15;border:.2rem solid var(--kc);border-radius:.8rem;background:#fff;color:#1d1b4b;padding:.18rem .45rem;text-align:left;box-shadow:0 .2rem 0 rgba(0,0,0,.18);overflow-wrap:break-word;transition:transform .12s;width:100%}
 .task .ti{margin-right:.3rem}
 .task.done{background:radial-gradient(circle at 50% 35%,#fff3a0,#ffd23f 55%,#f4a100);border-color:#b06f00;color:#5a3500}
 .task.past:not(.done){opacity:.72}
@@ -204,8 +180,15 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 .cact{justify-content:center;margin-top:1.4rem}
 #cmsg{font-size:1.9rem;font-weight:bold;min-height:2.6rem;margin-top:1rem}
 #cmsg.err{color:#ffd166}
-.btn.vt.pg{min-width:9rem}
-#board .task.nav:focus{transform:scale(1.03);box-shadow:0 0 0 .18rem #fff,0 0 0 .42rem #ff8c1a,0 .3rem .6rem rgba(0,0,0,.3)!important}
+.btn.vt.pg{min-width:7.5rem}
+header .btn.wkarrow{font-size:1.7rem;padding:.6rem 1.1rem;margin-left:.3rem;min-width:4rem}
+#wkNow{margin-left:.4rem;margin-right:.4rem}
+.weeklbl{margin-left:.4rem}
+.weeklbl.other{background:#ffe066}
+header .btn{font-size:1.4rem;padding:.75rem 1rem;margin-left:.5rem}
+header h1{font-size:2.6rem!important}
+.weeklbl{font-size:1.35rem;padding:.45rem .9rem;margin-right:.4rem}
+#board .task.nav:focus{transform:scale(1.05);box-shadow:0 0 0 .22rem #fff,0 0 0 .6rem #ffbe0b,0 .4rem .9rem rgba(0,0,0,.4)!important;outline:none;z-index:6}
 .cact .btn{font-size:2.1rem;padding:1rem 1.8rem}
 @media (max-width:900px){
  #app{height:auto}
@@ -238,13 +221,62 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
  .tgrid{grid-template-columns:4.5rem 1fr 1fr}
  #modal .mbox{min-width:0;width:90vw}
  #modal .mbox.wide{min-width:0}
- .mgrid{grid-gap:.25rem}.mday{min-height:4.5rem;padding:.2rem}.mnum{font-size:1rem}.mk{font-size:.75rem}.mk i{width:.6rem;height:.6rem;margin-right:.15rem}
- .tk{width:.95rem;height:.95rem;line-height:.95rem;font-size:.65rem;margin-right:.1rem;border-radius:.25rem}.mday.today .mnum:after{content:""}
- .mtitle{font-size:1.5rem;min-width:9rem}.mdh{font-size:.9rem}.mlegend{font-size:.9rem}
  .bkg{font-size:.8rem}.mbk{font-size:.8rem}.dbk{font-size:1.05rem;padding:.5rem .7rem}
  .timeadj{font-size:1.4rem;min-width:7rem}
 }
 
+
+/* running animals: a small animal wanders a maze along the margins and gaps between board cells. On any stretch where it would
+   touch a job, booking, label or button it ducks BEHIND the board (z-index under #app), so it never covers them */
+#critter{position:fixed;left:0;top:0;width:42px;height:32px;z-index:3;pointer-events:none;display:none;will-change:transform;transition-property:transform;transition-timing-function:linear}
+#critter.on{display:block}
+#critter.under{z-index:0} /* inside a "wall": goes behind the board so it never covers a job, booking or button */
+#critter .cIn{width:100%;height:100%;transition:transform .15s}
+#critter.left .cIn{transform:scaleX(-1)}
+#critter svg{width:100%;height:100%;display:block;overflow:visible}
+#critter .fb{visibility:hidden}
+#critter.moving .fa{animation:legA .26s steps(1) infinite}#critter.moving .fb{animation:legB .26s steps(1) infinite}
+#critter.moving .bd{animation:bob .26s steps(1) infinite}
+#critter.moving[data-animal="chook"] .fa,#critter.moving[data-animal="chook"] .fb,#critter.moving[data-animal="chook"] .bd{animation-duration:.16s}
+#critter.sniff .bd{animation:sniff .5s ease-in-out infinite;transform-origin:70% 60%}
+@keyframes legA{0%{visibility:visible}50%{visibility:hidden}}
+@keyframes legB{0%{visibility:hidden}50%{visibility:visible}}
+@keyframes bob{0%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes sniff{0%,100%{transform:rotate(0)}50%{transform:rotate(9deg) translateY(1.5px)}}
+@media (prefers-reduced-motion:reduce){#critter{display:none!important}}
+
+
+/* marketplace + history (v4.2) */
+#market,#history{flex:1;display:flex;flex-direction:column;min-height:0;margin-bottom:.6rem}
+.mkids{display:flex;gap:1rem;margin-bottom:1rem}
+.mkid{flex:1;display:flex;align-items:center;background:rgba(255,255,255,.75);border:.35rem solid;border-radius:1.4rem;padding:.5rem .8rem;min-width:0}
+.mkid img{width:4.6rem;height:4.6rem;border-radius:50%;object-fit:cover;border:.25rem solid #fff;margin-right:.8rem}
+.mkn{font-size:1.9rem;font-weight:bold}.mkb{font-size:2.3rem;font-weight:bold;color:#b06f00}
+.mpile{flex:1;height:5.5rem;min-width:6rem;display:block}
+.mbody{flex:1;display:grid;grid-template-columns:2fr 1fr;gap:1rem;min-height:0}
+.mitems{display:flex;flex-direction:column;gap:1rem;min-height:0;overflow:hidden}
+.mitem{display:flex;align-items:center;background:rgba(255,255,255,.8);border-radius:1.6rem;padding:1rem 1.2rem;box-shadow:0 .4rem 1rem rgba(0,0,0,.12)}
+.mitem.group{background:linear-gradient(120deg,rgba(255,255,255,.9),rgba(255,214,240,.9))}
+.mie{font-size:5.5rem;margin-right:1.2rem;line-height:1}
+.mii{flex:1;min-width:0}.min{font-size:2.4rem;font-weight:bold}.mip{font-size:1.5rem;margin:.2rem 0 .6rem}
+.mbtns{display:flex;flex-wrap:wrap;gap:.6rem}.mbtns .btn{margin-left:0;font-size:1.45rem}
+.tvgrid{display:grid;grid-template-columns:minmax(14rem,26rem) auto 7rem auto;gap:.5rem .6rem;align-items:center;margin-top:.6rem}.tvgrid .btn{margin-left:0;padding:.45rem 1rem}.tvn{font-size:1.5rem;font-weight:bold}.tvv{font-size:1.6rem;font-weight:bold;text-align:center}
+.btn.short{background:#9aa5b1;box-shadow:0 .35rem 0 #66707a}
+.mlog{background:rgba(255,255,255,.7);border-radius:1.6rem;padding:.8rem 1rem;overflow:hidden;min-height:0}
+.mlog h3{margin:.2rem 0 .6rem;font-size:1.9rem}
+.mlr{display:flex;align-items:center;gap:.6rem;padding:.45rem 0;border-top:.12rem dashed rgba(0,0,0,.15)}
+.mlr .mlt{flex:1;font-size:1.35rem}.mlr .mlt span{font-size:1.1rem;opacity:.8}.mlr .btn{font-size:1.15rem;padding:.4rem .7rem;margin-left:0}
+.mlr.undone .mlt b{text-decoration:line-through;opacity:.6}
+.hbar{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}.hbar .btn{margin-left:0}
+.hhint{margin-left:auto;font-size:1.3rem;font-weight:bold;opacity:.75}
+.hlist{flex:1;min-height:0;overflow-y:auto;background:rgba(255,255,255,.8);border-radius:1.6rem;padding:.4rem 1rem;scroll-behavior:smooth}
+.hlist:focus{box-shadow:0 0 0 .3rem #fff,0 0 0 .7rem #ffbe0b!important;transform:none!important}
+.hr{display:grid;grid-template-columns:17rem 10rem 1fr 7rem 8rem;gap:.8rem;align-items:center;font-size:1.45rem;padding:.45rem .2rem;border-bottom:.1rem solid rgba(0,0,0,.08)}
+.hr.hh{font-weight:bold;opacity:.7;position:sticky;top:0;background:#fff;z-index:1}
+.hr i{display:inline-block;width:1rem;height:1rem;border-radius:50%;margin-right:.4rem;vertical-align:-.05rem}
+.hr .pos{color:#178a50;font-weight:bold}.hr .neg{color:#c0262f;font-weight:bold}
+.hr.rev span:nth-child(3){font-style:italic;opacity:.8}
+@media (max-width:900px){.mbody{grid-template-columns:1fr}.mkids{flex-wrap:wrap}.hr{grid-template-columns:1fr 1fr;font-size:1rem}}
 </style>
 </head>
 <body>
@@ -252,18 +284,23 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 <div id="app">
  <header>
   <h1><span class="coin-i"></span>Dojo Coins</h1>
+  <button class="btn vt nav wkarrow" id="wkPrev" aria-label="Previous week">◀</button>
   <div class="weeklbl" id="weeklbl"></div>
+  <button class="btn vt nav wkarrow" id="wkNext" aria-label="Next week">▶</button>
+  <button class="btn green nav" id="wkNow">This week</button>
   <button class="btn vt nav" id="viewWeek">📅 Week</button>
   <button class="btn vt nav pg" id="pgWd">Mon–Fri</button>
   <button class="btn vt nav pg" id="pgWe">Sat–Sun</button>
-  <button class="btn vt nav" id="viewMonth">🗓️ Month</button>
   <button class="btn vt nav" id="viewRewards">🏆 Rewards</button>
+  <button class="btn vt nav" id="viewMarket">🛒 Market</button>
+  <button class="btn vt nav" id="viewHistory">📜 History</button>
   <button class="btn orange nav" id="undoBtn">&#8630; Undo</button>
   <button class="btn nav" id="settingsBtn">&#9881; Settings</button>
  </header>
  <div id="boardwrap"><div id="board"></div></div>
- <div id="month" style="display:none"></div>
  <div id="rewards" style="display:none"></div>
+ <div id="market" style="display:none"></div>
+ <div id="history" style="display:none"></div>
  <footer id="foot">Arrows to move &middot; OK/Enter to tick a job &middot; finish a job to earn a coin!</footer>
 </div>
 
@@ -279,6 +316,7 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 </div></div>
 <div class="layer" id="modal"><div class="mbox"><p id="mtext"></p><div id="mbtns"></div></div></div>
 <div id="toast"></div>
+<div id="critter" aria-hidden="true"><div class="cIn"></div></div>
 
 <script>
 (function(){
@@ -289,7 +327,10 @@ var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 var DAYS_LONG = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var AM_DEFAULT = ["Stack dishwasher","Sort laundry","Pack lunch"];
-var PM_DEFAULT = ["Unpack bag","Homework / reading","Tidy room"];
+var PM_DEFAULT = ["","Homework / reading","Tidy room"];
+var DAILY_PM = "Unpack bag"; /* every kid, every afternoon, alongside their other afternoon job */
+/* per-job coin values (by job name, any kid/day); anything not listed earns the Settings default */
+var TASK_VALUE_SEED = {"stack dishwasher":5,"pack lunch":7,"pack lunches":7,"sort laundry":2,"feed chooks":6,"unpack bag":1};
 var COLOURS = ["#3a86ff","#f15bb5","#ffc93c","#2bb673","#ff8c1a","#7b2cbf","#e63946"]; // Charlie blue, Pip pink, Jack yellow
 var MAX_KIDS = 4;
 
@@ -300,8 +341,13 @@ function todayIdx(){ return (new Date().getDay()+6)%7; }
 function weekKey(){ return ymd(mondayOf(new Date())); }
 
 /* ---------- state ---------- */
+/* a slot may hold several jobs, written "Tidy room + Unpack bag"; job i in a slot has key day+slot+(i||"") e.g. "3pm", "3pm1" */
+function splitJobs(s){ return String(s||"").split(/\s*\+\s*/).map(function(x){ return x.trim(); }).filter(Boolean); }
+function joinJobs(a){ return a.filter(function(x){ return x&&x.trim(); }).join(" + "); }
+function parseKey(key){ var m=/^(\d)(am|pm)(\d*)$/.exec(key||""); return m?{d:+m[1],s:m[2],i:m[3]?+m[3]:0}:null; }
+function jobOfKey(k,key){ var p=parseKey(key); if(!p) return ""; return splitJobs((k.tasks[p.d]||{})[p.s])[p.i]||""; }
 function defaultTasks(offset){
-  var t=[]; for(var i=0;i<7;i++){ t.push({am:AM_DEFAULT[(i+offset)%3], pm:PM_DEFAULT[(i+offset)%3]}); } return t;
+  var t=[]; for(var i=0;i<7;i++){ var am=AM_DEFAULT[(i+offset)%3]; if(i>=5&&am==="Pack lunch") am="Feed chooks"; t.push({am:am, pm:joinJobs([PM_DEFAULT[(i+offset)%3],DAILY_PM])}); } return t;
 }
 function newKid(i,name){
   return {id:"k"+Date.now().toString(36)+i, name:name, photo:null, avatarIdx:i%DEFAULT_AVATARS.length, colour:COLOURS[i%COLOURS.length], lifetime:0, tasks:defaultTasks(i)};
@@ -309,11 +355,11 @@ function newKid(i,name){
 function defaultBookings(){ return []; }
 function freshState(){
   var kids=[newKid(0,"Charlie"),newKid(1,"Pip"),newKid(2,"Jack")];
-  return {v:4, kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:[]};
+  return {v:7, taskValues:JSON.parse(JSON.stringify(TASK_VALUE_SEED)), kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:[], coinValue:5, ledger:[], items:defaultItems(), pledges:{}, purchases:[]};
 }
 var S;
 var FIRST_RUN=false;
-function hashView(){ var h=(location.hash||"").toLowerCase(); return h==="#rewards"?"rewards":h==="#month"?"month":"week"; }
+function hashView(){ var h=(location.hash||"").toLowerCase(); return h==="#rewards"?"rewards":h==="#market"?"market":h==="#history"?"history":"week"; }
 function load(){
   var raw=null; try{ raw=localStorage.getItem(KEY); }catch(e){}
   FIRST_RUN=!raw;
@@ -330,7 +376,8 @@ function load(){
   }
   if(S.layout!=="all") S.layout="split";
   S.view=hashView();
-  S.v=4; save();
+  migrateEconomy(false); migrateTaskValues(); migrateDailyPm(); S.ledger=S.ledger||[]; S.items=S.items||[]; S.pledges=S.pledges||{}; S.purchases=S.purchases||[];
+  S.v=7; save();
   checkWeek();
 }
 function save(){
@@ -344,15 +391,19 @@ function checkWeek(){
     S.week=wk; save();
   }
 }
-/* log: { "YYYY-MM-DD": { kidId: {am:bool, pm:bool, bonus:n} } } — keeps history for the month view */
+/* log: { "YYYY-MM-DD": { kidId: {am:bool, pm:bool, bonus:n} } } — keeps a day-by-day record (used to show past weeks) */
+var WEEK_OFF=0; /* 0 = this week; -1 last week; +1 next week (main screen only) */
+function viewMonday(){ var x=mondayOf(new Date()); x.setDate(x.getDate()+7*WEEK_OFF); return x; }
+function vDateOfIdx(d){ var x=viewMonday(); x.setDate(x.getDate()+d); return ymd(x); }
 function dateOfIdx(d){ var x=mondayOf(new Date()); x.setDate(x.getDate()+d); return ymd(x); }
 function logGet(date,kid,create){ var L=S.log[date]; if(!L){ if(!create) return null; L=S.log[date]={}; } var e=L[kid]; if(!e&&create) e=L[kid]={am:false,pm:false,bonus:0}; return e; }
 function logTask(kid,key,val){ var e=logGet(dateOfIdx(+key[0]),kid,true); e[key.slice(1)]=val; }
 function logBonus(kid,date,delta){ var e=logGet(date,kid,true); e.bonus=Math.max(0,(e.bonus||0)+delta); }
 function migrateLog(){ for(var kid in S.done){ for(var key in S.done[kid]) if(S.done[kid][key]) logTask(kid,key,true); } for(var kid2 in S.bonus){ if(S.bonus[kid2]) logBonus(kid2,ymd(new Date()),S.bonus[kid2]); } }
 function kidById(id){ for(var i=0;i<S.kids.length;i++) if(S.kids[i].id===id) return S.kids[i]; return null; }
+function weekCoinsLogged(k,mon){ var n=0; for(var i=0;i<7;i++){ var d=new Date(mon); d.setDate(mon.getDate()+i); var e=logGet(ymd(d),k.id,false); if(e) n+=e.coins!=null?e.coins:((e.am?1:0)+(e.pm?1:0)+(e.bonus||0))*5; } return n; }
 function weekPoints(k){
-  var d=S.done[k.id]||{}, n=0; for(var key in d) if(d[key]) n++;
+  var d=S.done[k.id]||{}, n=0; for(var key in d) if(d[key]) n+=(d[key]===true?coinValue():+d[key]||0);
   return n+(S.bonus[k.id]||0);
 }
 function avatarSrc(k){ return k.photo || DEFAULT_AVATARS[k.avatarIdx||0] || DEFAULT_AVATARS[0]; }
@@ -434,16 +485,18 @@ var imgCache={};
 function getImg(src){ if(!imgCache[src]){ var im=new Image(); im.src=src; imgCache[src]=im; } return imgCache[src]; }
 
 /* ---------- coin pile ---------- */
-var PILE_CAP=150, STACKS=9;
+var PILE_CAP=1e9, layoutCache={}; /* exact: one coin drawn per coin; big piles get more, smaller coins */
+function pileStacks(n){ return Math.max(7, 2*Math.round(Math.sqrt(n/6))+1); }
 function pileLayout(n){
-  var h=[],pos=[],c=(STACKS-1)/2,i,k; for(i=0;i<STACKS;i++) h.push(0);
-  var m=Math.min(n,PILE_CAP);
-  for(k=0;k<m;k++){
+  if(layoutCache[n]) return layoutCache[n];
+  var ST=pileStacks(n), hgt=[],pos=[],c=(ST-1)/2,i,k; for(i=0;i<ST;i++) hgt.push(0);
+  for(k=0;k<n;k++){
     var best=-1,bs=1e9;
-    for(i=0;i<STACKS;i++){ var s=h[i]+1.7*Math.abs(i-c)+(i<c?0.01:0); if(s<bs){bs=s;best=i;} }
-    pos.push({s:best-c,l:h[best],j:((k*37)%7-3)/3}); h[best]++;
+    for(i=0;i<ST;i++){ var s=hgt[i]+1.7*Math.abs(i-c)*(9/ST)*1.0+(i<c?0.01:0); if(s<bs){bs=s;best=i;} }
+    pos.push({s:best-c,l:hgt[best],j:((k*37)%7-3)/3,r:((k*53)%9-4)/4}); hgt[best]++;
   }
-  return pos;
+  var keys=Object.keys(layoutCache); if(keys.length>40) layoutCache={};
+  return (layoutCache[n]=pos);
 }
 function drawCoinFlat(ctx,x,y,w){
   var hh=w*0.36, th=w*0.16;
@@ -467,9 +520,8 @@ function drawPile(ctx,n,cw,ch,opt){
   // shadow
   ctx.fillStyle="rgba(0,0,0,.18)"; ctx.beginPath(); ctx.ellipse(g.cx,g.base+g.w*0.15,Math.min(cw*0.48,g.w*4.3),g.w*0.35,0,0,Math.PI*2); ctx.fill();
   var order=pos.map(function(p,i){return i;}).sort(function(a,b){ return pos[a].l-pos[b].l || Math.abs(pos[b].s)-Math.abs(pos[a].s); });
-  for(var i=0;i<order.length;i++){ var c=coinPos(pos[order[i]],g); drawCoinFlat(ctx,c.x,c.y,g.w); }
+  for(var i=0;i<order.length;i++){ var pp=pos[order[i]], c=coinPos(pp,g); if(pp.r){ ctx.save(); ctx.translate(c.x,c.y); ctx.rotate(pp.r*0.1); drawCoinFlat(ctx,0,0,g.w); ctx.restore(); } else drawCoinFlat(ctx,c.x,c.y,g.w); }
   if(n===0 && !opt.noEmpty){ ctx.fillStyle="rgba(255,255,255,.85)"; ctx.font="bold "+Math.round(Math.min(ch*0.15,cw/13))+"px Trebuchet MS, sans-serif"; ctx.textAlign="center"; ctx.fillText("No coins yet – let's go!",cw/2,ch*0.55,cw*0.95); }
-  if(n>PILE_CAP){ ctx.fillStyle="#fff"; ctx.font="bold "+Math.round(ch*0.16)+"px Trebuchet MS, sans-serif"; ctx.textAlign="right"; ctx.fillText("+"+(n-PILE_CAP)+" more!",cw-4,ch*0.2); }
   return g;
 }
 function nextCoinTarget(n,cw,ch){ // position the n-th coin (1-based) lands at
@@ -495,71 +547,85 @@ function inkFor(hex){ var n=parseInt(String(hex).slice(1),16),r=n>>16,g=(n>>8)&2
 function kidVars(k){ return "--kc:"+k.colour+";--kt:"+inkFor(k.colour)+";--kl:"+shade(k.colour,0.84); }
 function bkChip(b){ return '<div class="bk">'+bookingIcon(b.title)+' '+esc(b.title||"Booking")+' <b>'+esc(fmtTimeRange(b.time,b.end))+'</b></div>'; }
 function setView(v){
-  S.view=v; var want=v==="rewards"?"#rewards":""; // the TV bookmark always opens on the week
+  S.view=v; var want=(v==="rewards"||v==="market"||v==="history")?"#"+v:""; // the TV bookmark always opens on the week
   if((location.hash||"")!==want){ try{ history.replaceState(null,"",location.pathname+location.search+want); }catch(e){} }
   render();
 }
 function render(){
   var a=document.activeElement, fid=a&&a.getAttribute?a.getAttribute("data-fid"):null;
-  var mon=mondayOf(new Date()), sun=new Date(mon); sun.setDate(mon.getDate()+6);
-  document.getElementById("weeklbl").textContent="Week of "+mon.getDate()+" "+MONTHS[mon.getMonth()]+" – "+sun.getDate()+" "+MONTHS[sun.getMonth()]+" "+sun.getFullYear();
+  var mon=viewMonday(), sun=new Date(mon); sun.setDate(mon.getDate()+6);
+  var wl=document.getElementById("weeklbl"); wl.className="weeklbl"+(WEEK_OFF?" other":"");
+  var wkShow=S.view==="week"; ["wkPrev","wkNext"].forEach(function(id){ document.getElementById(id).style.display=wkShow?"":"none"; }); document.getElementById("wkNow").style.display=(wkShow&&WEEK_OFF)?"":"none";
+  document.getElementById("weeklbl").textContent=(WEEK_OFF===0?"This week ":WEEK_OFF===-1?"Last week ":WEEK_OFF===1?"Next week ":"")+mon.getDate()+(mon.getMonth()!==sun.getMonth()?" "+MONTHS[mon.getMonth()]:"")+"–"+sun.getDate()+" "+MONTHS[sun.getMonth()]+(sun.getFullYear()!==new Date().getFullYear()?" "+sun.getFullYear():"");
   document.getElementById("undoBtn").disabled=!S.history.length;
   var split=S.layout!=="all"; pageDays();
   function vt(id,on,show){ var e=document.getElementById(id); e.className="btn vt nav"+(id.indexOf("pg")===0?" pg":"")+(on?" sel":""); e.style.display=show?"":"none"; }
   vt("viewWeek",S.view==="week",!split);
   vt("pgWd",S.view==="week"&&PAGE==="wd",split);
   vt("pgWe",S.view==="week"&&PAGE==="we",split);
-  vt("viewMonth",S.view==="month",true);
   vt("viewRewards",S.view==="rewards",true);
-  var board=document.getElementById("board"), bw=document.getElementById("boardwrap"), monthEl=document.getElementById("month"), rw=document.getElementById("rewards");
-  bw.style.display=S.view==="week"?"":"none"; monthEl.style.display=S.view==="month"?"":"none"; rw.style.display=S.view==="rewards"?"":"none";
-  if(S.view!=="week") board.innerHTML=""; if(S.view!=="month") monthEl.innerHTML=""; if(S.view!=="rewards") rw.innerHTML="";
-  document.getElementById("foot").innerHTML=S.view==="rewards"?"Coins land here when a job is ticked &middot; open this page as <b>#rewards</b> on a second screen"
-    :S.view==="month"?"Arrows to move &middot; OK to open a day"
-    :"Arrows to move &middot; OK/Enter to tick a job"+(split?(PAGE==="wd"?" &middot; ▶ past Friday for the weekend":" &middot; ◀ past Saturday for Mon–Fri"):"")+" &middot; finish a job to earn a coin!";
-  if(S.view==="month") renderMonth();
-  else if(S.view==="rewards") renderRewards();
-  else renderWeek();
+  vt("viewMarket",S.view==="market",true);
+  vt("viewHistory",S.view==="history",true);
+  var board=document.getElementById("board"), bw=document.getElementById("boardwrap"), rw=document.getElementById("rewards");
+  bw.style.display=S.view==="week"?"":"none"; rw.style.display=S.view==="rewards"?"":"none"; document.getElementById("market").style.display=S.view==="market"?"":"none"; document.getElementById("history").style.display=S.view==="history"?"":"none";
+  if(S.view!=="week") board.innerHTML=""; if(S.view!=="rewards") rw.innerHTML=""; if(S.view!=="market") document.getElementById("market").innerHTML=""; if(S.view!=="history") document.getElementById("history").innerHTML="";
+  document.getElementById("foot").innerHTML=S.view==="market"?"Spend coins on treats &middot; OK to choose, Back to cancel":S.view==="history"?"Every coin in and out &middot; ◀ ▶ change kid &middot; ▲ ▼ scroll":S.view==="rewards"?"Coins land here when a job is ticked &middot; open this page as <b>#rewards</b> on a second screen"
+    :"Arrows to move &middot; OK/Enter to tick a job"+(split?(PAGE==="wd"?" &middot; ▶ past Friday: weekend &middot; ◀ before Monday: last week":" &middot; ◀ before Saturday: Mon–Fri &middot; ▶ past Sunday: next week"):" &middot; ◀ ▶ at the edges: other weeks")+" &middot; finish a job to earn a coin!";
+  if(S.view==="rewards") renderRewards();
+  else if(S.view==="market") renderMarket();
+  else if(S.view==="history") renderHistory();
+  else { renderWeek(); fitBoard(); }
   if(fid){ var f=document.querySelector('[data-fid="'+fid+'"]'); if(f&&f.offsetParent!==null) f.focus(); }
+}
+/* extra jobs make cells taller: shrink job/booking text a step at a time until the board fits */
+function fitBoard(){
+  var b=document.getElementById("board"); if(!b) return; b.style.removeProperty("--tk"); b.style.removeProperty("--bk");
+  var cs=getComputedStyle(b), tk=parseFloat(cs.getPropertyValue("--tk"))||1.7, bk=parseFloat(cs.getPropertyValue("--bk"))||1.5, f=1;
+  function over(){ if(b.scrollHeight>b.clientHeight+1) return true; var hs=b.querySelectorAll(".hc"); for(var i=0;i<hs.length;i++) if(hs[i].scrollHeight>hs[i].clientHeight+1) return true; return false; }
+  for(var n=0;n<12&&over();n++){ f*=0.92; b.style.setProperty("--tk",(tk*f).toFixed(3)+"rem"); b.style.setProperty("--bk",(bk*f).toFixed(3)+"rem"); }
 }
 function renderWeek(){
   var board=document.getElementById("board"); board.innerHTML="";
-  var days=pageDays(), ti=todayIdx(), mon=mondayOf(new Date());
-  board.className="n"+days.length;
-  var fam=days.some(function(d){ return bookingsOn("all",dateOfIdx(d)).length>0; });
+  var days=pageDays(), cur=WEEK_OFF===0, ti=cur?todayIdx():(WEEK_OFF<0?7:-1), mon=viewMonday();
+  board.className="n"+days.length+(cur?"":" otherweek");
+  var fam=days.some(function(d){ return bookingsOn("all",vDateOfIdx(d)).length>0; });
   board.style.gridTemplateColumns="var(--kidw) repeat("+days.length+",minmax(0,1fr))";
   board.style.gridTemplateRows="auto"+(fam?" auto":"")+" repeat("+S.kids.length+",minmax(0,1fr))";
-  board.appendChild(el("div","corner",S.layout==="all"?"This week":(PAGE==="wd"?"Weekdays":"Weekend")));
+  board.appendChild(el("div","corner",S.layout==="all"?(cur?"This week":"Week"):(PAGE==="wd"?"Weekdays":"Weekend")));
   days.forEach(function(d){ var dd=new Date(mon); dd.setDate(mon.getDate()+d);
     board.appendChild(el("div","dh"+(d===ti?" today":""),(d===ti?"Today · ":"")+DAYS[d]+" "+dd.getDate())); });
   if(fam){
     board.appendChild(el("div","flbl","👪 Family"));
     days.forEach(function(d){ var c=el("div","fcell"+(d===ti?" todaycol":"")), h="";
-      bookingsOn("all",dateOfIdx(d)).forEach(function(b){ h+=bkChip(b); }); c.innerHTML=h; board.appendChild(c); });
+      bookingsOn("all",vDateOfIdx(d)).forEach(function(b){ h+=bkChip(b); }); c.innerHTML=h; board.appendChild(c); });
   }
   S.kids.forEach(function(k){
     var lb=el("div","klbl"); lb.style.background="linear-gradient(160deg,"+k.colour+","+shade(k.colour,-0.2)+")"; lb.style.color=inkFor(k.colour);
     var im=el("img",""); im.src=avatarSrc(k); im.alt=k.name; lb.appendChild(im);
-    lb.appendChild(el("div","kn",esc(k.name))); lb.appendChild(el("div","kc","🪙 "+weekPoints(k)+" this week"));
+    lb.appendChild(el("div","kn",esc(k.name))); lb.appendChild(el("div","kc","🪙 "+(cur?weekPoints(k)+" this week":weekCoinsLogged(k,mon)+" that week")));
     board.appendChild(lb);
     days.forEach(function(d){
       var cell=el("div","dcell"+(d===ti?" todaycol":"")+(d<ti?" past":"")); cell.setAttribute("style",kidVars(k)); cell.setAttribute("data-kid",k.id); cell.setAttribute("data-day",d);
       ["am","pm"].forEach(function(slot){
         var half=el("div","half "+slot); half.appendChild(el("div","sl",slot==="am"?"☀️":"🌙"));
-        var hc=el("div","hc"), task=(k.tasks[d]||{})[slot]||"", key=d+slot, done=!!(S.done[k.id]&&S.done[k.id][key]);
-        var bks=bookingsOnSlot(k.id,dateOfIdx(d),slot).filter(function(b){ return b.kid!=="all"; }), h="";
+        var hc=el("div","hc"), jobs=splitJobs((k.tasks[d]||{})[slot]);
+        var bks=bookingsOnSlot(k.id,vDateOfIdx(d),slot).filter(function(b){ return b.kid!=="all"; }), h="";
         bks.forEach(function(b){ h+=bkChip(b); }); hc.innerHTML=h;
-        if(task){
+        jobs.forEach(function(task,ji){
+          var key=d+slot+(ji||""), done=cur?!!(S.done[k.id]&&S.done[k.id][key]):!!((logGet(vDateOfIdx(d),k.id,false)||{})[key.slice(1)]);
           var b=el("button","task nav"+(done?" done":"")+(d===ti?" todaycol":"")+(d<ti?" past":""));
-          b.setAttribute("data-fid",k.id+"-"+key); b.setAttribute("data-kid",k.id); b.setAttribute("data-slot",slot); b.setAttribute("data-day",d);
-          b.innerHTML=done?'<span class="ti">🪙</span>'+esc(task)+' ✓':'<span class="ti">'+iconFor(task)+'</span>'+esc(task);
-          b.setAttribute("aria-label",k.name+" "+DAYS_LONG[d]+" "+(slot==="am"?"morning":"afternoon")+": "+task+(done?" (done)":""));
+          b.setAttribute("data-fid",k.id+"-"+key); b.setAttribute("data-kid",k.id); b.setAttribute("data-slot",slot); b.setAttribute("data-day",d); b.setAttribute("data-key",key);
+          var tvv=done&&cur?kidCoinsDone(k,key):taskValue(task);
+          b.innerHTML=(done?'<span class="ti">🪙</span>'+esc(task)+' ✓':'<span class="ti">'+iconFor(task)+'</span>'+esc(task))+'<span class="tval" aria-hidden="true">'+tvv+'</span>';
+          b.setAttribute("aria-label",k.name+" "+DAYS_LONG[d]+" "+(slot==="am"?"morning":"afternoon")+": "+task+", "+tvv+" coins"+(done?" (done)":""));
           b.onclick=function(){
+            if(!cur){ toast(WEEK_OFF<0?"That week is finished – only this week's jobs can be ticked":"Not yet! Jobs can be ticked in their own week"); return; }
             if(done){ confirmBox("Untick “"+esc(task)+"” for "+esc(k.name)+"?<br><span style='font-size:.7em;font-weight:normal'>This takes the coin back.</span>",[["Yes, untick","red",function(){ untick(k,key); }],["No","green",null]]); }
             else award(k,{type:"task",key:key});
           };
           hc.appendChild(b);
-        } else if(!bks.length) hc.appendChild(el("div","nil","·"));
+        });
+        if(!jobs.length&&!bks.length) hc.appendChild(el("div","nil","·"));
         half.appendChild(hc); cell.appendChild(half);
       });
       board.appendChild(cell);
@@ -574,119 +640,61 @@ function renderRewards(){
     var top=el("div","rtop"); top.style.background="linear-gradient(160deg,"+k.colour+","+shade(k.colour,-0.2)+")"; top.style.color=inkFor(k.colour);
     var im=el("img",""); im.src=avatarSrc(k); im.alt=k.name; top.appendChild(im); top.appendChild(el("div","rname",esc(k.name)));
     c.appendChild(top);
-    c.appendChild(el("div","rcount","🪙 "+weekPoints(k)));
-    c.appendChild(el("div","rsub","coins this week"));
+    c.appendChild(el("div","rcount","🪙 "+balance(k)));
+    c.appendChild(el("div","rsub","coins to spend · +"+weekPoints(k)+" this week"));
     var cv=el("canvas","rpile"); cv.setAttribute("data-kid",k.id); c.appendChild(cv);
-    var bot=el("div","rbot"); bot.appendChild(el("div","lifetime","🏆 All-time: "+k.lifetime));
-    var bb=el("button","btn bonus nav","+1 Bonus"); bb.setAttribute("data-fid","bonus-"+k.id); bb.onclick=function(){ award(k,{type:"bonus"}); };
+    var bot=el("div","rbot"); bot.appendChild(el("div","lifetime","🏆 All-time earned: "+k.lifetime));
+    var bb=el("button","btn bonus nav","+"+coinValue()+" Bonus"); bb.setAttribute("data-fid","bonus-"+k.id); bb.onclick=function(){ award(k,{type:"bonus"}); };
     bot.appendChild(bb); c.appendChild(bot); R.appendChild(c);
   });
   var cvs=R.querySelectorAll("canvas.rpile");
-  for(var i=0;i<cvs.length;i++){ paintPileCanvas(cvs[i],weekPoints(kidById(cvs[i].getAttribute("data-kid")))); }
+  for(var i=0;i<cvs.length;i++){ paintPileCanvas(cvs[i],balance(kidById(cvs[i].getAttribute("data-kid")))); }
 }
 function shade(hex,p){ var n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255; function f(c){return Math.max(0,Math.min(255,Math.round(c+(p<0?c*p:(255-c)*p))));} return "rgb("+f(r)+","+f(g)+","+f(b)+")"; }
 
 /* ---------- actions ---------- */
 function award(k,act){
   var today=ymd(new Date());
-  if(act.type==="task"){ S.done[k.id]=S.done[k.id]||{}; S.done[k.id][act.key]=true; logTask(k.id,act.key,true); }
-  else { S.bonus[k.id]=(S.bonus[k.id]||0)+1; logBonus(k.id,today,1); }
-  k.lifetime++; S.history.push({kid:k.id,type:act.type,key:act.key||null,date:today,t:Date.now()});
+  var v=act.type==="task"?taskValue(jobOfKey(k,act.key)):coinValue();
+  if(act.type==="task"){ S.done[k.id]=S.done[k.id]||{}; S.done[k.id][act.key]=v; logTask(k.id,act.key,true); logCoins(k.id,dateOfIdx(+act.key[0]),v); ledgerAdd(k,"earn",v,"✅ "+taskText(k,act.key),{key:act.key}); }
+  else { S.bonus[k.id]=(S.bonus[k.id]||0)+v; logBonus(k.id,today,1); logCoins(k.id,today,v); ledgerAdd(k,"bonus",v,"⭐ Bonus"); }
+  k.lifetime+=v; S.history.push({kid:k.id,type:act.type,key:act.key||null,date:today,t:Date.now(),coins:v});
   if(S.history.length>50) S.history.shift();
   save();
-  celebrate(k, function(){ render(); });
+  celebrate(k, function(){ render(); }, v);
 }
 function untick(k,key){
+  var v=kidCoinsDone(k,key);
   if(S.done[k.id]) delete S.done[k.id][key];
-  logTask(k.id,key,false);
-  k.lifetime=Math.max(0,k.lifetime-1);
+  logTask(k.id,key,false); logCoins(k.id,dateOfIdx(+key[0]),-v); ledgerAdd(k,"unearn",-v,"↩ Unticked: "+taskText(k,key),{key:key});
+  k.lifetime=Math.max(0,k.lifetime-v);
   for(var i=S.history.length-1;i>=0;i--){ var h=S.history[i]; if(h.kid===k.id&&h.type==="task"&&h.key===key){ S.history.splice(i,1); break; } }
   save(); render(); toast("Coin taken back from "+k.name);
 }
 function undo(){
   var h=S.history.pop(); if(!h) return;
   var k=kidById(h.kid); if(!k){ save(); render(); return; }
-  if(h.type==="task"){ if(S.done[k.id]) delete S.done[k.id][h.key]; logTask(k.id,h.key,false); }
-  else { S.bonus[k.id]=Math.max(0,(S.bonus[k.id]||0)-1); logBonus(k.id,h.date||ymd(new Date()),-1); }
-  k.lifetime=Math.max(0,k.lifetime-1);
+  var v=h.coins||coinValue();
+  if(h.type==="task"){ if(S.done[k.id]) delete S.done[k.id][h.key]; logTask(k.id,h.key,false); logCoins(k.id,dateOfIdx(+h.key[0]),-v); ledgerAdd(k,"unearn",-v,"↩ Undo: "+taskText(k,h.key),{key:h.key}); }
+  else { S.bonus[k.id]=Math.max(0,(S.bonus[k.id]||0)-v); logBonus(k.id,h.date||ymd(new Date()),-1); logCoins(k.id,h.date||ymd(new Date()),-v); ledgerAdd(k,"unbonus",-v,"↩ Undo: bonus"); }
+  k.lifetime=Math.max(0,k.lifetime-v);
   save(); render();
   var what=h.type==="task"?((k.tasks[+h.key[0]]||{})[h.key.slice(1)]||"task")+" ("+DAYS[+h.key[0]]+")":"bonus coin";
   toast("Undone: "+what+" for "+k.name);
 }
 document.getElementById("undoBtn").onclick=undo;
 document.getElementById("viewWeek").onclick=function(){ setView("week"); };
+function stepWeek(n,page){ WEEK_OFF+=n; if(page) PAGE=page; setView("week"); }
+document.getElementById("wkPrev").onclick=function(){ stepWeek(-1); };
+document.getElementById("wkNext").onclick=function(){ stepWeek(1); };
+document.getElementById("wkNow").onclick=function(){ WEEK_OFF=0; PAGE=null; setView("week"); focusEl(preferredFocus()); };
 document.getElementById("pgWd").onclick=function(){ PAGE="wd"; setView("week"); };
 document.getElementById("pgWe").onclick=function(){ PAGE="we"; setView("week"); };
-document.getElementById("viewMonth").onclick=function(){ monthCur=null; setView(S.view==="month"?"week":"month"); };
 document.getElementById("viewRewards").onclick=function(){ setView(S.view==="rewards"?"week":"rewards"); };
+document.getElementById("viewMarket").onclick=function(){ setView(S.view==="market"?"week":"market"); };
+document.getElementById("viewHistory").onclick=function(){ setView(S.view==="history"?"week":"history"); };
 window.addEventListener("hashchange",function(){ var v=hashView(); if(v!==S.view&&(location.hash||"").indexOf("#setup=")!==0){ S.view=v; render(); } });
 
-/* ---------- month view ---------- */
-var monthCur=null; // Date: first of displayed month
-function renderMonth(){
-  var now=new Date(), todayS=ymd(now);
-  if(!monthCur) monthCur=new Date(now.getFullYear(),now.getMonth(),1);
-  var M=document.getElementById("month"); M.innerHTML="";
-  var MONTHS_LONG=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  var hd=el("div","mhead");
-  var pv=el("button","btn nav","‹ Prev"); pv.setAttribute("data-fid","m-prev"); pv.onclick=function(){ monthCur=new Date(monthCur.getFullYear(),monthCur.getMonth()-1,1); render(); };
-  var nx=el("button","btn nav","Next ›"); nx.setAttribute("data-fid","m-next"); nx.onclick=function(){ monthCur=new Date(monthCur.getFullYear(),monthCur.getMonth()+1,1); render(); };
-  var td=el("button","btn green nav","Today"); td.setAttribute("data-fid","m-today"); td.onclick=function(){ monthCur=null; render(); var t=document.querySelector(".mday.today"); if(t) t.focus(); };
-  hd.appendChild(pv); hd.appendChild(el("div","mtitle",MONTHS_LONG[monthCur.getMonth()]+" "+monthCur.getFullYear())); hd.appendChild(nx); hd.appendChild(td);
-  M.appendChild(hd);
-  var lg=el("div","mlegend"); S.kids.forEach(function(k){ lg.appendChild(el("span","",'<i style="background:'+k.colour+'"></i>'+esc(k.name))); });
-  lg.appendChild(el("span","",'<b class="tk y">☀</b>&nbsp;morning &nbsp;<b class="tk y">☾</b>&nbsp;afternoon done &nbsp;&nbsp;🪙 coins &nbsp;&nbsp;📅 booking'));
-  M.appendChild(lg);
-  var g=el("div","mgrid");
-  DAYS.forEach(function(d){ g.appendChild(el("div","mdh",d)); });
-  var start=mondayOf(monthCur), last=new Date(monthCur.getFullYear(),monthCur.getMonth()+1,0), end=new Date(last); end.setDate(last.getDate()+(6-(last.getDay()+6)%7));
-  for(var d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
-    (function(day){
-      var ds=ymd(day), b=el("button","mday nav"+(day.getMonth()!==monthCur.getMonth()?" other":"")+(ds===todayS?" today":"")+(ds>todayS?" future":""));
-      b.setAttribute("data-fid","md-"+ds);
-      var h='<div class="mnum">'+day.getDate()+'</div>', L=S.log[ds]||{};
-      S.kids.forEach(function(k){ var e=L[k.id]||{}, wd=(day.getDay()+6)%7, t=k.tasks[wd]||{}, c=(e.am?1:0)+(e.pm?1:0)+(e.bonus||0);
-        h+='<div class="mk"><i style="background:'+k.colour+'"></i>'+(t.am?'<b class="tk'+(e.am?' y':'')+'">'+(e.am?'✓':'☀')+'</b>':'')+(t.pm?'<b class="tk'+(e.pm?' y':'')+'">'+(e.pm?'✓':'☾')+'</b>':'')+(c?'<span class="mc">🪙'+c+'</span>':'')+'</div>'; });
-      var bn=bookingsOnDate(ds).length;
-      if(bn) h+='<div class="mbk">📅'+(bn>1?bn:"")+'</div>';
-      b.innerHTML=h; b.setAttribute("aria-label",day.toDateString());
-      b.onclick=function(){ openDay(day); };
-      g.appendChild(b);
-    })(new Date(d));
-  }
-  M.appendChild(g);
-}
-function openDay(day){
-  var ds=ymd(day), wd=(day.getDay()+6)%7, inWeek=ymd(mondayOf(day))===weekKey(), L=S.log[ds]||{};
-  var MONTHS_LONG=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  modalReturn=document.activeElement;
-  var mt=document.getElementById("mtext"); mt.innerHTML="";
-  mt.appendChild(el("div","",DAYS_LONG[wd]+" "+day.getDate()+" "+MONTHS_LONG[day.getMonth()]));
-  var list=el("div","daylist");
-  S.kids.forEach(function(k){
-    var e=L[k.id]||{}, t=k.tasks[wd]||{}, row=el("div","daykid");
-    var im=el("img",""); im.src=avatarSrc(k); im.style.borderColor=k.colour; row.appendChild(im);
-    row.appendChild(el("span","nm",esc(k.name)));
-    bookingsOn(k.id, ds).forEach(function(bk){ row.appendChild(el("span","dbk",esc(bookingLabel(bk)))); });
-    ["am","pm"].forEach(function(slot){
-      if(!t[slot]) return;
-      var done=inWeek?!!(S.done[k.id]&&S.done[k.id][wd+slot]):!!e[slot];
-      var b=el("button","dtask"+(done?" done":"")+(inWeek?" nav":""),(slot==="am"?"☀️ ":"🌙 ")+esc(t[slot])+(done?" ✓":""));
-      if(inWeek){ b.setAttribute("data-fid","dt-"+k.id+wd+slot); b.onclick=function(){ closeModal(); if(done) untick(k,wd+slot); else award(k,{type:"task",key:wd+slot}); }; }
-      else b.disabled=true;
-      row.appendChild(b);
-    });
-    if(e.bonus) row.appendChild(el("span","dtask done","⭐ +"+e.bonus+" bonus"));
-    list.appendChild(row);
-  });
-  mt.appendChild(list);
-  mt.appendChild(el("div","dnote",inWeek?"Choose a job to tick it (or untick it).":"Only this week's jobs can be ticked. Jobs shown are from the current job list."));
-  var mb=document.getElementById("mbtns"); mb.innerHTML="";
-  var cl=el("button","btn green nav","Close"); cl.onclick=closeModal; mb.appendChild(cl);
-  document.querySelector("#modal .mbox").className="mbox wide";
-  document.getElementById("modal").className="layer show";
-  var f=list.querySelector(".nav")||cl; f.focus();
-}
 document.getElementById("settingsBtn").onclick=function(){ openSettings(); };
 
 /* ---------- modal ---------- */
@@ -722,14 +730,14 @@ function sfxFanfare(){ [523.25,659.25,783.99,1046.5,783.99,1046.5].forEach(funct
 /* ---------- celebration animation ---------- */
 var anim=null;
 var SAYINGS=["Awesome job","Super star","Way to go","Legend","Coin collected","Brilliant work","You rock"];
-function celebrate(k,done){
+function celebrate(k,done,gain){
   var layer=document.getElementById("celebrate"), cv=document.getElementById("ccv");
   layer.className="layer show";
   var W=window.innerWidth,H=window.innerHeight,dpr=window.devicePixelRatio||1;
   cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
   var ctx=cv.getContext("2d"); ctx.setTransform(dpr,0,0,dpr,0,0);
   var face=getImg(avatarSrc(k));
-  var n=weekPoints(k); // already includes new coin
+  var n=balance(k), gain0=gain||coinValue(), nb=Math.max(0,n-gain0); // balance already includes the new coins
   var sc=Math.min(W/1920,H/1080); if(W<900) sc=Math.min(W/1100,H/1080);
   var groundY=H*0.78, blockX=W*0.40, blockY=groundY-sc*520, blockS=sc*120;
   var pileW=Math.min(W*0.34, sc*640), pileH=pileW*0.55, pileX=W-pileW-sc*60, pileY=groundY-pileH+sc*10;
@@ -766,13 +774,13 @@ function celebrate(k,done){
     ctx.fillStyle="#4caf50"; ctx.fillRect(0,groundY-sc*14,W,sc*18);
     // pile platform + pile
     var landed=t>=3.0;
-    ctx.save(); ctx.translate(pileX,pileY); drawPile(ctx,landed?n:n-1,pileW,pileH,{noEmpty:true,geomN:n}); ctx.restore();
+    ctx.save(); ctx.translate(pileX,pileY); drawPile(ctx,landed?n:nb,pileW,pileH,{noEmpty:true,geomN:n}); ctx.restore();
     // counter badge
     var pulse=landed?1+0.25*Math.max(0,1-(t-3.0)*3):1;
     ctx.save(); ctx.translate(pileX+pileW/2,pileY-sc*90); ctx.scale(pulse,pulse);
     roundRect(-sc*190,-sc*55,sc*380,sc*110,sc*55,"#fff","#ffbe0b",sc*8);
     ctx.fillStyle="#1d1b4b"; ctx.font="bold "+Math.round(sc*62)+"px Trebuchet MS, sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
-    ctx.fillText("🪙 "+(landed?n:n-1),0,sc*4); ctx.restore();
+    ctx.fillText("🪙 "+(landed?n:nb)+(landed?"":"  +"+gain0),0,sc*4); ctx.restore();
     // ? block (bumps at t=1.25)
     var bump=t>1.25&&t<1.5?Math.sin((t-1.25)/0.25*Math.PI)*sc*28:0;
     var used=t>=1.25;
@@ -881,9 +889,9 @@ function celebrate(k,done){
 }
 
 /* ---------- settings ---------- */
-var selKid=0, bkDraft=null;
+var selKid=0, bkDraft=null, itDraft=null, ITEM_EMOJI=["🎬","📱","🎮","🍦","🍕","🍿","🏊","⚽","🎁","🛝","📚","🧁"];
 function openSettings(){ document.getElementById("settings").className="layer show"; renderSettings(); var f=document.querySelector("#sbox .nav"); if(f) f.focus(); }
-function closeSettings(){ bkDraft=null; document.getElementById("settings").className="layer"; render(); var b=document.getElementById("settingsBtn"); b.focus(); }
+function closeSettings(){ bkDraft=null; itDraft=null; document.getElementById("settings").className="layer"; render(); var b=document.getElementById("settingsBtn"); b.focus(); }
 function renderSettings(){
   if(selKid>=S.kids.length) selKid=0;
   var k=S.kids[selKid], box=document.getElementById("sbox"), a=document.activeElement, fid=a&&a.getAttribute?a.getAttribute("data-fid"):null;
@@ -895,8 +903,8 @@ function renderSettings(){
   h+='<div class="row"><label class="lbl">Photo</label><button class="btn nav" data-fid="photo" id="sPhoto">📷 Choose photo…</button><button class="btn grey nav" data-fid="defphoto" id="sDefPhoto">Use stock photo</button><input type="file" accept="image/*" id="sFile" style="display:none"></div>';
   h+='<div class="row"><label class="lbl">Colour</label>'; COLOURS.forEach(function(c,i){ h+='<button class="sw nav'+(k.colour===c?" sel":"")+'" data-fid="col'+i+'" data-col="'+c+'" style="background:'+c+'" aria-label="colour '+(i+1)+'"></button>'; }); h+='</div></div>';
   h+='<h3>Jobs for '+esc(k.name)+'</h3><div class="card"><div class="tgrid"><div></div><div class="h">☀️ Morning</div><div class="h">🌙 Afternoon</div>';
-  for(var d=0;d<7;d++){ h+='<div class="h">'+DAYS[d]+'</div><input class="txt nav" data-fid="t'+d+'am" data-d="'+d+'" data-s="am" maxlength="28" value="'+esc(k.tasks[d].am)+'" placeholder="(no job)"><input class="txt nav" data-fid="t'+d+'pm" data-d="'+d+'" data-s="pm" maxlength="28" value="'+esc(k.tasks[d].pm)+'" placeholder="(no job)">'; }
-  h+='</div><div class="row" style="margin-top:.8rem"><button class="btn grey nav" data-fid="deftasks" id="sDefTasks">Reset to example jobs</button>';
+  for(var d=0;d<7;d++){ h+='<div class="h">'+DAYS[d]+'</div><input class="txt nav" data-fid="t'+d+'am" data-d="'+d+'" data-s="am" maxlength="80" value="'+esc(k.tasks[d].am)+'" placeholder="(no job)"><input class="txt nav" data-fid="t'+d+'pm" data-d="'+d+'" data-s="pm" maxlength="80" value="'+esc(k.tasks[d].pm)+'" placeholder="(no job)">'; }
+  h+='</div><p class="small">More than one job in a slot? Join them with + (e.g. “Tidy room + Unpack bag”). Each gets its own tick and coins.</p><div class="row" style="margin-top:.8rem"><button class="btn grey nav" data-fid="deftasks" id="sDefTasks">Reset to example jobs</button>';
   if(S.kids.length>1) h+='<button class="btn grey nav" data-fid="copytasks" id="sCopy">Copy these jobs to other kids</button>';
   h+='</div></div>';
   h+='<h3>📅 Bookings</h3><div class="card" id="bkCard">';
@@ -938,6 +946,26 @@ function renderSettings(){
     h+='<div class="row"><button class="btn nav" data-fid="bk-add" id="bkAdd">+ Add booking</button></div>';
   }
   h+='</div>';
+  h+='<h3>🪙 Coins</h3><div class="card"><div class="row"><label class="lbl">Coins per job (default for new jobs)</label><button class="btn grey nav" data-fid="cv-" id="cvDown">−</button><div class="timeadj" style="min-width:8rem">'+coinValue()+'</div><button class="btn grey nav" data-fid="cv+" id="cvUp">+</button></div><p class="small">Each job earns its own coin value (the small gold number on the job). New jobs and each +Bonus use the default. Changing values never changes coins already earned.</p>';
+  h+='<div class="tvgrid">'; allTaskNames().forEach(function(nm,i){ var v=taskValue(nm); h+='<div class="tvn">'+iconFor(nm)+' '+esc(nm)+'</div><button class="btn grey nav" data-fid="tv-'+i+'-" data-tv-name="'+esc(nm)+'" data-tv-d="-1">−</button><div class="tvv">'+v+' 🪙</div><button class="btn grey nav" data-fid="tv-'+i+'+" data-tv-name="'+esc(nm)+'" data-tv-d="1">+</button>'; }); h+='</div></div>';
+  h+='<h3>🛒 Marketplace</h3><div class="card" id="itCard">';
+  if(itDraft){
+    var it=itDraft;
+    h+='<label class="lbl">Name</label><input class="txt nav" data-fid="it-name" id="itName" maxlength="28" value="'+esc(it.name)+'" placeholder="e.g. Ice cream trip">';
+    h+='<div class="row" style="margin-top:.8rem"><label class="lbl">Emoji</label>'; ITEM_EMOJI.forEach(function(em,i){ h+='<button class="btn bkopt nav'+(it.emoji===em?" sel":"")+'" data-fid="it-em-'+i+'" data-it-em="'+em+'">'+em+'</button>'; }); h+='</div>';
+    h+='<div class="row"><label class="lbl">Price</label><button class="btn grey nav" data-fid="it-p-5" id="itP5d">− 5</button><button class="btn grey nav" data-fid="it-p-1" id="itP1d">− 1</button><div class="timeadj" style="min-width:10rem">'+it.price+' 🪙</div><button class="btn grey nav" data-fid="it-p+1" id="itP1u">+ 1</button><button class="btn grey nav" data-fid="it-p+5" id="itP5u">+ 5</button></div>';
+    h+='<div class="row"><label class="lbl">Type</label><button class="btn bkopt nav'+(it.type!=="group"?" sel":"")+'" data-fid="it-ind" id="itInd">One kid buys it</button><button class="btn bkopt nav'+(it.type==="group"?" sel":"")+'" data-fid="it-grp" id="itGrp">Group – everyone chips in</button></div>';
+    if(it.type==="group"){ h+='<div class="row"><label class="lbl">Who joins</label>'; S.kids.forEach(function(kk,i){ var on=!it.kids.length||it.kids.indexOf(kk.id)>=0; h+='<button class="btn bkopt nav'+(on?" sel":"")+'" data-fid="it-k-'+i+'" data-it-kid="'+kk.id+'">'+(on?"✓ ":"")+esc(kk.name)+'</button>'; }); h+='</div><p class="small">Group items unlock when every kid ticked here has committed the price.</p>'; }
+    h+='<div class="row" style="margin-top:.8rem"><button class="btn green nav" data-fid="it-save" id="itSave">✓ Save item</button><button class="btn grey nav" data-fid="it-cancel" id="itCancel">Cancel</button></div>';
+  } else {
+    (S.items||[]).forEach(function(it,i){
+      h+='<div class="bkline"><span>'+(it.emoji||"🎁")+' '+esc(it.name)+' · '+it.price+' coins'+(it.type==="group"?' each · group ('+esc(itemKids(it).map(function(k){return k.name;}).join(", "))+')':'')+'</span><span class="sp"></span>';
+      h+='<button class="btn nav" data-fid="it-ed-'+i+'" data-it-ed="'+it.id+'">Edit</button><button class="btn red nav" data-fid="it-rm-'+i+'" data-it-rm="'+it.id+'">Delete</button></div>';
+    });
+    if(!(S.items||[]).length) h+='<p class="small">No items yet.</p>';
+    h+='<div class="row"><button class="btn nav" data-fid="it-add" id="itAdd">+ Add item</button></div>';
+  }
+  h+='</div>';
   h+='<h3>📺 TV setup code</h3><div class="card"><p class="small">Got a family setup code (like ABCD-1234)? Enter it to load photos and bookings onto this device. Nothing is sent anywhere except a request for the locked file.</p><div class="row">';
   h+='<button class="btn green nav" data-fid="code" id="sCode">🔑 Enter setup code</button>';
   if(S.tvCode) h+='<button class="btn nav" data-fid="code-upd" id="sCodeUpd">🔄 Update from '+esc(fmtCode(S.tvCode))+'</button>';
@@ -948,11 +976,12 @@ function renderSettings(){
   h+='</div></div>';
   h+='<h3>App</h3><div class="card"><div class="row">';
   h+='<button class="btn nav" data-fid="snd" id="sSound">🔊 Sound: '+(S.sound?"On":"Off")+'</button>';
+  h+='<button class="btn nav" data-fid="animals" id="sAnimals">🐄 Running animals: '+(S.animals!==false?"On":"Off")+'</button>';
   h+='<button class="btn nav" data-fid="auto" id="sAuto">📅 New week auto-reset: '+(S.autoReset?"On":"Off")+'</button>';
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v4. Weekly reset clears the ticks and this week\'s coin pile but keeps each kid\'s all-time total. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4.2. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -972,6 +1001,7 @@ function renderSettings(){
   $("sDefTasks").onclick=function(){ k.tasks=defaultTasks(selKid); save(); renderSettings(); toast("Example jobs restored"); };
   if($("sCopy")) $("sCopy").onclick=function(){ S.kids.forEach(function(o){ if(o!==k) o.tasks=JSON.parse(JSON.stringify(k.tasks)); }); save(); toast("Jobs copied"); };
   $("sSound").onclick=function(){ S.sound=!S.sound; save(); renderSettings(); if(S.sound) sfxCoin(); };
+  $("sAnimals").onclick=function(){ S.animals=(S.animals===false); save(); applyAnimals(); renderSettings(); };
   $("sAuto").onclick=function(){ S.autoReset=!S.autoReset; save(); renderSettings(); };
   $("sResetWk").onclick=function(){ confirmBox("Start a fresh week?<br><span style='font-size:.7em;font-weight:normal'>Clears this week's ticks and coin piles. All-time totals are kept.</span>",[["Yes, fresh week","orange",function(){ S.done={}; S.bonus={}; S.history=[]; S.week=weekKey(); for(var d=0;d<7;d++) delete S.log[dateOfIdx(d)]; save(); toast("Fresh week started!"); }],["Cancel","green",null]]); };
   $("sResetAll").onclick=function(){ confirmBox("Erase ALL data, names, photos and totals?",[["Erase","red",function(){ S=freshState(); selKid=0; save(); renderSettings(); toast("Everything reset"); }],["Cancel","green",null]]); };
@@ -982,6 +1012,28 @@ function renderSettings(){
   [].forEach.call(box.querySelectorAll("[data-bk-ed]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-bk-ed"), src=null; (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; }); if(!src) return; bkDraft={id:src.id,title:src.title,time:padTime(src.time),end:src.end||null,kid:src.kid,recur:src.recur,weekday:src.weekday,date:src.date||ymd(new Date())}; renderSettings(); }; });
   [].forEach.call(box.querySelectorAll("[data-bk-rm]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-bk-rm"), src=null; (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; }); if(!src) return; confirmBox("Delete “"+esc(src.title)+"”?",[["Delete","red",function(){ S.bookings=S.bookings.filter(function(x){return x.id!==id;}); save(); renderSettings(); toast("Booking deleted"); }],["Cancel","green",null]]); }; });
   if($("bkTitle")) $("bkTitle").oninput=function(){ bkDraft.title=this.value; };
+  [].forEach.call(box.querySelectorAll("[data-tv-name]"),function(btn){ btn.onclick=function(){ var nm=btn.getAttribute("data-tv-name"), n=taskKeyName(nm); S.taskValues=S.taskValues||{}; S.taskValues[n]=Math.max(1,Math.min(50,taskValue(nm)+(+btn.getAttribute("data-tv-d")))); save(); renderSettings(); }; });
+  $("cvDown").onclick=function(){ S.coinValue=Math.max(1,coinValue()-1); save(); renderSettings(); };
+  $("cvUp").onclick=function(){ S.coinValue=Math.min(50,coinValue()+1); save(); renderSettings(); };
+  if($("itAdd")) $("itAdd").onclick=function(){ itDraft={id:null,name:"",emoji:"🎁",price:25,type:"individual",kids:[]}; renderSettings(); var t=$("itName"); if(t) t.focus(); };
+  [].forEach.call(box.querySelectorAll("[data-it-ed]"),function(btn){ btn.onclick=function(){ var src=itemById(btn.getAttribute("data-it-ed")); if(!src) return; itDraft=JSON.parse(JSON.stringify(src)); itDraft.kids=itDraft.kids||[]; renderSettings(); }; });
+  [].forEach.call(box.querySelectorAll("[data-it-rm]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-it-rm"), src=itemById(id); if(!src) return;
+    confirmBox("Delete "+(src.emoji||"")+" “"+esc(src.name)+"”?"+((S.pledges[id]&&Object.keys(S.pledges[id]).length)?"<br><span style='font-size:.7em;font-weight:normal'>Committed coins go back to the kids.</span>":""),[["Delete","red",function(){
+      var pl=S.pledges[id]||{}; for(var kid in pl){ var kk=kidById(kid); if(kk) ledgerAdd(kk,"unpledge",pl[kid],"↩ Returned: "+src.emoji+" "+src.name+" removed",{item:id}); } delete S.pledges[id];
+      S.items=S.items.filter(function(x){return x.id!==id;}); save(); renderSettings(); toast("Item deleted"); }],["Cancel","green",null]]); }; });
+  if($("itName")) $("itName").oninput=function(){ itDraft.name=this.value; };
+  [].forEach.call(box.querySelectorAll("[data-it-em]"),function(btn){ btn.onclick=function(){ itDraft.emoji=btn.getAttribute("data-it-em"); renderSettings(); }; });
+  [["itP5d",-5],["itP1d",-1],["itP1u",1],["itP5u",5]].forEach(function(x){ if($(x[0])) $(x[0]).onclick=function(){ itDraft.price=Math.max(1,Math.min(5000,itDraft.price+x[1])); renderSettings(); }; });
+  if($("itInd")) $("itInd").onclick=function(){ itDraft.type="individual"; renderSettings(); };
+  if($("itGrp")) $("itGrp").onclick=function(){ itDraft.type="group"; renderSettings(); };
+  [].forEach.call(box.querySelectorAll("[data-it-kid]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-it-kid"), cur=itDraft.kids.length?itDraft.kids.slice():S.kids.map(function(k){return k.id;}), i=cur.indexOf(id);
+    if(i>=0){ if(cur.length>1) cur.splice(i,1); } else cur.push(id); itDraft.kids=cur.length===S.kids.length?[]:cur; renderSettings(); }; });
+  if($("itCancel")) $("itCancel").onclick=function(){ itDraft=null; renderSettings(); };
+  if($("itSave")) $("itSave").onclick=function(){
+    var name=(itDraft.name||"").trim(); if(!name){ toast("Type a name for the item"); var t=$("itName"); if(t) t.focus(); return; }
+    var rec={id:itDraft.id||("i"+nowT().toString(36)),name:name,emoji:itDraft.emoji||"🎁",price:itDraft.price,type:itDraft.type==="group"?"group":"individual",kids:itDraft.type==="group"?itDraft.kids:[]};
+    var found=false; S.items=S.items||[]; for(var i=0;i<S.items.length;i++) if(S.items[i].id===rec.id){ S.items[i]=rec; found=true; }
+    if(!found) S.items.push(rec); itDraft=null; save(); renderSettings(); toast("Item saved"); };
   if($("bkHdown")) $("bkHdown").onclick=function(){ bumpTime(-60); };
   if($("bkHup")) $("bkHup").onclick=function(){ bumpTime(60); };
   if($("bkMdown")) $("bkMdown").onclick=function(){ bumpTime(-5); };
@@ -1015,62 +1067,458 @@ function loadPhoto(file,cb){
   fr.readAsDataURL(file);
 }
 
-/* ---------- TV remote / keyboard spatial navigation ---------- */
+/* ---------- v4.2 coin economy: ledger (history), balance, marketplace ---------- */
+function taskKeyName(t){ return String(t||"").trim().toLowerCase().replace(/\s+/g," "); }
+function taskValue(name){ var m=S.taskValues||{}, n=taskKeyName(name); if(m[n]!=null) return +m[n]; return coinValue(); }
+function allTaskNames(){ var seen={}, out=[]; S.kids.forEach(function(k){ (k.tasks||[]).forEach(function(d){ ["am","pm"].forEach(function(s){ splitJobs((d||{})[s]).forEach(function(t){ if(!seen[taskKeyName(t)]){ seen[taskKeyName(t)]=1; out.push(t); } }); }); }); }); return out; }
+function migrateTaskValues(){
+  if((S.v||0)>=6) return;
+  S.taskValues=S.taskValues||JSON.parse(JSON.stringify(TASK_VALUE_SEED));
+  var has=S.kids.some(function(k){ return (k.tasks||[]).some(function(d){ return /feed chooks/i.test((d.am||"")+" "+(d.pm||"")); }); });
+  if(!has){ var put=false;
+    S.kids.forEach(function(k){ [5,6].forEach(function(i){ var d=k.tasks[i]; if(d&&d.am==="Pack lunch"){ d.am="Feed chooks"; put=true; } }); });
+    if(!put){ outer: for(var i=0;i<7;i++) for(var j=0;j<S.kids.length;j++){ var d=S.kids[j].tasks[i]; if(d&&!d.am){ d.am="Feed chooks"; put=true; break outer; } } }
+    if(!put&&S.kids[0]) S.kids[0].tasks[5].am="Feed chooks";
+  }
+}
+function migrateDailyPm(){
+  if((S.v||0)>=7) return;
+  S.taskValues=S.taskValues||{}; if(S.taskValues["unpack bag"]==null) S.taskValues["unpack bag"]=1;
+  S.kids.forEach(function(k){ (k.tasks||[]).forEach(function(d){ if(!d) return; var j=splitJobs(d.pm); if(!j.some(function(x){ return taskKeyName(x)==="unpack bag"; })){ j.push(DAILY_PM); d.pm=joinJobs(j); } }); });
+}
+function coinValue(){ var v=+S.coinValue; return v>=1&&v<=50?Math.round(v):5; }
+function nowT(){ return Date.now(); }
+/* ledger entry: {id,t,kid,kidName,type,coins,text}; type: earn|bonus|unearn|unbonus|open|buy|refund|pledge|unpledge|unlock */
+function ledgerAdd(k,type,coins,text,extra){ S.ledger=S.ledger||[]; var e={id:"l"+nowT().toString(36)+Math.floor(Math.random()*1e4),t:nowT(),kid:k.id,kidName:k.name,type:type,coins:coins,text:text}; if(extra) for(var x in extra) e[x]=extra[x]; S.ledger.push(e); if(S.ledger.length>6000) S.ledger.splice(0,S.ledger.length-6000); return e; }
+function balance(k){ var n=0; (S.ledger||[]).forEach(function(e){ if(e.kid===k.id) n+=e.coins; }); return n; }
+function logCoins(kid,date,delta){ var e=logGet(date,kid,true); e.coins=Math.max(0,(e.coins!=null?e.coins:((e.am?1:0)+(e.pm?1:0)+(e.bonus||0))*5)+delta); }
+function slotWord(s){ return s==="am"?"morning":"afternoon"; }
+function taskText(k,key){ var p=parseKey(key)||{d:+key[0],s:"am"}; return (jobOfKey(k,key)||"Job")+" ("+DAYS[p.d]+" "+slotWord(p.s)+")"; }
+function itemKids(it){ var ids=(it.kids&&it.kids.length)?it.kids:S.kids.map(function(k){return k.id;}); return ids.map(kidById).filter(Boolean); }
+function itemById(id){ for(var i=0;i<(S.items||[]).length;i++) if(S.items[i].id===id) return S.items[i]; return null; }
+function defaultItems(){ return [{id:"movie",name:"Movie night",emoji:"🎬",price:50,type:"group",kids:[]},{id:"device30",name:"30 min device time",emoji:"📱",price:25,type:"individual",kids:[]}]; }
+function migrateEconomy(fresh){
+  if((S.v||0)>=5) return;
+  if(!fresh){ // v4 -> v4.2: 1 coin per job becomes 5 coins per job, once
+    S.kids.forEach(function(k){ k.lifetime=(k.lifetime||0)*5; });
+    for(var kid in S.done) for(var key in S.done[kid]) if(S.done[kid][key]) S.done[kid][key]=5*(S.done[kid][key]===true?1:+S.done[kid][key]||1);
+    for(var kb in S.bonus) S.bonus[kb]=(S.bonus[kb]||0)*5;
+    (S.history||[]).forEach(function(h){ h.coins=5; });
+    for(var dt in S.log) for(var lk in S.log[dt]){ var e=S.log[dt][lk]; e.coins=((e.am?1:0)+(e.pm?1:0)+(e.bonus||0))*5; }
+  }
+  S.ledger=S.ledger||[];
+  S.kids.forEach(function(k){ if(k.lifetime>0&&!S.ledger.some(function(e){return e.kid===k.id;})) ledgerAdd(k,"open",k.lifetime,"Coins brought forward (×5 coin update)"); });
+  if(!S.items) S.items=defaultItems();
+  S.pledges=S.pledges||{}; S.purchases=S.purchases||[];
+  if(!S.coinValue) S.coinValue=5;
+}
+function kidCoinsDone(k,key){ var v=S.done[k.id]&&S.done[k.id][key]; return v===true?coinValue():(+v||0); }
+
+/* marketplace actions (confirm first: OK confirms, Back cancels) */
+function buyItem(it,k){
+  var bal=balance(k);
+  if(bal<it.price){ toast(k.name+" needs "+(it.price-bal)+" more coins for "+it.name); return; }
+  confirmBox(it.emoji+" Buy <b>"+esc(it.name)+"</b> for "+esc(k.name)+"?<br><span style='font-size:.7em;font-weight:normal'>"+it.price+" coins · "+esc(k.name)+" has "+bal+"</span>",
+    [["Cancel","grey",null],["✓ Buy","green",function(){
+      var before=balance(k);
+      var p={id:"p"+nowT().toString(36),t:nowT(),item:it.id,name:it.name,emoji:it.emoji,type:"individual",kids:{}}; p.kids[k.id]=it.price;
+      S.purchases.push(p); ledgerAdd(k,"buy",-it.price,it.emoji+" Bought "+it.name,{ref:p.id}); save();
+      sfxCoin(); render(); pileDrain(k,before,balance(k)); toast(k.name+" bought "+it.name+"!");
+    }]]);
+}
+function pledge(it,k){
+  var pl=S.pledges[it.id]=S.pledges[it.id]||{};
+  if(pl[k.id]){ // withdraw (allowed until it unlocks)
+    var c=pl[k.id]; delete pl[k.id]; ledgerAdd(k,"unpledge",c,"↩ Withdrew from "+it.emoji+" "+it.name,{item:it.id}); save(); render(); toast(k.name+" took back "+c+" coins"); return;
+  }
+  var bal=balance(k);
+  if(bal<it.price){ toast(k.name+" needs "+(it.price-bal)+" more coins to join "+it.name); return; }
+  confirmBox(it.emoji+" "+esc(k.name)+": put <b>"+it.price+" coins</b> towards "+esc(it.name)+"?<br><span style='font-size:.7em;font-weight:normal'>Unlocks when everyone has joined. You can take it back until then.</span>",
+    [["Cancel","grey",null],["✓ Commit","green",function(){
+      var before=balance(k);
+      pl[k.id]=it.price; ledgerAdd(k,"pledge",-it.price,"🤝 Committed to "+it.emoji+" "+it.name,{item:it.id});
+      var need=itemKids(it), all=need.every(function(kk){ return pl[kk.id]; });
+      if(all){
+        var p={id:"p"+nowT().toString(36),t:nowT(),item:it.id,name:it.name,emoji:it.emoji,type:"group",kids:{}};
+        need.forEach(function(kk){ p.kids[kk.id]=pl[kk.id]; ledgerAdd(kk,"unlock",0,"🎉 "+it.emoji+" "+it.name+" unlocked!",{ref:p.id}); });
+        S.purchases.push(p); delete S.pledges[it.id]; save(); render(); pileDrain(k,before,balance(k));
+        celebrateUnlock(it,function(){ render(); var f=document.querySelector('#market [data-fid="mi-'+it.id+'-'+k.id+'"]')||preferredFocus(); focusEl(f); });
+      } else { save(); sfxCoin(); render(); pileDrain(k,before,balance(k)); toast(k.name+" is in! "+need.filter(function(kk){return pl[kk.id];}).length+" of "+need.length); }
+    }]]);
+}
+function undoPurchase(p){
+  var names=Object.keys(p.kids).map(function(id){ var k=kidById(id); return k?k.name:"?"; }).join(", ");
+  confirmBox("↶ Undo "+p.emoji+" <b>"+esc(p.name)+"</b>?<br><span style='font-size:.7em;font-weight:normal'>Gives the coins back to "+esc(names)+" (parent only).</span>",
+    [["Cancel","grey",null],["↶ Undo purchase","orange",function(){
+      p.undone=nowT();
+      for(var id in p.kids){ var k=kidById(id); if(k) ledgerAdd(k,"refund",p.kids[id],"↶ Refund: "+p.emoji+" "+p.name+" (purchase undone)",{ref:p.id}); }
+      save(); render(); toast("Purchase undone, coins returned");
+    }]]);
+}
+/* coins visibly leave the pile after spending */
+function pileDrain(k,from,to){
+  var cv=document.querySelector('canvas.mpile[data-kid="'+k.id+'"], canvas.rpile[data-kid="'+k.id+'"]'); if(!cv||from<=to) return;
+  var n=from, step=Math.max(1,Math.ceil((from-to)/18)), t=setInterval(function(){ n=Math.max(to,n-step); paintPileCanvas(cv,n); if(n<=to) clearInterval(t); },45);
+}
+function celebrateUnlock(it,done){
+  var layer=document.getElementById("celebrate"), cv=document.getElementById("ccv"); layer.className="layer show";
+  var W=window.innerWidth,H=window.innerHeight,dpr=window.devicePixelRatio||1; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+  var ctx=cv.getContext("2d"); ctx.setTransform(dpr,0,0,dpr,0,0); var T0=null, finished=false, D=4;
+  var conf=[]; for(var i=0;i<140;i++) conf.push({x:Math.random()*W,y:-Math.random()*H,vy:2+Math.random()*4,vx:(Math.random()-.5)*3,r:Math.random()*6,c:COLOURS[i%COLOURS.length],s:8+Math.random()*10});
+  var kids=itemKids(it).map(function(k){ return getImg(avatarSrc(k)); });
+  function frame(ts){ if(finished) return; if(T0===null) T0=ts; var t=(ts-T0)/1000; if(anim&&anim.forceT!=null) t=anim.forceT; draw(t); if(t>=D){ stop(); return; } anim.raf=requestAnimationFrame(frame); }
+  function draw(t){
+    var g=ctx.createRadialGradient(W/2,H/2,10,W/2,H/2,W*0.7); g.addColorStop(0,"#fff6c2"); g.addColorStop(1,"#ff9ecf"); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    var sc=Math.min(W/1920,H/1080), pop=Math.min(1,t*2.2), bounce=1+0.12*Math.sin(t*8)*Math.max(0,1-t/2);
+    ctx.save(); ctx.translate(W/2,H*0.4); ctx.scale(pop*bounce,pop*bounce); ctx.font=Math.round(320*sc)+"px serif"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(it.emoji,0,0); ctx.restore();
+    ctx.fillStyle="#1d1b4b"; ctx.font="bold "+Math.round(96*sc)+"px Trebuchet MS, sans-serif"; ctx.textAlign="center"; ctx.fillText(it.name+" unlocked!",W/2,H*0.68);
+    var fw=150*sc; kids.forEach(function(im,i){ var x=W/2+(i-(kids.length-1)/2)*fw*1.3, y=H*0.83+Math.sin(t*6+i)*10*sc; ctx.save(); ctx.beginPath(); ctx.arc(x,y,fw/2,0,Math.PI*2); ctx.fillStyle="#fff"; ctx.fill(); ctx.clip(); if(im.complete&&im.naturalWidth) ctx.drawImage(im,x-fw/2,y-fw/2,fw,fw); ctx.restore(); });
+    conf.forEach(function(c){ c.y+=c.vy; c.x+=c.vx; c.r+=0.1; if(c.y>H) c.y=-20; ctx.save(); ctx.translate(c.x,c.y); ctx.rotate(c.r); ctx.fillStyle=c.c; ctx.fillRect(-c.s/2,-c.s/4,c.s,c.s/2); ctx.restore(); });
+  }
+  function stop(){ if(finished) return; finished=true; if(anim&&anim.raf) cancelAnimationFrame(anim.raf); layer.className="layer"; anim=null; if(done) done(); }
+  anim={raf:requestAnimationFrame(frame), stop:stop, forceT:null, draw:draw};
+  sfxFanfare();
+}
+function fmtStamp(t){ var d=new Date(t), h=d.getHours(), m=("0"+d.getMinutes()).slice(-2); return DAYS[(d.getDay()+6)%7]+" "+d.getDate()+" "+MONTHS[d.getMonth()]+" · "+((h%12)||12)+":"+m+(h<12?"am":"pm"); }
+function renderMarket(){
+  var M=document.getElementById("market"); M.innerHTML="";
+  var top=el("div","mkids");
+  S.kids.forEach(function(k){ var c=el("div","mkid"); c.style.borderColor=k.colour;
+    c.innerHTML='<img src="'+avatarSrc(k)+'" alt=""><div><div class="mkn">'+esc(k.name)+'</div><div class="mkb">🪙 '+balance(k)+'</div></div>';
+    var cv=el("canvas","mpile"); cv.setAttribute("data-kid",k.id); c.appendChild(cv); top.appendChild(c); });
+  M.appendChild(top);
+  var body=el("div","mbody"), items=el("div","mitems");
+  (S.items||[]).forEach(function(it){
+    var card=el("div","mitem"+(it.type==="group"?" group":""));
+    card.appendChild(el("div","mie",it.emoji||"🎁"));
+    var info=el("div","mii"); info.appendChild(el("div","min",esc(it.name)));
+    var kids=itemKids(it);
+    if(it.type==="group"){
+      var pl=S.pledges[it.id]||{}, got=kids.filter(function(k){return pl[k.id];}).length;
+      info.appendChild(el("div","mip",it.price+" coins each · everyone joins to unlock · <b>"+got+" of "+kids.length+" in</b>"));
+      var row=el("div","mbtns");
+      kids.forEach(function(k){ var inn=!!pl[k.id], bal=balance(k);
+        var b=el("button","btn nav "+(inn?"green":(bal>=it.price?"":"short")),inn?("✅ "+esc(k.name)+" is in · take back"):(esc(k.name)+": commit "+it.price+(bal>=it.price?"":" · needs "+(it.price-bal))));
+        b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ pledge(it,k); }; row.appendChild(b); });
+      info.appendChild(row);
+    } else {
+      info.appendChild(el("div","mip",it.price+" coins"));
+      var row2=el("div","mbtns");
+      kids.forEach(function(k){ var bal=balance(k);
+        var b=el("button","btn nav "+(bal>=it.price?"":"short"),"Buy for "+esc(k.name)+(bal>=it.price?"":" · needs "+(it.price-bal)));
+        b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ buyItem(it,k); }; row2.appendChild(b); });
+      info.appendChild(row2);
+    }
+    card.appendChild(info); items.appendChild(card);
+  });
+  if(!(S.items||[]).length) items.appendChild(el("p","small","No items yet – add some in Settings ▸ Marketplace."));
+  body.appendChild(items);
+  var log=el("div","mlog"); log.appendChild(el("h3","","🧾 Purchases"));
+  var ps=(S.purchases||[]).slice().reverse().slice(0,6);
+  if(!ps.length) log.appendChild(el("p","small","Nothing bought yet."));
+  ps.forEach(function(p){ var r=el("div","mlr"+(p.undone?" undone":""));
+    var who=Object.keys(p.kids).map(function(id){ var k=kidById(id); return (k?esc(k.name):"?")+" −"+p.kids[id]; }).join(", ");
+    r.appendChild(el("div","mlt",'<b>'+(p.emoji||"")+" "+esc(p.name)+'</b><br><span>'+fmtStamp(p.t)+" · "+who+(p.undone?" · undone":"")+'</span>'));
+    if(!p.undone){ var u=el("button","btn grey nav","↶ Undo purchase"); u.setAttribute("data-fid","pu-"+p.id); u.onclick=function(){ undoPurchase(p); }; r.appendChild(u); }
+    log.appendChild(r); });
+  body.appendChild(log); M.appendChild(body);
+  [].forEach.call(M.querySelectorAll("canvas.mpile"),function(cv){ paintPileCanvas(cv,balance(kidById(cv.getAttribute("data-kid")))); });
+}
+/* history: every coin in and out, newest first, with each kid's running balance */
+var histFilter="all";
+function historyRows(){
+  var run={}, rows=[];
+  (S.ledger||[]).slice().sort(function(a,b){ return a.t-b.t; }).forEach(function(e){ run[e.kid]=(run[e.kid]||0)+e.coins; rows.push({e:e,bal:run[e.kid]}); });
+  if(histFilter!=="all") rows=rows.filter(function(r){ return r.e.kid===histFilter; });
+  return rows.reverse();
+}
+function renderHistory(){
+  var Hh=document.getElementById("history"); Hh.innerHTML="";
+  var bar=el("div","hbar");
+  var opts=[["all","👪 Everyone"]].concat(S.kids.map(function(k){ return [k.id,k.name]; }));
+  opts.forEach(function(o){ var b=el("button","btn bkopt nav"+(histFilter===o[0]?" sel":""),esc(o[1])); b.setAttribute("data-fid","hf-"+o[0]); b.setAttribute("data-hf",o[0]); b.onclick=function(){ histFilter=o[0]; renderHistory(); var l=document.getElementById("histList"); if(l) l.focus(); }; bar.appendChild(b); });
+  bar.appendChild(el("span","hhint","◀ ▶ change kid · ▲ ▼ scroll"));
+  Hh.appendChild(bar);
+  var list=el("div","hlist nav"); list.id="histList"; list.setAttribute("tabindex","0"); list.setAttribute("data-fid","hlist");
+  var rows=historyRows(), h='<div class="hr hh"><span>When</span><span>Who</span><span>What</span><span>Coins</span><span>Balance</span></div>';
+  if(!rows.length) h+='<div class="hr"><span></span><span></span><span>No coins yet – tick a job to start the story!</span><span></span><span></span></div>';
+  rows.forEach(function(r){ var e=r.e, k=kidById(e.kid), col=k?k.colour:"#999", neg=e.coins<0, rev=/^un|refund/.test(e.type);
+    h+='<div class="hr t-'+e.type+(rev?" rev":"")+'"><span>'+fmtStamp(e.t)+'</span><span><i style="background:'+col+'"></i>'+esc(k?k.name:(e.kidName||"?"))+'</span><span>'+esc(e.text)+'</span><span class="'+(neg?"neg":e.coins>0?"pos":"")+'">'+(e.coins>0?"+":"")+(e.coins||"–")+'</span><span>🪙 '+r.bal+'</span></div>'; });
+  list.innerHTML=h; Hh.appendChild(list);
+}
+function histKey(dir){ // keys while the history list has focus
+  var l=document.getElementById("histList"); if(!l||document.activeElement!==l) return false;
+  if(dir==="left"||dir==="right"){ var ids=["all"].concat(S.kids.map(function(k){return k.id;})), i=ids.indexOf(histFilter); i=(i+(dir==="right"?1:ids.length-1))%ids.length; histFilter=ids[i]; renderHistory(); document.getElementById("histList").focus(); return true; }
+  var row=l.querySelector(".hr:not(.hh)"), step=row?row.getBoundingClientRect().height*2:60;
+  if(dir==="up"){ if(l.scrollTop<=0) return false; l.scrollTop=Math.max(0,l.scrollTop-step); return true; }
+  if(l.scrollTop+l.clientHeight>=l.scrollHeight-1) return true; l.scrollTop+=step; return true;
+}
+
+/* ---------- TV remote / keyboard spatial navigation (v4.1+) ----------
+   Samsung Internet on Tizen moves a mouse pointer with the arrow keys unless the page itself handles them,
+   so every arrow/OK/Back press is caught on window (capture phase), preventDefault()+stopPropagation(),
+   and focus is moved geometrically to the nearest control in that direction. Something is always focused. */
+function isShown(id){ var e=document.getElementById(id); return !!e&&e.className.indexOf("show")>=0; }
 function activeRoot(){
-  if(document.getElementById("modal").className.indexOf("show")>=0) return document.getElementById("modal");
-  if(document.getElementById("codepad").className.indexOf("show")>=0) return document.getElementById("codepad");
-  if(document.getElementById("settings").className.indexOf("show")>=0) return document.getElementById("settings");
+  if(isShown("modal")) return document.getElementById("modal");
+  if(isShown("codepad")) return document.getElementById("codepad");
+  if(isShown("settings")) return document.getElementById("settings");
   return document.getElementById("app");
 }
 function visibleNavs(root){
-  return [].filter.call(root.querySelectorAll(".nav"),function(e){ if(e.disabled) return false; var r=e.getBoundingClientRect(); return r.width>0&&r.height>0; });
+  return [].filter.call(root.querySelectorAll(".nav"),function(e){ if(e.disabled) return false; if(e.offsetParent===null&&getComputedStyle(e).position!=="fixed") return false; var r=e.getBoundingClientRect(); return r.width>0&&r.height>0; });
 }
+function preferredFocus(root){
+  root=root||activeRoot(); var list=visibleNavs(root); if(!list.length) return null;
+  var p=null;
+  if(root.id==="app"){
+    if(S.view==="week") p=root.querySelector("#board .task.todaycol:not(.done)")||root.querySelector("#board .task.todaycol")||root.querySelector("#board .task:not(.done)");
+    else if(S.view==="market") p=root.querySelector("#market .mitem .nav")||document.getElementById("viewMarket");
+    else if(S.view==="history") p=document.getElementById("histList");
+    else p=document.getElementById("viewRewards");
+  } else if(root.id==="codepad") p=root.querySelector("#ckeys .ckey");
+  else if(root.id==="modal") p=root.querySelector("#mbtns .nav");
+  if(p&&list.indexOf(p)<0) p=null;
+  return p||list[0];
+}
+function focusEl(e){ if(!e) return; try{ e.focus({preventScroll:true}); }catch(x){ e.focus(); }
+  if(e.scrollIntoView){ try{ e.scrollIntoView({block:"nearest",inline:"nearest"}); }catch(x){ e.scrollIntoView(false); } } }
+/* never leave focus on <body> (or behind an overlay): the remote would fall back to pointer mode */
+function ensureFocus(){
+  var root=activeRoot(), a=document.activeElement;
+  if(a&&a!==document.body&&a!==document.documentElement&&root.contains(a)&&a.offsetParent!==null&&!a.disabled) return;
+  focusEl(preferredFocus(root));
+}
+var efT=null; function ensureFocusSoon(){ clearTimeout(efT); efT=setTimeout(ensureFocus,0); }
 function moveFocus(dir){
   var root=activeRoot(), list=visibleNavs(root); if(!list.length) return;
   var cur=document.activeElement;
-  if(!cur||list.indexOf(cur)<0){ var pref=root.querySelector(".task.todaycol:not(.done)")||list[0]; pref.focus(); return; }
-  var r=cur.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, best=null, bs=1e12;
-  list.forEach(function(e){ if(e===cur) return; var q=e.getBoundingClientRect(), x=q.left+q.width/2, y=q.top+q.height/2, dx=x-cx, dy=y-cy, main, cross;
+  if(!cur||list.indexOf(cur)<0){ focusEl(preferredFocus(root)); return; }
+  if(cur.classList.contains("ckey")){ // keypad: strict grid moves (row by row, column by column)
+    var keys=[].slice.call(document.querySelectorAll("#ckeys .ckey")), n=keys.length, i=keys.indexOf(cur), t0=keys[0].offsetTop, cols=0;
+    keys.forEach(function(kk){ if(Math.abs(kk.offsetTop-t0)<4) cols++; });
+    var j=-1; if(dir==="left"&&i%cols>0) j=i-1; else if(dir==="right"&&i%cols<cols-1&&i+1<n) j=i+1; else if(dir==="up"&&i-cols>=0) j=i-cols; else if(dir==="down"&&i+cols<n) j=i+cols;
+    if(j>=0){ focusEl(keys[j]); return; }
+    if(dir==="up") return; // top row: stay on the keys
+  }
+  var r=cur.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, best=null, bs=1e12, cands=[];
+  list.forEach(function(e){ if(e===cur) return; var q=e.getBoundingClientRect(), x=q.left+q.width/2, y=q.top+q.height/2, dx=x-cx, dy=y-cy, main, cross, overlap;
     if((dir==="left"||dir==="right")&&cur.classList.contains("task")&&(q.bottom<r.top||q.top>r.bottom)) return; // stay in the same row of jobs
-    if(dir==="left"){ if(q.right>r.left+2&&dx>=-2) return; main=-dx; cross=Math.abs(dy); }
-    else if(dir==="right"){ if(q.left<r.right-2&&dx<=2) return; main=dx; cross=Math.abs(dy); }
-    else if(dir==="up"){ if(q.bottom>r.top+2&&dy>=-2) return; main=-dy; cross=Math.abs(dx); }
-    else { if(q.top<r.bottom-2&&dy<=2) return; main=dy; cross=Math.abs(dx); }
-    if(main<=0) return;
-    var score=main+cross*2.2; if(score<bs){ bs=score; best=e; } });
+    if(dir==="left"){ if(q.right>r.left+2&&dx>=-2) return; main=Math.max(0,r.left-q.right); cross=Math.abs(dy); overlap=Math.min(r.bottom,q.bottom)-Math.max(r.top,q.top); }
+    else if(dir==="right"){ if(q.left<r.right-2&&dx<=2) return; main=Math.max(0,q.left-r.right); cross=Math.abs(dy); overlap=Math.min(r.bottom,q.bottom)-Math.max(r.top,q.top); }
+    else if(dir==="up"){ if(q.bottom>r.top+2&&dy>=-2) return; main=Math.max(0,r.top-q.bottom); cross=Math.abs(dx); overlap=Math.min(r.right,q.right)-Math.max(r.left,q.left); }
+    else { if(q.top<r.bottom-2&&dy<=2) return; main=Math.max(0,q.top-r.bottom); cross=Math.abs(dx); overlap=Math.min(r.right,q.right)-Math.max(r.left,q.left); }
+    cands.push({e:e,main:main,cross:cross,overlap:overlap}); });
+  // nearest row (up/down) or same row (left/right) first, then the closest one across
+  if(cands.length){
+    var horiz=dir==="left"||dir==="right", pool=cands;
+    if(horiz){ var lined=cands.filter(function(c){ return c.overlap>0; }); if(lined.length) pool=lined; }
+    else { var mm=Math.min.apply(null,cands.map(function(c){ return c.main; })); pool=cands.filter(function(c){ return c.main<=mm+Math.max(24,r.height*0.6); }); }
+    pool.forEach(function(c){ var score=horiz?(c.main+c.cross*(pool===cands?2.2:0.3)):(c.cross+c.main*0.2); if(score<bs){ bs=score; best=c.e; } });
+  }
   if(!best&&S.view==="week"&&S.layout!=="all"&&root.id==="app"&&cur.classList.contains("task")&&((dir==="right"&&PAGE==="wd")||(dir==="left"&&PAGE==="we"))){
     var kid=cur.getAttribute("data-kid"), slot=cur.getAttribute("data-slot");
     PAGE=dir==="right"?"we":"wd"; render();
     var same=[].slice.call(document.querySelectorAll('#board .task[data-kid="'+kid+'"]'));
     var pick=same.filter(function(e){ return e.getAttribute("data-slot")===slot; });
     var t=(dir==="right"?(pick[0]||same[0]):(pick[pick.length-1]||same[same.length-1]))||document.querySelector("#board .task");
-    if(t) t.focus(); return;
+    focusEl(t); ensureFocus(); return;
   }
-  if(best){ best.focus(); if(best.scrollIntoView){ try{ best.scrollIntoView({block:"nearest",inline:"nearest"}); }catch(e){ best.scrollIntoView(false); } } }
+  if(!best&&S.view==="week"&&root.id==="app"&&cur.classList.contains("task")&&(dir==="right"||dir==="left")){ // past Sunday -> next week, before Monday -> last week
+    var split=S.layout!=="all", fwd=dir==="right";
+    if(!split||(fwd&&PAGE==="we")||(!fwd&&PAGE==="wd")){
+      var kid2=cur.getAttribute("data-kid"), slot2=cur.getAttribute("data-slot");
+      WEEK_OFF+=fwd?1:-1; if(split) PAGE=fwd?"wd":"we"; render();
+      var same2=[].slice.call(document.querySelectorAll('#board .task[data-kid="'+kid2+'"]')), pick2=same2.filter(function(e){ return e.getAttribute("data-slot")===slot2; });
+      focusEl((fwd?(pick2[0]||same2[0]):(pick2[pick2.length-1]||same2[same2.length-1]))||document.querySelector("#board .task")||document.getElementById(fwd?"wkNext":"wkPrev")); ensureFocus(); return;
+    }
+  }
+  if(best) focusEl(best);
 }
-document.addEventListener("keydown",function(e){
-  var k=e.keyCode;
-  if(anim){ if(k===13||k===27||k===10009||k===8||k===32){ e.preventDefault(); anim.stop(); } return; }
-  if(document.getElementById("codepad").className.indexOf("show")>=0){
+/* key names/codes: standard (37-40, 13), legacy Samsung Maple (4,5,29460,29461,29443,88), Tizen Back 10009, webOS Back 461 */
+var KEY_DIR={37:"left",38:"up",39:"right",40:"down",4:"left",5:"right",29460:"up",29461:"down"};
+var KEY_NAME_DIR={ArrowLeft:"left",ArrowUp:"up",ArrowRight:"right",ArrowDown:"down",Left:"left",Up:"up",Right:"right",Down:"down"};
+function keyDir(e){ return KEY_NAME_DIR[e.key]||KEY_DIR[e.keyCode]||null; }
+function isOK(e){ return e.keyCode===13||e.keyCode===29443||e.key==="Enter"||e.key==="Accept"||e.key==="Select"; }
+function isBack(e,isInput){ var k=e.keyCode; return k===10009||k===461||k===88&&!isInput||k===27||e.key==="Escape"||e.key==="XF86Back"||e.key==="GoBack"||e.key==="BrowserBack"||(k===8&&!isInput); }
+var COLOR_KEYS={403:"rewards",404:"week",406:"settings"}; // Yellow (405) is left alone: some Samsung browsers use it to switch pointer/focus mode // Red, Green, Yellow, Blue (only delivered if the TV passes them to web pages)
+function goBack(){
+  if(isShown("modal")){ closeModal(); return true; }
+  if(isShown("codepad")){ closeCodepad(); return true; }
+  if(isShown("settings")){ closeSettings(); return true; }
+  if(S.view!=="week"){ setView("week"); focusEl(preferredFocus()); return true; }
+  if(WEEK_OFF!==0){ WEEK_OFF=0; PAGE=null; render(); focusEl(preferredFocus()); return true; }
+  if(S.layout!=="all"&&PAGE!==null&&PAGE!==defaultPage()){ PAGE=null; render(); focusEl(preferredFocus()); return true; }
+  return false; // already on the main screen: let the browser have Back
+}
+function defaultPage(){ var t=todayIdx(); return t>=5?"we":"wd"; }
+function kbdMode(on){ var c=document.documentElement.classList; if(on) c.add("kbd"); else c.remove("kbd"); }
+function swallow(e){ e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation) e.stopImmediatePropagation(); }
+window.addEventListener("keydown",function(e){
+  var dir=keyDir(e), ok=isOK(e), k=e.keyCode;
+  var tgt=document.activeElement, isInput=!!tgt&&(tgt.tagName==="INPUT"||tgt.tagName==="TEXTAREA");
+  var back=isBack(e,isInput);
+  if(dir||ok||back) kbdMode(true);
+  if(anim){ if(ok||back||k===32){ swallow(e); anim.stop(); ensureFocusSoon(); } else if(dir) swallow(e); return; }
+  if(isShown("codepad")){
     var ch=e.key&&e.key.length===1?e.key.toUpperCase():"";
-    if(ch&&CODE_ALPHA.indexOf(ch)>=0){ e.preventDefault(); codeType(ch); return; }
-    if(k===8){ e.preventDefault(); codeDel(); return; }
-    if(k===10009||k===27){ e.preventDefault(); closeCodepad(); return; }
+    if(ch&&CODE_ALPHA.indexOf(ch)>=0){ swallow(e); codeType(ch); return; }
+    if(k===8){ swallow(e); codeDel(); return; }
   }
-  var tgt=document.activeElement, isInput=tgt&&tgt.tagName==="INPUT";
-  if(k===37||k===38||k===39||k===40){
-    if(isInput&&(k===37||k===39)){ var v=tgt.value||"", p=tgt.selectionStart; if(!((k===37&&p===0)||(k===39&&p===v.length))) return; }
-    e.preventDefault(); moveFocus({37:"left",38:"up",39:"right",40:"down"}[k]); return;
+  if(dir){
+    if(isInput&&(dir==="left"||dir==="right")){ var v=tgt.value||"", p=tgt.selectionStart; if(!((dir==="left"&&p===0)||(dir==="right"&&p===v.length))){ e.stopPropagation(); return; } }
+    swallow(e); if(histKey(dir)) return; moveFocus(dir); return;
   }
-  if(k===13&&isInput){ e.preventDefault(); moveFocus("down"); return; }
-  if(k===10009||k===27||(k===8&&!isInput)){ // Samsung Back = 10009
-    if(document.getElementById("modal").className.indexOf("show")>=0){ e.preventDefault(); closeModal(); }
-    else if(document.getElementById("settings").className.indexOf("show")>=0){ e.preventDefault(); closeSettings(); }
+  if(ok){
+    swallow(e); if(e.repeat) return;
+    if(isInput){ moveFocus("down"); return; }
+    var a=document.activeElement, root=activeRoot();
+    if(!a||a===document.body||!root.contains(a)){ ensureFocus(); return; }
+    a.click(); ensureFocusSoon(); return;
   }
-});
+  if(back){ if(goBack()){ swallow(e); ensureFocusSoon(); } return; }
+  if(COLOR_KEYS[k]&&!isShown("modal")&&!isShown("codepad")){ swallow(e); var c=COLOR_KEYS[k];
+    if(c==="settings"){ if(!isShown("settings")) openSettings(); } else { if(isShown("settings")) closeSettings(); setView(c); focusEl(preferredFocus()); } return; }
+},true);
+/* some TV browsers act on keyup/keypress too: swallow those for the same keys */
+["keyup","keypress"].forEach(function(t){ window.addEventListener(t,function(e){ if(keyDir(e)||isOK(e)){ var a=document.activeElement; if(a&&(a.tagName==="INPUT")&&!isOK(e)) return; e.preventDefault(); } },true); });
+/* hide the pointer while the remote's keys are in use; show it again if a real mouse/pointer moves */
+var lastMX=-1,lastMY=-1;
+document.addEventListener("mousemove",function(e){
+  if(lastMX<0){ lastMX=e.screenX; lastMY=e.screenY; return; }
+  if(Math.abs(e.screenX-lastMX)+Math.abs(e.screenY-lastMY)<6) return; lastMX=e.screenX; lastMY=e.screenY;
+  kbdMode(false);
+  // pointer mode fallback: the gold ring follows the pointer, so OK/Enter on the remote ticks what's under it
+  var t=e.target&&e.target.closest?e.target.closest(".nav"):null;
+  if(t&&t!==document.activeElement&&activeRoot().contains(t)&&!t.disabled){ try{ t.focus({preventScroll:true}); }catch(x){ t.focus(); } }
+},{passive:true});
+/* every interactive element is focusable by the remote */
+function tagNavs(){ [].forEach.call(document.querySelectorAll(".nav:not([tabindex])"),function(e){ e.setAttribute("tabindex","0"); }); }
+try{ new MutationObserver(function(){ tagNavs(); ensureFocusSoon(); }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class","style","disabled"]}); }catch(x){}
+document.addEventListener("focusout",function(){ ensureFocusSoon(); });
+window.addEventListener("focus",ensureFocusSoon);
+document.addEventListener("visibilitychange",function(){ if(!document.hidden) ensureFocusSoon(); });
+setInterval(ensureFocus,1000);
 document.addEventListener("pointerdown",function(){ ac(); },{passive:true});
 document.addEventListener("keydown",function(){ ac(); },{passive:true});
-try{ if(window.tizen&&tizen.tvinputdevice){ ["MediaPlayPause","ColorF0Red","ColorF1Green"].forEach(function(n){ try{tizen.tvinputdevice.registerKey(n);}catch(e){} }); } }catch(e){}
+try{ if(window.tizen&&tizen.tvinputdevice){ ["MediaPlayPause","ColorF0Red","ColorF1Green","ColorF3Blue"].forEach(function(n){ try{tizen.tvinputdevice.registerKey(n);}catch(e){} }); } }catch(e){}
+
+/* ---------- running animals along the top edge (v4.1) ----------
+   Hand-drawn inline SVG, one animal at a time, a new one every lap. CSS transforms only, pointer-events:none,
+   never focusable, paused when the page is hidden, still (no running) with prefers-reduced-motion. */
+var ANIMALS=["jackrussell","cow","bull","chook","horse"], animalIdx=Math.floor(Math.random()*5);
+function legs4(xs,top,len,col,w){ // two frames of four legs: A = pair 1 forward, B = pair 2 forward
+  function L(x,a){ var dx=Math.round(Math.sin(a)*len*0.45); return '<line x1="'+x+'" y1="'+top+'" x2="'+(x+dx)+'" y2="'+(top+len)+'" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round"/>'; }
+  return '<g class="fa">'+L(xs[0],0.6)+L(xs[1],-0.5)+L(xs[2],-0.6)+L(xs[3],0.5)+'</g><g class="fb">'+L(xs[0],-0.5)+L(xs[1],0.6)+L(xs[2],0.5)+L(xs[3],-0.6)+'</g>';
+}
+function animalSVG(a){
+  var s='<svg viewBox="0 0 64 48" aria-hidden="true" focusable="false">';
+  if(a==="jackrussell"){
+    s+=legs4([18,22,40,44],30,12,"#fff",4)+'<g class="bd">'
+      +'<path d="M14 24 Q8 14 11 10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>'
+      +'<ellipse cx="30" cy="26" rx="17" ry="8" fill="#fff" stroke="#6b4a2b" stroke-width="1"/><ellipse cx="22" cy="24" rx="6" ry="5" fill="#c8843a"/>'
+      +'<circle cx="49" cy="17" r="7" fill="#fff" stroke="#6b4a2b" stroke-width="1"/><path d="M45 11 l4 -3 l3 5z" fill="#8a5a2b"/><ellipse cx="50" cy="15" rx="4" ry="4" fill="#c8843a"/>'
+      +'<ellipse cx="56" cy="19" rx="3.5" ry="2.6" fill="#fff" stroke="#6b4a2b" stroke-width="1"/><circle cx="59" cy="18.5" r="1.3" fill="#222"/><circle cx="51" cy="15" r="1.2" fill="#222"/></g>';
+  } else if(a==="cow"||a==="bull"){
+    var bull=a==="bull", body=bull?"#4a2e1f":"#fff", line=bull?"#2a1a10":"#333";
+    s+=legs4([16,21,40,45],30,13,bull?"#3a2418":"#fff",4.5)+'<g class="bd">'
+      +'<path d="M11 22 Q6 26 7 32" stroke="'+body+'" stroke-width="2.5" fill="none"/><circle cx="7" cy="33" r="2" fill="'+line+'"/>'
+      +'<rect x="10" y="16" width="38" height="17" rx="8" fill="'+body+'" stroke="'+line+'" stroke-width="1"/>'
+      +(bull?'':'<path d="M18 17 q6 4 2 9 q-6 -1 -6 -6z M33 20 q5 -3 7 2 q-2 6 -7 3z" fill="#222"/><ellipse cx="34" cy="33.5" rx="4" ry="2.2" fill="#f7a8c0"/>')
+      +'<ellipse cx="53" cy="18" rx="7" ry="6.5" fill="'+body+'" stroke="'+line+'" stroke-width="1"/>'
+      +'<ellipse cx="57" cy="22" rx="5" ry="3.6" fill="'+(bull?"#8c5a44":"#f7b6c8")+'"/><circle cx="55" cy="22" r=".9" fill="#222"/><circle cx="59" cy="22" r=".9" fill="#222"/>'
+      +'<circle cx="53" cy="16" r="1.3" fill="#fff"/><circle cx="53" cy="16" r=".8" fill="#222"/>'
+      +(bull?'<path d="M48 13 Q44 5 49 4 Q47 8 51 12z M57 12 Q62 5 61 3 Q64 9 59 14z" fill="#f2ead8" stroke="#8a7a5a" stroke-width=".6"/><circle cx="57" cy="25" r="2" fill="none" stroke="#e0b030" stroke-width="1.2"/>'
+            :'<path d="M49 13 l-2 -5 l3 3z M57 12 l2 -5 l-1 5z" fill="#d9c9a3"/><ellipse cx="47" cy="15" rx="2.5" ry="1.3" fill="#fff" stroke="#333" stroke-width=".6"/>')
+      +'</g>';
+  } else if(a==="chook"){
+    s+='<g class="fa"><line x1="29" y1="34" x2="25" y2="45" stroke="#f2a20c" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="34" x2="38" y2="45" stroke="#f2a20c" stroke-width="3" stroke-linecap="round"/></g>'
+      +'<g class="fb"><line x1="29" y1="34" x2="32" y2="45" stroke="#f2a20c" stroke-width="3" stroke-linecap="round"/><line x1="35" y1="34" x2="31" y2="45" stroke="#f2a20c" stroke-width="3" stroke-linecap="round"/></g><g class="bd">'
+      +'<path d="M14 22 Q10 10 18 12 Q16 18 22 20z" fill="#5a2d14"/>'
+      +'<ellipse cx="31" cy="26" rx="14" ry="10" fill="#b5541c"/><path d="M24 24 q8 -4 14 2 q-6 6 -14 -2z" fill="#8c3a10"/>'
+      +'<circle cx="44" cy="15" r="6.5" fill="#b5541c"/><path d="M40 9 q1 -4 3 -1 q1 -4 3 0 q2 -3 2 2z" fill="#e8202a"/>'
+      +'<path d="M50 14 l6 2 l-6 2z" fill="#f2a20c"/><path d="M48 19 q1 4 -1 5 q-2 -2 -1 -5z" fill="#e8202a"/><circle cx="46" cy="13.5" r="1.2" fill="#222"/></g>';
+  } else { // horse
+    s+=legs4([15,20,41,46],28,16,"#7a4a26",4)+'<g class="bd">'
+      +'<path d="M10 20 Q2 24 5 36 Q9 28 12 24z" fill="#2a1a10"/>'
+      +'<ellipse cx="29" cy="24" rx="19" ry="8" fill="#9a5c2e"/>'
+      +'<path d="M42 21 L50 8 L58 10 L56 16 L50 16 L47 26z" fill="#9a5c2e"/><path d="M42 20 L49 7 L46 6 L39 18z" fill="#2a1a10"/>'
+      +'<path d="M51 8 l1 -4 l2 4z" fill="#9a5c2e"/><circle cx="53" cy="11" r="1.1" fill="#222"/><circle cx="57" cy="14" r=".7" fill="#222"/></g>';
+  }
+  return s+'</svg>';
+}
+/* the animal's maze: corridors are the page margins and the gaps between board cells; it runs BEHIND #app */
+var critT=null, critJ=null;
+function critEl(){ return document.getElementById("critter"); }
+function critReduced(){ try{ return window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
+function applyAnimals(){ if(S.animals===false){ critStop(); clearTimeout(critT); critT=null; } else if(!critT&&!critJ) critSchedule(true); }
+function critSchedule(first){ clearTimeout(critT); var ms=first?(60+Math.random()*120)*1000:(180+Math.random()*300)*1000; critT=setTimeout(function(){ critT=null; critGo(); },ms); }
+function critStop(){ if(critJ){ clearTimeout(critJ.t); critJ=null; } var c=critEl(); if(c){ c.className=""; c.style.transitionDuration="0s"; } }
+function critGraph(){
+  var board=document.getElementById("board"), hd=document.querySelector("header"); if(!board||!hd||board.offsetParent===null) return null;
+  var W=window.innerWidth, H=window.innerHeight, kids=[].slice.call(board.children), br=board.getBoundingClientRect(), hr=hd.getBoundingClientRect();
+  if(!kids.length) return null;
+  var cols=[], rows=[];
+  kids.forEach(function(e){ var r=e.getBoundingClientRect(); if(!r.width) return;
+    var c=null; cols.forEach(function(x){ if(Math.abs(x.l-r.left)<3) c=x; }); if(!c){ c={l:r.left,r:r.right}; cols.push(c); } else c.r=Math.max(c.r,r.right);
+    var w=null; rows.forEach(function(x){ if(Math.abs(x.t-r.top)<3) w=x; }); if(!w){ w={t:r.top,b:r.bottom}; rows.push(w); } else w.b=Math.max(w.b,r.bottom); });
+  cols.sort(function(a,b){return a.l-b.l;}); rows.sort(function(a,b){return a.t-b.t;});
+  var X=[Math.max(24,cols[0].l/2)]; for(var i=0;i+1<cols.length;i++) X.push(cols[i+1].l+22); X.push(Math.min(W-24,(cols[cols.length-1].r+W)/2));
+  var Y=[Math.max(16,hr.top/2),(hr.bottom+rows[0].t)/2]; for(var j=0;j+1<rows.length;j++) Y.push((rows[j].b+rows[j+1].t)/2); Y.push(Math.min(H-10,(rows[rows.length-1].b+H)/2));
+  var obs=[].map.call(document.querySelectorAll("header .btn, header h1, #weeklbl, #foot, #board .task, #board .bk, #board .klbl, #board .flbl, #board .dh, #board .corner, #board .fcell > *"),function(e){ return e.getBoundingClientRect(); }).filter(function(r){ return r.width>0&&r.height>0; });
+  return {X:X,Y:Y,obs:obs};
+}
+function critHits(g,x0,y0,x1,y1,w,h){ var l=Math.min(x0,x1), t=Math.min(y0,y1), r=Math.max(x0,x1)+w, b=Math.max(y0,y1)+h;
+  for(var i=0;i<g.obs.length;i++){ var o=g.obs[i]; if(o.left<r&&o.right>l&&o.top<b&&o.bottom>t) return true; } return false; }
+function critNbrs(g,n){ var o=[], xi=n[0], yi=n[1], outer=(xi===0||xi===g.X.length-1);
+  if(xi>0) o.push([xi-1,yi]); if(xi<g.X.length-1) o.push([xi+1,yi]);
+  if(yi>0&&(yi>1||outer)) o.push([xi,yi-1]); if(yi<g.Y.length-1&&(yi>0||outer)) o.push([xi,yi+1]); // across the header only at the screen edges
+  return o; }
+function critGo(force){
+  critStop();
+  if(S.animals===false||critReduced()){ return; }
+  if(!force&&(document.hidden||anim||S.view!=="week"||isShown("settings")||isShown("modal")||isShown("codepad"))){ critSchedule(false); return; }
+  var g=critGraph(); if(!g){ critSchedule(false); return; }
+  var c=critEl(), a=ANIMALS[animalIdx%ANIMALS.length]; animalIdx=(animalIdx+1)%ANIMALS.length;
+  c.querySelector(".cIn").innerHTML=animalSVG(a); c.setAttribute("data-animal",a);
+  var nx=g.X.length-1, ny=g.Y.length-1, corners=[[0,0],[nx,0],[0,ny],[nx,ny]];
+  var si=Math.floor(Math.random()*4), ei=Math.random()<0.75?3-si:(si+1+Math.floor(Math.random()*3))%4, cur=corners[si].slice(), goal=corners[ei];
+  var prev=null, steps=0, speed=a==="chook"?170:a==="horse"?190:140, w=42, hh=32;
+  function pos(n){ return [g.X[n[0]]-w/2, g.Y[n[1]]-hh/2]; }
+  function place(n,dur){ var p=pos(n); c.style.transitionDuration=(dur||0)+"s"; c.style.transform="translate3d("+p[0].toFixed(1)+"px,"+p[1].toFixed(1)+"px,0)"; }
+  function d(n){ return Math.abs(n[0]-goal[0])+Math.abs(n[1]-goal[1]); }
+  critJ={t:null,animal:a,from:si,to:ei,path:[cur.slice()]};
+  c.className="on"+(critHits(g,pos(cur)[0],pos(cur)[1],pos(cur)[0],pos(cur)[1],w,hh)?" under":""); place(cur,0); void c.offsetWidth;
+  var J=critJ, backTo=null;
+  function pick(list){ var ws=list.map(function(n){ var a=pos(cur), b=pos(n); return critHits(g,a[0],a[1],b[0],b[1],w,hh)?1:4; }), t=0, i; ws.forEach(function(x){ t+=x; }); var r=Math.random()*t; for(i=0;i<list.length;i++){ r-=ws[i]; if(r<=0) return list[i]; } return list[list.length-1]; }
+  function next(){
+    if(J!==critJ) return;
+    if(document.hidden||S.animals===false){ critStop(); critSchedule(false); return; }
+    if(cur[0]===goal[0]&&cur[1]===goal[1]){ c.classList.remove("moving"); c.classList.add("sniff"); J.t=setTimeout(function(){ if(J===critJ){ critStop(); critSchedule(false); } },1400); return; }
+    var nb=critNbrs(g,cur), to;
+    if(backTo){ to=backTo; backTo=null; }
+    else {
+      var fwd=nb.filter(function(n){ return d(n)<d(cur); }), side=nb.filter(function(n){ return !(prev&&n[0]===prev[0]&&n[1]===prev[1])&&d(n)>=d(cur); });
+      if(steps<50&&side.length&&Math.random()<0.3){ to=pick(side); if(Math.random()<0.55) backTo=cur.slice(); }
+      else to=pick(fwd.length?fwd:nb);
+    }
+    var p0=pos(cur), p1=pos(to), dist=Math.abs(p1[0]-p0[0])+Math.abs(p1[1]-p0[1]);
+    if(p1[0]<p0[0]-1) c.classList.add("left"); else if(p1[0]>p0[0]+1) c.classList.remove("left");
+    var under=critHits(g,p0[0],p0[1],p1[0],p1[1],w,hh); c.classList.toggle("under",under); J.under=(J.under||0)+(under?1:0); J.over=(J.over||0)+(under?0:1);
+    c.classList.remove("sniff"); c.classList.add("moving");
+    place(to,Math.max(0.2,dist/speed)); prev=cur; cur=to; steps++; J.path.push(cur.slice());
+    J.t=setTimeout(arrive,Math.max(200,dist/speed*1000)+30);
+  }
+  function arrive(){
+    if(J!==critJ) return;
+    c.classList.remove("moving"); var pp=pos(cur); c.classList.toggle("under",critHits(g,pp[0],pp[1],pp[0],pp[1],w,hh));
+    var pause=backTo?(700+Math.random()*900):(Math.random()<0.22?600+Math.random()*1400:0);
+    if(pause){ c.classList.add("sniff"); J.t=setTimeout(next,pause); } else next();
+  }
+  J.t=setTimeout(next,500+Math.random()*700);
+}
+document.addEventListener("visibilitychange",function(){ if(document.hidden&&critJ){ critStop(); critSchedule(false); } });
+window.addEventListener("resize",function(){ if(critJ){ critStop(); critSchedule(false); } });
 
 var rt; window.addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(render,150); });
 setInterval(function(){ var wk=S.week; checkWeek(); if(S.week!==wk&&!anim) render(); },60000);
@@ -1261,11 +1709,12 @@ window.addEventListener("storage",function(e){
   if(gained) celebrate(gained,render); else render();
 });
 load(); applySetup(); render();
-var start=document.querySelector(".task.todaycol:not(.done)")||document.querySelector(".mday.today")||document.querySelector("#board .nav")||document.querySelector("#rewards .nav"); if(start) start.focus();
+applyAnimals();
+var start=document.querySelector(".task.todaycol:not(.done)")||document.querySelector("#board .nav")||document.querySelector("#rewards .nav"); if(start) start.focus();
 if(FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
   setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
 }
-window.__dojo={state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
+window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i){ if(i!=null) animalIdx=i; critGo(true); return critJ; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
 })();
 </script>
 </body>
