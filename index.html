@@ -144,6 +144,78 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
 #modal .mbox.wide{min-width:60rem}
 #toast{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%);background:#1d1b4b;color:#fff;font-size:1.6rem;padding:.8rem 1.6rem;border-radius:2rem;z-index:80;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
+
+/* ===== v4 TV board: days across, kids down, bookings + jobs in one glance ===== */
+#app{height:100vh}
+#boardwrap{flex:1;min-height:0;display:flex}
+#board{flex:1;display:grid;grid-gap:.55rem;min-height:0;--kidw:12.5rem;--bk:1.5rem;--tk:1.72rem;--dh:1.8rem}
+#board.n7{--kidw:10rem;--bk:1.15rem;--tk:1.25rem;--dh:1.4rem}
+#board.n2{--kidw:15rem;--bk:2.1rem;--tk:2.3rem;--dh:2.2rem}
+.corner{display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:bold;color:#1d1b4b;background:rgba(255,255,255,.6);border-radius:1rem;padding:.3rem;text-align:center;line-height:1.1}
+.dh{text-align:center;font-weight:bold;font-size:var(--dh);border-radius:1rem;padding:.3rem 0;background:rgba(255,255,255,.88);color:#1d1b4b;white-space:nowrap}
+.dh.today{background:#ffbe0b;color:#3d2a00;box-shadow:0 0 0 .25rem #fff}
+.flbl{display:flex;align-items:center;justify-content:center;background:#1d1b4b;color:#fff;border-radius:1rem;font-weight:bold;font-size:1.5rem;padding:.3rem}
+.fcell{background:rgba(255,255,255,.7);border-radius:1rem;padding:.3rem;display:flex;flex-direction:column;justify-content:center;gap:.25rem;min-height:2.4rem}
+.fcell.todaycol{box-shadow:0 0 0 .25rem #ffbe0b}
+.fcell .bk{background:#1d1b4b;color:#fff}
+.klbl{border-radius:1.4rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.4rem;text-align:center;box-shadow:0 .3rem 0 rgba(0,0,0,.15);min-height:0;overflow:hidden}
+.klbl img{width:5.6rem;height:5.6rem;border-radius:50%;border:.3rem solid #fff;object-fit:cover;background:#fff;box-shadow:0 .2rem .4rem rgba(0,0,0,.3);flex:none}
+#board.n7 .klbl img{width:4.6rem;height:4.6rem}
+.klbl .kn{font-size:2rem;font-weight:bold;line-height:1.1;margin-top:.25rem}
+.klbl .kc{font-size:1.25rem;font-weight:bold;opacity:.95}
+.dcell{background:var(--kl);border:.25rem solid var(--kc);border-radius:1.2rem;display:flex;flex-direction:column;min-height:0;min-width:0}
+.dcell.todaycol{box-shadow:0 0 0 .3rem #ffbe0b,0 .4rem .8rem rgba(0,0,0,.2)}
+.dcell.past{filter:saturate(.75)}
+.half{flex:1 1 0;min-height:0;display:flex;align-items:stretch;padding:.25rem .3rem;gap:.25rem}
+.half.pm{border-top:.18rem dashed var(--kc)}
+.sl{flex:none;width:2rem;font-size:1.5rem;text-align:center;padding-top:.2rem;line-height:1}
+#board.n2 .sl{font-size:1.8rem;width:2.4rem}
+.hc{flex:1;min-width:0;display:flex;flex-direction:column;gap:.22rem;justify-content:center}
+.bk{font-size:var(--bk);font-weight:bold;line-height:1.15;background:var(--kc);color:var(--kt);border-radius:.6rem;padding:.12rem .45rem;overflow-wrap:break-word;box-shadow:0 .12rem 0 rgba(0,0,0,.2)}
+.bk b{white-space:nowrap}
+.task{font-family:inherit;font-size:var(--tk);font-weight:bold;line-height:1.15;border:.2rem solid var(--kc);border-radius:.8rem;background:#fff;color:#1d1b4b;padding:.18rem .45rem;text-align:left;box-shadow:0 .2rem 0 rgba(0,0,0,.18);overflow-wrap:break-word;transition:transform .12s;width:100%}
+.task .ti{margin-right:.3rem}
+.task.done{background:radial-gradient(circle at 50% 35%,#fff3a0,#ffd23f 55%,#f4a100);border-color:#b06f00;color:#5a3500}
+.task.past:not(.done){opacity:.72}
+.nil{color:rgba(0,0,0,.28);font-size:1.6rem;text-align:center}
+/* rewards display */
+#rewards{flex:1;display:grid;grid-gap:1.2rem;min-height:0;margin-bottom:.6rem}
+.rcard{background:rgba(255,255,255,.6);border:.4rem solid;border-radius:2rem;display:flex;flex-direction:column;align-items:center;padding:1rem;min-height:0;box-shadow:0 .5rem 1.2rem rgba(0,0,0,.12)}
+.rtop{display:flex;align-items:center;width:100%;border-radius:1.4rem;padding:.7rem 1rem}
+.rtop img{width:8rem;height:8rem;border-radius:50%;border:.4rem solid #fff;object-fit:cover;background:#fff;box-shadow:0 .25rem .5rem rgba(0,0,0,.3);flex:none}
+.rname{font-size:3rem;font-weight:bold;margin-left:1rem;line-height:1.05;text-shadow:0 .15rem 0 rgba(0,0,0,.15)}
+.rcount{font-size:5.2rem;font-weight:bold;color:#1d1b4b;margin:.6rem 0 0;line-height:1}
+.rsub{font-size:1.5rem;font-weight:bold;color:#1d1b4b;opacity:.8}
+.rpile{width:100%;flex:1;min-height:8rem;display:block}
+.rbot{display:flex;justify-content:space-between;align-items:center;width:100%}
+.rbot .lifetime{color:#1d1b4b;background:rgba(255,255,255,.8);font-size:1.5rem}
+.rcard .bonus{font-size:1.5rem}
+/* setup-code keypad */
+#codepad{background:linear-gradient(180deg,#7b2cbf,#4361ee);color:#fff;overflow:auto}
+.cbox{max-width:100rem;margin:0 auto;padding:2rem;text-align:center}
+.cbox h2{font-size:3rem;margin:.4rem 0 .4rem}
+.cbox .small{font-size:1.4rem}
+.cdisp{display:flex;justify-content:center;align-items:center;margin:1rem 0 1.4rem}
+.cdisp span{width:5.2rem;height:6.4rem;background:#fff;color:#1d1b4b;border-radius:1rem;font-size:4rem;font-weight:bold;line-height:6.4rem;margin:0 .3rem;display:inline-block}
+.cdisp span.cur{box-shadow:0 0 0 .35rem #ffbe0b}
+.cdisp i{font-size:4rem;font-style:normal;margin:0 .4rem}
+.ckeys{display:grid;grid-template-columns:repeat(10,6.6rem);grid-gap:.7rem;justify-content:center}
+.ckey{font-size:2.7rem;font-weight:bold;height:5.6rem;border:none;border-radius:1rem;background:#fff;color:#1d1b4b;box-shadow:0 .3rem 0 #c9c3e6;font-family:inherit}
+.cact{justify-content:center;margin-top:1.4rem}
+#cmsg{font-size:1.9rem;font-weight:bold;min-height:2.6rem;margin-top:1rem}
+#cmsg.err{color:#ffd166}
+.btn.vt.pg{min-width:9rem}
+#board .task.nav:focus{transform:scale(1.03);box-shadow:0 0 0 .18rem #fff,0 0 0 .42rem #ff8c1a,0 .3rem .6rem rgba(0,0,0,.3)!important}
+.cact .btn{font-size:2.1rem;padding:1rem 1.8rem}
+@media (max-width:900px){
+ #app{height:auto}
+ #boardwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+ #board{min-width:56rem;grid-auto-rows:auto}
+ #rewards{grid-template-columns:1fr!important}
+ .rpile{min-height:9rem;flex:none;height:9rem}
+ .ckeys{grid-template-columns:repeat(6,1fr)}
+ .cdisp span{width:2.6rem;height:3.4rem;font-size:2rem;line-height:3.4rem;margin:0 .1rem}
+}
 /* phone / portrait */
 @media (max-width:900px){
  #app{padding:.6rem}
@@ -172,6 +244,7 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
  .bkg{font-size:.8rem}.mbk{font-size:.8rem}.dbk{font-size:1.05rem;padding:.5rem .7rem}
  .timeadj{font-size:1.4rem;min-width:7rem}
 }
+
 </style>
 </head>
 <body>
@@ -181,17 +254,29 @@ input.txt:focus{border-color:#ffbe0b;box-shadow:0 0 0 .35rem #ffbe0b}
   <h1><span class="coin-i"></span>Dojo Coins</h1>
   <div class="weeklbl" id="weeklbl"></div>
   <button class="btn vt nav" id="viewWeek">📅 Week</button>
+  <button class="btn vt nav pg" id="pgWd">Mon–Fri</button>
+  <button class="btn vt nav pg" id="pgWe">Sat–Sun</button>
   <button class="btn vt nav" id="viewMonth">🗓️ Month</button>
+  <button class="btn vt nav" id="viewRewards">🏆 Rewards</button>
   <button class="btn orange nav" id="undoBtn">&#8630; Undo</button>
   <button class="btn nav" id="settingsBtn">&#9881; Settings</button>
  </header>
- <div id="board"></div>
+ <div id="boardwrap"><div id="board"></div></div>
  <div id="month" style="display:none"></div>
- <footer>Arrows to move &middot; OK/Enter to tick a job &middot; finish a job to earn a coin!</footer>
+ <div id="rewards" style="display:none"></div>
+ <footer id="foot">Arrows to move &middot; OK/Enter to tick a job &middot; finish a job to earn a coin!</footer>
 </div>
 
 <div class="layer" id="celebrate"><canvas id="ccv"></canvas></div>
 <div class="layer" id="settings"><div class="sbox" id="sbox"></div></div>
+<div class="layer" id="codepad"><div class="cbox">
+ <h2>📺 Enter your setup code</h2>
+ <div class="small">Type the 8-character code with the remote (arrows + OK). It loads the family photos and bookings onto this TV.</div>
+ <div class="cdisp" id="cdisp"></div>
+ <div class="ckeys" id="ckeys"></div>
+ <div class="row cact"><button class="btn grey nav" id="cDel" data-fid="c-del">⌫ Delete</button><button class="btn grey nav" id="cClr" data-fid="c-clr">Clear</button><button class="btn green nav" id="cGo" data-fid="c-go">✓ Load</button><button class="btn red nav" id="cCancel" data-fid="c-cancel">Cancel</button></div>
+ <div id="cmsg"></div>
+</div></div>
 <div class="layer" id="modal"><div class="mbox"><p id="mtext"></p><div id="mbtns"></div></div></div>
 <div id="toast"></div>
 
@@ -205,7 +290,7 @@ var DAYS_LONG = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","
 var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var AM_DEFAULT = ["Stack dishwasher","Sort laundry","Pack lunch"];
 var PM_DEFAULT = ["Unpack bag","Homework / reading","Tidy room"];
-var COLOURS = ["#3a86ff","#f15bb5","#2bb673","#ff8c1a","#7b2cbf","#e63946"];
+var COLOURS = ["#3a86ff","#f15bb5","#ffc93c","#2bb673","#ff8c1a","#7b2cbf","#e63946"]; // Charlie blue, Pip pink, Jack yellow
 var MAX_KIDS = 4;
 
 /* ---------- dates ---------- */
@@ -224,11 +309,15 @@ function newKid(i,name){
 function defaultBookings(){ return []; }
 function freshState(){
   var kids=[newKid(0,"Charlie"),newKid(1,"Pip"),newKid(2,"Jack")];
-  return {v:3, kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:[]};
+  return {v:4, kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:[]};
 }
 var S;
+var FIRST_RUN=false;
+function hashView(){ var h=(location.hash||"").toLowerCase(); return h==="#rewards"?"rewards":h==="#month"?"month":"week"; }
 function load(){
-  try{ S=JSON.parse(localStorage.getItem(KEY)); }catch(e){ S=null; }
+  var raw=null; try{ raw=localStorage.getItem(KEY); }catch(e){}
+  FIRST_RUN=!raw;
+  try{ S=JSON.parse(raw); }catch(e){ S=null; }
   if(!S||!S.kids||!S.kids.length){ S=freshState(); }
   S.done=S.done||{}; S.bonus=S.bonus||{}; S.history=S.history||[]; S.view="week"; // Week is always the main view on load
   // upgrade old 2-kid default (Charlie + "Kid 2") to Charlie, Pip, Jack
@@ -236,7 +325,12 @@ function load(){
   if(!S.log){ S.log={}; migrateLog(); }
   if(!S.bookings){ S.bookings=[]; }
   S.bookings=S.bookings.filter(function(b){ return b && b.id!=="bseedtennis"; });
-  S.v=3; save();
+  if((S.v||0)<4){ // v4: Skylight-style colours (Charlie blue, Pip pink, Jack yellow)
+    S.kids.forEach(function(k){ if(String(k.name).toLowerCase()==="jack"&&k.colour==="#2bb673") k.colour="#ffc93c"; });
+  }
+  if(S.layout!=="all") S.layout="split";
+  S.view=hashView();
+  S.v=4; save();
   checkWeek();
 }
 function save(){
@@ -391,65 +485,104 @@ function paintPileCanvas(cv,n){
 }
 
 /* ---------- main render ---------- */
+var PAGE=null; // "wd" (Mon–Fri) | "we" (Sat–Sun) when the main screen is split
+function pageDays(){
+  if(S.layout==="all") return [0,1,2,3,4,5,6];
+  if(PAGE===null) PAGE=todayIdx()>=5?"we":"wd";
+  return PAGE==="we"?[5,6]:[0,1,2,3,4];
+}
+function inkFor(hex){ var n=parseInt(String(hex).slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255; return (0.299*r+0.587*g+0.114*b)>165?"#1d1b4b":"#fff"; }
+function kidVars(k){ return "--kc:"+k.colour+";--kt:"+inkFor(k.colour)+";--kl:"+shade(k.colour,0.84); }
+function bkChip(b){ return '<div class="bk">'+bookingIcon(b.title)+' '+esc(b.title||"Booking")+' <b>'+esc(fmtTimeRange(b.time,b.end))+'</b></div>'; }
+function setView(v){
+  S.view=v; var want=v==="rewards"?"#rewards":""; // the TV bookmark always opens on the week
+  if((location.hash||"")!==want){ try{ history.replaceState(null,"",location.pathname+location.search+want); }catch(e){} }
+  render();
+}
 function render(){
   var a=document.activeElement, fid=a&&a.getAttribute?a.getAttribute("data-fid"):null;
   var mon=mondayOf(new Date()), sun=new Date(mon); sun.setDate(mon.getDate()+6);
   document.getElementById("weeklbl").textContent="Week of "+mon.getDate()+" "+MONTHS[mon.getMonth()]+" – "+sun.getDate()+" "+MONTHS[sun.getMonth()]+" "+sun.getFullYear();
   document.getElementById("undoBtn").disabled=!S.history.length;
-  document.getElementById("viewWeek").className="btn vt nav"+(S.view==="week"?" sel":"");
-  document.getElementById("viewMonth").className="btn vt nav"+(S.view==="month"?" sel":"");
-  var board=document.getElementById("board"), monthEl=document.getElementById("month");
-  if(S.view==="month"){ board.style.display="none"; monthEl.style.display=""; board.innerHTML=""; renderMonth(); if(fid){ var f0=document.querySelector('[data-fid="'+fid+'"]'); if(f0) f0.focus(); } return; }
-  board.style.display=""; monthEl.style.display="none"; monthEl.innerHTML="";
-  board.className=S.kids.length>2&&window.innerWidth>900?"many":"";
-  board.innerHTML="";
-  var ti=todayIdx();
+  var split=S.layout!=="all"; pageDays();
+  function vt(id,on,show){ var e=document.getElementById(id); e.className="btn vt nav"+(id.indexOf("pg")===0?" pg":"")+(on?" sel":""); e.style.display=show?"":"none"; }
+  vt("viewWeek",S.view==="week",!split);
+  vt("pgWd",S.view==="week"&&PAGE==="wd",split);
+  vt("pgWe",S.view==="week"&&PAGE==="we",split);
+  vt("viewMonth",S.view==="month",true);
+  vt("viewRewards",S.view==="rewards",true);
+  var board=document.getElementById("board"), bw=document.getElementById("boardwrap"), monthEl=document.getElementById("month"), rw=document.getElementById("rewards");
+  bw.style.display=S.view==="week"?"":"none"; monthEl.style.display=S.view==="month"?"":"none"; rw.style.display=S.view==="rewards"?"":"none";
+  if(S.view!=="week") board.innerHTML=""; if(S.view!=="month") monthEl.innerHTML=""; if(S.view!=="rewards") rw.innerHTML="";
+  document.getElementById("foot").innerHTML=S.view==="rewards"?"Coins land here when a job is ticked &middot; open this page as <b>#rewards</b> on a second screen"
+    :S.view==="month"?"Arrows to move &middot; OK to open a day"
+    :"Arrows to move &middot; OK/Enter to tick a job"+(split?(PAGE==="wd"?" &middot; ▶ past Friday for the weekend":" &middot; ◀ past Saturday for Mon–Fri"):"")+" &middot; finish a job to earn a coin!";
+  if(S.view==="month") renderMonth();
+  else if(S.view==="rewards") renderRewards();
+  else renderWeek();
+  if(fid){ var f=document.querySelector('[data-fid="'+fid+'"]'); if(f&&f.offsetParent!==null) f.focus(); }
+}
+function renderWeek(){
+  var board=document.getElementById("board"); board.innerHTML="";
+  var days=pageDays(), ti=todayIdx(), mon=mondayOf(new Date());
+  board.className="n"+days.length;
+  var fam=days.some(function(d){ return bookingsOn("all",dateOfIdx(d)).length>0; });
+  board.style.gridTemplateColumns="var(--kidw) repeat("+days.length+",minmax(0,1fr))";
+  board.style.gridTemplateRows="auto"+(fam?" auto":"")+" repeat("+S.kids.length+",minmax(0,1fr))";
+  board.appendChild(el("div","corner",S.layout==="all"?"This week":(PAGE==="wd"?"Weekdays":"Weekend")));
+  days.forEach(function(d){ var dd=new Date(mon); dd.setDate(mon.getDate()+d);
+    board.appendChild(el("div","dh"+(d===ti?" today":""),(d===ti?"Today · ":"")+DAYS[d]+" "+dd.getDate())); });
+  if(fam){
+    board.appendChild(el("div","flbl","👪 Family"));
+    days.forEach(function(d){ var c=el("div","fcell"+(d===ti?" todaycol":"")), h="";
+      bookingsOn("all",dateOfIdx(d)).forEach(function(b){ h+=bkChip(b); }); c.innerHTML=h; board.appendChild(c); });
+  }
   S.kids.forEach(function(k){
-    var row=el("div","kidrow"); row.style.borderColor=k.colour;
-    var panel=el("div","kidpanel"); panel.style.background="linear-gradient(160deg,"+k.colour+","+shade(k.colour,-0.25)+")";
-    var top=el("div","kidtop");
-    var av=el("img","avatar"); av.src=avatarSrc(k); av.alt=k.name;
-    var nm=el("div",""); nm.style.minWidth="0";
-    nm.innerHTML='<div class="kidname">'+esc(k.name)+'</div><div class="pts"><b>'+weekPoints(k)+'</b>coins this week</div>';
-    top.appendChild(av); top.appendChild(nm); panel.appendChild(top);
-    var cv=el("canvas","pilecv"); cv.setAttribute("data-kid",k.id); panel.appendChild(cv);
-    var bot=el("div","kidbottom");
-    bot.appendChild(el("div","lifetime","🏆 All-time: "+k.lifetime));
-    var bb=el("button","btn bonus nav","+1 Bonus"); bb.setAttribute("data-fid","bonus-"+k.id);
-    bb.onclick=function(){ award(k,{type:"bonus"}); };
-    bot.appendChild(bb); panel.appendChild(bot);
-    row.appendChild(panel);
-
-    var wrap=el("div","weekwrap"); var wk=el("div","week");
-    wk.appendChild(el("div",""));
-    for(var d=0;d<7;d++){ var dd=new Date(mon); dd.setDate(mon.getDate()+d);
-      wk.appendChild(el("div","dayhd"+(d===ti?" today":""),(d===ti?"Today":DAYS[d])+' <span style="font-weight:normal">'+dd.getDate()+'</span>')); }
-    ["am","pm"].forEach(function(slot){
-      wk.appendChild(el("div","slothd",slot==="am"?"<span>☀️</span>Morning":"<span>🌙</span>Afternoon"));
-      for(var d=0;d<7;d++){
-        (function(d){
-          var task=(k.tasks[d]||{})[slot]||"", key=d+slot, done=!!(S.done[k.id]&&S.done[k.id][key]);
-          var bks=bookingsOnSlot(k.id, dateOfIdx(d), slot), bkHtml="";
-          if(bks.length){ bkHtml='<div class="bkgs">'; for(var bi=0;bi<bks.length;bi++) bkHtml+='<div class="bkg">'+esc(bookingLabel(bks[bi]))+'</div>'; bkHtml+='</div>'; }
-          var b=el("button","cell"+(task?" nav":"")+(done?" done":"")+(d===ti?" todaycol":"")+(d<ti?" past":"")+(task||bks.length?"":" empty")+(bks.length?" hasbkg":""));
-          b.setAttribute("data-fid",k.id+"-"+key);
-          if(!task){ b.innerHTML=bkHtml||'<span class="ic">·</span>'; b.tabIndex=-1; }
-          else if(done){ b.innerHTML=bkHtml+'<span class="ic">🪙</span>'+esc(task)+'<span style="font-size:.9em">✓ Done!</span>'; b.setAttribute("aria-label",task+" done"); }
-          else { b.innerHTML=bkHtml+'<span class="ic">'+iconFor(task)+'</span>'+esc(task); }
-          if(task) b.onclick=function(){
-            if(done){ confirmBox("Untick “"+task+"” for "+k.name+"?<br><span style='font-size:.7em;font-weight:normal'>This takes the coin back.</span>",[["Yes, untick","red",function(){ untick(k,key); }],["No","green",null]]); }
+    var lb=el("div","klbl"); lb.style.background="linear-gradient(160deg,"+k.colour+","+shade(k.colour,-0.2)+")"; lb.style.color=inkFor(k.colour);
+    var im=el("img",""); im.src=avatarSrc(k); im.alt=k.name; lb.appendChild(im);
+    lb.appendChild(el("div","kn",esc(k.name))); lb.appendChild(el("div","kc","🪙 "+weekPoints(k)+" this week"));
+    board.appendChild(lb);
+    days.forEach(function(d){
+      var cell=el("div","dcell"+(d===ti?" todaycol":"")+(d<ti?" past":"")); cell.setAttribute("style",kidVars(k)); cell.setAttribute("data-kid",k.id); cell.setAttribute("data-day",d);
+      ["am","pm"].forEach(function(slot){
+        var half=el("div","half "+slot); half.appendChild(el("div","sl",slot==="am"?"☀️":"🌙"));
+        var hc=el("div","hc"), task=(k.tasks[d]||{})[slot]||"", key=d+slot, done=!!(S.done[k.id]&&S.done[k.id][key]);
+        var bks=bookingsOnSlot(k.id,dateOfIdx(d),slot).filter(function(b){ return b.kid!=="all"; }), h="";
+        bks.forEach(function(b){ h+=bkChip(b); }); hc.innerHTML=h;
+        if(task){
+          var b=el("button","task nav"+(done?" done":"")+(d===ti?" todaycol":"")+(d<ti?" past":""));
+          b.setAttribute("data-fid",k.id+"-"+key); b.setAttribute("data-kid",k.id); b.setAttribute("data-slot",slot); b.setAttribute("data-day",d);
+          b.innerHTML=done?'<span class="ti">🪙</span>'+esc(task)+' ✓':'<span class="ti">'+iconFor(task)+'</span>'+esc(task);
+          b.setAttribute("aria-label",k.name+" "+DAYS_LONG[d]+" "+(slot==="am"?"morning":"afternoon")+": "+task+(done?" (done)":""));
+          b.onclick=function(){
+            if(done){ confirmBox("Untick “"+esc(task)+"” for "+esc(k.name)+"?<br><span style='font-size:.7em;font-weight:normal'>This takes the coin back.</span>",[["Yes, untick","red",function(){ untick(k,key); }],["No","green",null]]); }
             else award(k,{type:"task",key:key});
           };
-          wk.appendChild(b);
-        })(d);
-      }
+          hc.appendChild(b);
+        } else if(!bks.length) hc.appendChild(el("div","nil","·"));
+        half.appendChild(hc); cell.appendChild(half);
+      });
+      board.appendChild(cell);
     });
-    wrap.appendChild(wk); row.appendChild(wrap); board.appendChild(row);
   });
-  // paint piles after layout
-  var cvs=board.querySelectorAll("canvas.pilecv");
-  for(var i=0;i<cvs.length;i++){ var kk=kidById(cvs[i].getAttribute("data-kid")); paintPileCanvas(cvs[i],weekPoints(kk)); }
-  if(fid){ var f=document.querySelector('[data-fid="'+fid+'"]'); if(f) f.focus(); }
+}
+function renderRewards(){
+  var R=document.getElementById("rewards"); R.innerHTML="";
+  R.style.gridTemplateColumns="repeat("+S.kids.length+",minmax(0,1fr))";
+  S.kids.forEach(function(k){
+    var c=el("div","rcard"); c.style.borderColor=k.colour;
+    var top=el("div","rtop"); top.style.background="linear-gradient(160deg,"+k.colour+","+shade(k.colour,-0.2)+")"; top.style.color=inkFor(k.colour);
+    var im=el("img",""); im.src=avatarSrc(k); im.alt=k.name; top.appendChild(im); top.appendChild(el("div","rname",esc(k.name)));
+    c.appendChild(top);
+    c.appendChild(el("div","rcount","🪙 "+weekPoints(k)));
+    c.appendChild(el("div","rsub","coins this week"));
+    var cv=el("canvas","rpile"); cv.setAttribute("data-kid",k.id); c.appendChild(cv);
+    var bot=el("div","rbot"); bot.appendChild(el("div","lifetime","🏆 All-time: "+k.lifetime));
+    var bb=el("button","btn bonus nav","+1 Bonus"); bb.setAttribute("data-fid","bonus-"+k.id); bb.onclick=function(){ award(k,{type:"bonus"}); };
+    bot.appendChild(bb); c.appendChild(bot); R.appendChild(c);
+  });
+  var cvs=R.querySelectorAll("canvas.rpile");
+  for(var i=0;i<cvs.length;i++){ paintPileCanvas(cvs[i],weekPoints(kidById(cvs[i].getAttribute("data-kid")))); }
 }
 function shade(hex,p){ var n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255; function f(c){return Math.max(0,Math.min(255,Math.round(c+(p<0?c*p:(255-c)*p))));} return "rgb("+f(r)+","+f(g)+","+f(b)+")"; }
 
@@ -481,8 +614,12 @@ function undo(){
   toast("Undone: "+what+" for "+k.name);
 }
 document.getElementById("undoBtn").onclick=undo;
-document.getElementById("viewWeek").onclick=function(){ S.view="week"; render(); };
-document.getElementById("viewMonth").onclick=function(){ S.view=(S.view==="month"?"week":"month"); monthCur=null; render(); };
+document.getElementById("viewWeek").onclick=function(){ setView("week"); };
+document.getElementById("pgWd").onclick=function(){ PAGE="wd"; setView("week"); };
+document.getElementById("pgWe").onclick=function(){ PAGE="we"; setView("week"); };
+document.getElementById("viewMonth").onclick=function(){ monthCur=null; setView(S.view==="month"?"week":"month"); };
+document.getElementById("viewRewards").onclick=function(){ setView(S.view==="rewards"?"week":"rewards"); };
+window.addEventListener("hashchange",function(){ var v=hashView(); if(v!==S.view&&(location.hash||"").indexOf("#setup=")!==0){ S.view=v; render(); } });
 
 /* ---------- month view ---------- */
 var monthCur=null; // Date: first of displayed month
@@ -801,17 +938,29 @@ function renderSettings(){
     h+='<div class="row"><button class="btn nav" data-fid="bk-add" id="bkAdd">+ Add booking</button></div>';
   }
   h+='</div>';
+  h+='<h3>📺 TV setup code</h3><div class="card"><p class="small">Got a family setup code (like ABCD-1234)? Enter it to load photos and bookings onto this device. Nothing is sent anywhere except a request for the locked file.</p><div class="row">';
+  h+='<button class="btn green nav" data-fid="code" id="sCode">🔑 Enter setup code</button>';
+  if(S.tvCode) h+='<button class="btn nav" data-fid="code-upd" id="sCodeUpd">🔄 Update from '+esc(fmtCode(S.tvCode))+'</button>';
+  h+='</div></div>';
+  h+='<h3>Main screen</h3><div class="card"><div class="row">';
+  h+='<button class="btn bkopt nav'+(S.layout!=="all"?" sel":"")+'" data-fid="lay-split" id="sLaySplit">Mon–Fri + Sat–Sun (bigger)</button>';
+  h+='<button class="btn bkopt nav'+(S.layout==="all"?" sel":"")+'" data-fid="lay-all" id="sLayAll">All 7 days</button>';
+  h+='</div></div>';
   h+='<h3>App</h3><div class="card"><div class="row">';
   h+='<button class="btn nav" data-fid="snd" id="sSound">🔊 Sound: '+(S.sound?"On":"Off")+'</button>';
   h+='<button class="btn nav" data-fid="auto" id="sAuto">📅 New week auto-reset: '+(S.autoReset?"On":"Off")+'</button>';
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v3. Weekly reset clears the ticks and this week\'s coin pile but keeps each kid\'s all-time total. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4. Weekly reset clears the ticks and this week\'s coin pile but keeps each kid\'s all-time total. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
   $("sClose").onclick=closeSettings;
+  $("sCode").onclick=function(){ openCodepad(""); };
+  if($("sCodeUpd")) $("sCodeUpd").onclick=function(){ runCode(S.tvCode,toast); };
+  $("sLaySplit").onclick=function(){ S.layout="split"; PAGE=null; save(); renderSettings(); };
+  $("sLayAll").onclick=function(){ S.layout="all"; save(); renderSettings(); };
   [].forEach.call(box.querySelectorAll("[data-tab]"),function(b){ b.onclick=function(){ selKid=+b.getAttribute("data-tab"); renderSettings(); }; });
   if($("sAdd")) $("sAdd").onclick=function(){ var nk=newKid(S.kids.length,"Kid "+(S.kids.length+1)); S.kids.push(nk); selKid=S.kids.length-1; save(); renderSettings(); toast("Added "+nk.name); };
   $("sName").oninput=function(){ k.name=this.value||"Kid"; save(); var t=box.querySelector('[data-tab="'+selKid+'"]'); if(t) t.textContent=k.name; };
@@ -869,6 +1018,7 @@ function loadPhoto(file,cb){
 /* ---------- TV remote / keyboard spatial navigation ---------- */
 function activeRoot(){
   if(document.getElementById("modal").className.indexOf("show")>=0) return document.getElementById("modal");
+  if(document.getElementById("codepad").className.indexOf("show")>=0) return document.getElementById("codepad");
   if(document.getElementById("settings").className.indexOf("show")>=0) return document.getElementById("settings");
   return document.getElementById("app");
 }
@@ -878,20 +1028,35 @@ function visibleNavs(root){
 function moveFocus(dir){
   var root=activeRoot(), list=visibleNavs(root); if(!list.length) return;
   var cur=document.activeElement;
-  if(!cur||list.indexOf(cur)<0){ var pref=root.querySelector(".cell.todaycol.nav:not(.done)")||list[0]; pref.focus(); return; }
+  if(!cur||list.indexOf(cur)<0){ var pref=root.querySelector(".task.todaycol:not(.done)")||list[0]; pref.focus(); return; }
   var r=cur.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2, best=null, bs=1e12;
   list.forEach(function(e){ if(e===cur) return; var q=e.getBoundingClientRect(), x=q.left+q.width/2, y=q.top+q.height/2, dx=x-cx, dy=y-cy, main, cross;
+    if((dir==="left"||dir==="right")&&cur.classList.contains("task")&&(q.bottom<r.top||q.top>r.bottom)) return; // stay in the same row of jobs
     if(dir==="left"){ if(q.right>r.left+2&&dx>=-2) return; main=-dx; cross=Math.abs(dy); }
     else if(dir==="right"){ if(q.left<r.right-2&&dx<=2) return; main=dx; cross=Math.abs(dy); }
     else if(dir==="up"){ if(q.bottom>r.top+2&&dy>=-2) return; main=-dy; cross=Math.abs(dx); }
     else { if(q.top<r.bottom-2&&dy<=2) return; main=dy; cross=Math.abs(dx); }
     if(main<=0) return;
     var score=main+cross*2.2; if(score<bs){ bs=score; best=e; } });
+  if(!best&&S.view==="week"&&S.layout!=="all"&&root.id==="app"&&cur.classList.contains("task")&&((dir==="right"&&PAGE==="wd")||(dir==="left"&&PAGE==="we"))){
+    var kid=cur.getAttribute("data-kid"), slot=cur.getAttribute("data-slot");
+    PAGE=dir==="right"?"we":"wd"; render();
+    var same=[].slice.call(document.querySelectorAll('#board .task[data-kid="'+kid+'"]'));
+    var pick=same.filter(function(e){ return e.getAttribute("data-slot")===slot; });
+    var t=(dir==="right"?(pick[0]||same[0]):(pick[pick.length-1]||same[same.length-1]))||document.querySelector("#board .task");
+    if(t) t.focus(); return;
+  }
   if(best){ best.focus(); if(best.scrollIntoView){ try{ best.scrollIntoView({block:"nearest",inline:"nearest"}); }catch(e){ best.scrollIntoView(false); } } }
 }
 document.addEventListener("keydown",function(e){
   var k=e.keyCode;
   if(anim){ if(k===13||k===27||k===10009||k===8||k===32){ e.preventDefault(); anim.stop(); } return; }
+  if(document.getElementById("codepad").className.indexOf("show")>=0){
+    var ch=e.key&&e.key.length===1?e.key.toUpperCase():"";
+    if(ch&&CODE_ALPHA.indexOf(ch)>=0){ e.preventDefault(); codeType(ch); return; }
+    if(k===8){ e.preventDefault(); codeDel(); return; }
+    if(k===10009||k===27){ e.preventDefault(); closeCodepad(); return; }
+  }
   var tgt=document.activeElement, isInput=tgt&&tgt.tagName==="INPUT";
   if(k===37||k===38||k===39||k===40){
     if(isInput&&(k===37||k===39)){ var v=tgt.value||"", p=tgt.selectionStart; if(!((k===37&&p===0)||(k===39&&p===v.length))) return; }
@@ -1006,9 +1171,101 @@ function applySetup(){
     setTimeout(function(){ toast(msg.join(". ")); },300);
   }
 }
+
+/* ---------- TV setup code ----------
+   make_private.py encrypts the family photos + bookings with AES-GCM; key = PBKDF2-SHA256(code, fixed salt).
+   The file is d/<first 16 hex of sha256(code+"-id")>.bin on this same site. Only someone with the code can read it. */
+var CODE_ALPHA="23456789ABCDEFGHJKMNPQRSTVWXYZ", CODE_LEN=8, CODE_SALT="dojo-coins-tv-code-v1", CODE_ITER=250000;
+function normCode(s){ var o=""; String(s||"").toUpperCase().split("").forEach(function(c){ if(CODE_ALPHA.indexOf(c)>=0) o+=c; }); return o.slice(0,CODE_LEN); }
+function fmtCode(c){ c=normCode(c); return c.slice(0,4)+(c.length>4?"-"+c.slice(4):""); }
+function utf8(s){ return new TextEncoder().encode(s); }
+function hexOf(buf){ var a=new Uint8Array(buf), s=""; for(var i=0;i<a.length;i++) s+=("0"+a[i].toString(16)).slice(-2); return s; }
+function codeErr(msg){ var e=new Error(msg); e.friendly=msg; return e; }
+function unlockCode(code){
+  code=normCode(code);
+  if(code.length!==CODE_LEN) return Promise.reject(codeErr("The code has 8 characters – keep going!"));
+  if(!(window.crypto&&crypto.subtle&&window.fetch&&window.TextEncoder&&window.TextDecoder)) return Promise.reject(codeErr("This browser can't open setup codes. Use the setup link instead."));
+  var buf;
+  return crypto.subtle.digest("SHA-256",utf8(code+"-id")).then(function(d){
+    return fetch("d/"+hexOf(d).slice(0,16)+".bin",{cache:"no-store"}).catch(function(){ throw codeErr("Couldn't reach the internet. Check the TV is online and try again."); });
+  }).then(function(r){
+    if(!r.ok) throw codeErr("That code didn't match. Check it and try again.");
+    return r.arrayBuffer();
+  }).then(function(b){
+    buf=b; if(buf.byteLength<29) throw codeErr("That code didn't match. Check it and try again.");
+    return crypto.subtle.importKey("raw",utf8(code),{name:"PBKDF2"},false,["deriveKey"]);
+  }).then(function(base){
+    return crypto.subtle.deriveKey({name:"PBKDF2",salt:utf8(CODE_SALT),iterations:CODE_ITER,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+  }).then(function(key){
+    return crypto.subtle.decrypt({name:"AES-GCM",iv:new Uint8Array(buf,0,12)},key,new Uint8Array(buf,12)).catch(function(){ throw codeErr("That code didn't match. Check it and try again."); });
+  }).then(function(plain){ return JSON.parse(new TextDecoder().decode(plain)); });
+}
+function applyPayload(p,code){
+  var photos=[], n=0;
+  var ph=(p&&p.photos)||{};
+  Object.keys(ph).forEach(function(name){
+    var id=kidIdForSetup(name), k=id&&id!=="all"?kidById(id):null;
+    if(k&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(ph[name])){ k.photo=ph[name]; photos.push(k.name); }
+  });
+  var before=(S.bookings||[]).length;
+  if(p&&Array.isArray(p.bookings)){ mergeSetupBookings(p.bookings); n=p.bookings.length; }
+  S.tvCode=normCode(code); save();
+  return (photos.length?"Photos for "+photos.join(" & ")+". ":"")+(n?n+" bookings loaded.":"");
+}
+function runCode(code,report){
+  report("Unlocking…");
+  return unlockCode(code).then(function(p){
+    var msg=applyPayload(p,code); toast("All set! "+msg); return {ok:true,msg:msg};
+  },function(e){ report(e&&e.friendly?e.friendly:"Something went wrong. Try again."); return {ok:false}; });
+}
+var codeBuf="";
+function drawCode(){
+  var d=document.getElementById("cdisp"), h="";
+  for(var i=0;i<CODE_LEN;i++){ if(i===4) h+="<i>–</i>"; h+='<span class="'+(i===codeBuf.length?"cur":"")+'">'+(codeBuf[i]||"&nbsp;")+'</span>'; }
+  d.innerHTML=h;
+}
+function codeMsg(t,err){ var m=document.getElementById("cmsg"); m.textContent=t||""; m.className=err?"err":""; }
+function codeType(c){ if(codeBuf.length<CODE_LEN){ codeBuf+=c; drawCode(); codeMsg(""); } if(codeBuf.length===CODE_LEN){ var g=document.getElementById("cGo"); if(g&&document.activeElement&&document.activeElement.classList.contains("ckey")) g.focus(); } }
+function codeDel(){ codeBuf=codeBuf.slice(0,-1); drawCode(); codeMsg(""); }
+(function(){
+  var K=document.getElementById("ckeys");
+  CODE_ALPHA.split("").forEach(function(c,i){ var b=el("button","ckey nav",c); b.setAttribute("data-fid","ck-"+c); b.onclick=function(){ codeType(c); }; K.appendChild(b); });
+  document.getElementById("cDel").onclick=codeDel;
+  document.getElementById("cClr").onclick=function(){ codeBuf=""; drawCode(); codeMsg(""); };
+  document.getElementById("cCancel").onclick=function(){ closeCodepad(); };
+  document.getElementById("cGo").onclick=function(){
+    if(codeBuf.length!==CODE_LEN){ codeMsg("The code has 8 characters – keep going!",true); return; }
+    var go=this; go.disabled=true;
+    runCode(codeBuf,function(t){ codeMsg(t,t!=="Unlocking…"); }).then(function(r){
+      go.disabled=false;
+      if(r.ok){ closeCodepad(true); }
+    });
+  };
+})();
+var codeReturn=null;
+function openCodepad(pre){ codeReturn=document.activeElement; codeBuf=normCode(pre); drawCode(); codeMsg(""); document.getElementById("codepad").className="layer show"; var f=document.querySelector('#ckeys .ckey'); if(f) f.focus(); }
+function closeCodepad(loaded){
+  document.getElementById("codepad").className="layer";
+  if(loaded){ document.getElementById("settings").className="layer"; bkDraft=null; S.view="week"; PAGE=null; render(); var s=document.querySelector(".task.todaycol:not(.done)")||document.querySelector("#board .nav"); if(s) s.focus(); return; }
+  if(document.getElementById("settings").className.indexOf("show")>=0) renderSettings();
+  if(codeReturn&&document.body.contains(codeReturn)) codeReturn.focus();
+}
+/* a second tab/screen (e.g. #rewards) follows ticks made on the main screen */
+window.addEventListener("storage",function(e){
+  if(e.key!==KEY||!e.newValue) return;
+  var N; try{ N=JSON.parse(e.newValue); }catch(x){ return; } if(!N||!N.kids) return;
+  var before={}; S.kids.forEach(function(k){ before[k.id]=weekPoints(k); });
+  N.view=S.view; N.done=N.done||{}; N.bonus=N.bonus||{}; N.history=N.history||[]; N.log=N.log||{}; N.bookings=N.bookings||[]; S=N;
+  if(anim) return;
+  var gained=null; if(S.view==="rewards") S.kids.forEach(function(k){ if(weekPoints(k)>(before[k.id]||0)) gained=k; });
+  if(gained) celebrate(gained,render); else render();
+});
 load(); applySetup(); render();
-var start=document.querySelector(".cell.todaycol.nav:not(.done)")||document.querySelector(".mday.today")||document.querySelector("#board .nav"); if(start) start.focus();
-window.__dojo={state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }};
+var start=document.querySelector(".task.todaycol:not(.done)")||document.querySelector(".mday.today")||document.querySelector("#board .nav")||document.querySelector("#rewards .nav"); if(start) start.focus();
+if(FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
+  setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
+}
+window.__dojo={state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
 })();
 </script>
 </body>
