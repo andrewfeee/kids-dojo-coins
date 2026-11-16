@@ -73,7 +73,7 @@ header h1 .coin-i{display:inline-block;width:2.6rem;height:2.6rem;border-radius:
 #board.many .slothd span{font-size:1.7rem}
 #board.many .lifetime{font-size:1.1rem}
 #board.many .bonus{font-size:1.15rem;padding:.35rem .8rem}
-.bkg{font-size:1.05rem;font-weight:bold;background:#4361ee;color:#fff;border-radius:.55rem;padding:.15rem .4rem;margin:0 0 .2rem;line-height:1.2;width:100%;box-shadow:0 .12rem 0 #2a3ea8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bkg{font-size:1.05rem;font-weight:bold;background:#4361ee;color:#fff;border-radius:.55rem;padding:.15rem .4rem;margin:0 0 .2rem;line-height:1.15;width:100%;box-shadow:0 .12rem 0 #2a3ea8;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;word-break:break-word;overflow-wrap:break-word;text-align:center}
 .cell.done .bkg{background:#4361ee;color:#fff;box-shadow:0 .12rem 0 #2a3ea8}
 .cell.hasbkg{justify-content:flex-start;padding-top:.3rem}
 #board.many .bkg{font-size:1.05rem;padding:.12rem .3rem;margin-bottom:.15rem}
@@ -221,14 +221,10 @@ function defaultTasks(offset){
 function newKid(i,name){
   return {id:"k"+Date.now().toString(36)+i, name:name, photo:null, avatarIdx:i%DEFAULT_AVATARS.length, colour:COLOURS[i%COLOURS.length], lifetime:0, tasks:defaultTasks(i)};
 }
-function defaultBookings(kids){
-  var pip=null; (kids||[]).forEach(function(k){ if(k.name==="Pip") pip=k; });
-  if(!pip) return [];
-  return [{id:"bseedtennis",title:"Tennis",time:"08:30",kid:pip.id,recur:"weekly",weekday:5,date:null}];
-}
+function defaultBookings(){ return []; }
 function freshState(){
   var kids=[newKid(0,"Charlie"),newKid(1,"Pip"),newKid(2,"Jack")];
-  return {v:2, kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:defaultBookings(kids)};
+  return {v:3, kids:kids, week:weekKey(), done:{}, bonus:{}, history:[], log:{}, view:"week", sound:true, autoReset:true, bookings:[]};
 }
 var S;
 function load(){
@@ -238,8 +234,9 @@ function load(){
   // upgrade old 2-kid default (Charlie + "Kid 2") to Charlie, Pip, Jack
   if(S.kids.length===2&&S.kids[1].name==="Kid 2"&&!S.kids[1].photo){ S.kids[1].name="Pip"; S.kids.push(newKid(2,"Jack")); save(); }
   if(!S.log){ S.log={}; migrateLog(); }
-  if(!S.bookings){ S.bookings=defaultBookings(S.kids); }
-  S.v=2; save();
+  if(!S.bookings){ S.bookings=[]; }
+  S.bookings=S.bookings.filter(function(b){ return b && b.id!=="bseedtennis"; });
+  S.v=3; save();
   checkWeek();
 }
 function save(){
@@ -277,7 +274,7 @@ function iconFor(t){
 }
 function bookingIcon(t){
   t=(t||"").toLowerCase();
-  var map=[["tennis","🎾"],["swim","🏊"],["pool","🏊"],["nippers","🏖️"],["surf","🏄"],["sail","⛵"],["footy","🏉"],["afl","🏉"],["soccer","⚽"],["football","⚽"],["rugby","🏉"],["cricket","🏏"],["netball","🏐"],["basketball","🏀"],["ballet","🩰"],["dance","💃"],["gymnast","🤸"],["karate","🥋"],["judo","🥋"],["taekwondo","🥋"],["piano","🎹"],["violin","🎻"],["guitar","🎸"],["choir","🎤"],["music","🎵"],["drama","🎭"],["art","🎨"],["athletics","🏃"],["running","🏃"],["doctor","🩺"],["dentist","🦷"],["hospital","🏥"],["haircut","✂️"],["party","🎉"],["birthday","🎂"],["church","⛪"],["scouts","🏕️"],["guides","🏕️"],["lesson","📘"],["tutor","📘"],["tuition","📘"],["training","🏅"],["practice","🏅"],["playdate","🧸"],["sleepover","🌙"],["appointment","📅"]];
+  var map=[["tennis","🎾"],["swim","🏊"],["pool","🏊"],["nippers","🏖️"],["surf","🏄"],["sail","⛵"],["footy","🏉"],["afl","🏉"],["soccer","⚽"],["football","⚽"],["rugby","🏉"],["cricket","🏏"],["netball","🏐"],["basketball","🏀"],["ballet","🩰"],["dance","💃"],["gymnast","🤸"],["karate","🥋"],["judo","🥋"],["taekwondo","🥋"],["piano","🎹"],["violin","🎻"],["strings","🎻"],["guitar","🎸"],["choir","🎤"],["music","🎵"],["drama","🎭"],["art","🎨"],["athletics","🏃"],["running","🏃"],["horse","🐴"],["riding","🐴"],["homework","📚"],["study","📚"],["doctor","🩺"],["dentist","🦷"],["hospital","🏥"],["haircut","✂️"],["party","🎉"],["birthday","🎂"],["church","⛪"],["scouts","🏕️"],["guides","🏕️"],["lesson","📘"],["tutor","📘"],["tuition","📘"],["training","🏅"],["practice","🏅"],["playdate","🧸"],["sleepover","🌙"],["appointment","📅"]];
   for(var i=0;i<map.length;i++) if(t.indexOf(map[i][0])>=0) return map[i][1];
   return "📅";
 }
@@ -288,10 +285,23 @@ function parseTime(s){
   return {h:h,min:min};
 }
 function padTime(s){ var t=parseTime(s); return ("0"+t.h).slice(-2)+":"+("0"+t.min).slice(-2); }
-function fmtTime(s){ var t=parseTime(s), h=t.h%12; if(!h) h=12; return h+":"+("0"+t.min).slice(-2); }
+function fmtClock(s, withPeriod){
+  var t=parseTime(s), h=t.h%12; if(!h) h=12;
+  var out=String(h);
+  if(t.min) out+=":"+("0"+t.min).slice(-2);
+  if(withPeriod) out+=(t.h<12?"am":"pm");
+  return out;
+}
+function fmtTime(s){ return fmtClock(s, true); }
+function fmtTimeRange(start, end){
+  if(!end) return fmtTime(start);
+  var a=parseTime(start), b=parseTime(end);
+  if((a.h<12)===(b.h<12)) return fmtClock(start, false)+"–"+fmtTime(end);
+  return fmtTime(start)+"–"+fmtTime(end);
+}
 function timeMinutes(s){ var t=parseTime(s); return t.h*60+t.min; }
 function isAmTime(s){ return timeMinutes(s)<12*60; }
-function bookingLabel(b){ return bookingIcon(b.title)+" "+(b.title||"Booking")+" "+fmtTime(b.time); }
+function bookingLabel(b){ return bookingIcon(b.title)+" "+(b.title||"Booking")+" "+fmtTimeRange(b.time, b.end); }
 function dateFromYmd(s){ var p=String(s||"").split("-"); return new Date(+p[0]||2000,(+p[1]||1)-1,+p[2]||1); }
 function weekdayOfYmd(s){ return (dateFromYmd(s).getDay()+6)%7; }
 function bookingsOn(kidId, dateStr){
@@ -797,7 +807,7 @@ function renderSettings(){
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v2. Weekly reset clears the ticks and this week\'s coin pile but keeps each kid\'s all-time total. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v3. Weekly reset clears the ticks and this week\'s coin pile but keeps each kid\'s all-time total. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -819,8 +829,8 @@ function renderSettings(){
   if($("sRemove")) $("sRemove").onclick=function(){ confirmBox("Remove "+esc(k.name)+" and their coins?",[["Remove","red",function(){ S.kids.splice(selKid,1); delete S.done[k.id]; delete S.bonus[k.id]; S.history=S.history.filter(function(x){return x.kid!==k.id;}); S.bookings=(S.bookings||[]).filter(function(b){return b.kid!==k.id;}); selKid=0; save(); renderSettings(); }],["Cancel","green",null]]); };
   function bumpTime(mins){ var t=timeMinutes(bkDraft.time)+mins; t=((t%1440)+1440)%1440; bkDraft.time=("0"+Math.floor(t/60)).slice(-2)+":"+("0"+(t%60)).slice(-2); renderSettings(); }
   function shiftDate(days){ var d=dateFromYmd(bkDraft.date||ymd(new Date())); d.setDate(d.getDate()+days); bkDraft.date=ymd(d); renderSettings(); }
-  if($("bkAdd")) $("bkAdd").onclick=function(){ bkDraft={id:null,title:"",time:"08:30",kid:S.kids[selKid].id,recur:"weekly",weekday:5,date:ymd(new Date())}; renderSettings(); var t=$("bkTitle"); if(t) t.focus(); };
-  [].forEach.call(box.querySelectorAll("[data-bk-ed]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-bk-ed"), src=null; (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; }); if(!src) return; bkDraft={id:src.id,title:src.title,time:padTime(src.time),kid:src.kid,recur:src.recur,weekday:src.weekday,date:src.date||ymd(new Date())}; renderSettings(); }; });
+  if($("bkAdd")) $("bkAdd").onclick=function(){ bkDraft={id:null,title:"",time:"08:30",end:null,kid:S.kids[selKid].id,recur:"weekly",weekday:5,date:ymd(new Date())}; renderSettings(); var t=$("bkTitle"); if(t) t.focus(); };
+  [].forEach.call(box.querySelectorAll("[data-bk-ed]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-bk-ed"), src=null; (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; }); if(!src) return; bkDraft={id:src.id,title:src.title,time:padTime(src.time),end:src.end||null,kid:src.kid,recur:src.recur,weekday:src.weekday,date:src.date||ymd(new Date())}; renderSettings(); }; });
   [].forEach.call(box.querySelectorAll("[data-bk-rm]"),function(btn){ btn.onclick=function(){ var id=btn.getAttribute("data-bk-rm"), src=null; (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; }); if(!src) return; confirmBox("Delete “"+esc(src.title)+"”?",[["Delete","red",function(){ S.bookings=S.bookings.filter(function(x){return x.id!==id;}); save(); renderSettings(); toast("Booking deleted"); }],["Cancel","green",null]]); }; });
   if($("bkTitle")) $("bkTitle").oninput=function(){ bkDraft.title=this.value; };
   if($("bkHdown")) $("bkHdown").onclick=function(){ bumpTime(-60); };
@@ -837,7 +847,7 @@ function renderSettings(){
   if($("bkSave")) $("bkSave").onclick=function(){
     var title=(bkDraft.title||"").trim();
     if(!title){ toast("Type a title for the booking"); var t=$("bkTitle"); if(t) t.focus(); return; }
-    var rec={id:bkDraft.id||("b"+Date.now().toString(36)), title:title, time:padTime(bkDraft.time), kid:bkDraft.kid, recur:bkDraft.recur==="weekly"?"weekly":"once", weekday:bkDraft.recur==="weekly"?(bkDraft.weekday==null?5:+bkDraft.weekday):null, date:bkDraft.recur==="weekly"?null:(bkDraft.date||ymd(new Date()))};
+    var rec={id:bkDraft.id||("b"+Date.now().toString(36)), title:title, time:padTime(bkDraft.time), kid:bkDraft.kid, recur:bkDraft.recur==="weekly"?"weekly":"once", weekday:bkDraft.recur==="weekly"?(bkDraft.weekday==null?5:+bkDraft.weekday):null, date:bkDraft.recur==="weekly"?null:(bkDraft.date||ymd(new Date()))}; if(bkDraft.end) rec.end=padTime(bkDraft.end);
     S.bookings=S.bookings||[];
     var found=false;
     for(var i=0;i<S.bookings.length;i++) if(S.bookings[i].id===rec.id){ S.bookings[i]=rec; found=true; break; }
@@ -900,15 +910,85 @@ try{ if(window.tizen&&tizen.tvinputdevice){ ["MediaPlayPause","ColorF0Red","Colo
 var rt; window.addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(render,150); });
 setInterval(function(){ var wk=S.week; checkWeek(); if(S.week!==wk&&!anim) render(); },60000);
 
-/* private photo setup link: index.html#setup=Charlie~<base64 jpeg>[|Kid 2~<base64>]
-   The hash never leaves the device (browsers don't send it to the server); the photo is saved to this device's storage only. */
+/* private setup link: index.html#setup=Charlie~<base64 jpeg>[|Kid 2~<base64>][|bookings~<base64 json>]
+   The hash never leaves the device (browsers don't send it to the server); photos and bookings are saved to this device's storage only. */
+function kidIdForSetup(who){
+  var w=String(who||"").trim().toLowerCase();
+  if(!w||w==="all"||w==="family"||w==="whole family") return "all";
+  if(w==="pippa") w="pip";
+  var found=null;
+  (S.kids||[]).forEach(function(k){
+    var n=String(k.name||"").trim().toLowerCase();
+    if(n==="pippa") n="pip";
+    if(n===w) found=k;
+  });
+  return found?found.id:null;
+}
+function sameBooking(a,b){
+  if(!a||!b) return false;
+  if(a.id&&b.id&&a.id===b.id) return true;
+  return (a.title||"")===(b.title||"")
+    && padTime(a.time)===padTime(b.time)
+    && a.kid===b.kid
+    && (a.recur||"once")===(b.recur||"once")
+    && (a.recur==="weekly"? +a.weekday===+b.weekday : a.date===b.date);
+}
+function bookingFromSetup(src){
+  var kid=kidIdForSetup(src.who!=null?src.who:src.kid);
+  if(!kid) return null;
+  var rec={
+    id:src.id,
+    title:src.title,
+    time:padTime(src.time),
+    kid:kid,
+    recur:src.recur==="weekly"?"weekly":"once",
+    weekday:src.recur==="weekly"?(src.weekday==null?5:+src.weekday):null,
+    date:src.recur==="weekly"?null:(src.date||null)
+  };
+  if(src.end) rec.end=padTime(src.end);
+  return rec;
+}
+function mergeSetupBookings(extra){
+  S.bookings=S.bookings||[];
+  var list=extra||[], changed=false;
+  list.forEach(function(src){
+    var rec=bookingFromSetup(src); if(!rec||!rec.id) return;
+    var i, found=false;
+    for(i=0;i<S.bookings.length;i++){
+      if(sameBooking(S.bookings[i],rec)){
+        rec.id=rec.id||S.bookings[i].id;
+        S.bookings[i]=rec;
+        found=true; changed=true; break;
+      }
+    }
+    if(!found){ S.bookings.push(rec); changed=true; }
+  });
+  return changed;
+}
+function bookingsFromHash(h){
+  var out=[];
+  h=h||""; if(h.indexOf("#setup=")!==0) return out;
+  try{
+    decodeURIComponent(h.slice(7)).split("|").forEach(function(part){
+      var i=part.indexOf("~"); if(i<1) return;
+      if(part.slice(0,i).trim().toLowerCase()!=="bookings") return;
+      var b64=part.slice(i+1).replace(/\s/g,"").replace(/-/g,"+").replace(/_/g,"/");
+      var data=JSON.parse(atob(b64));
+      if(Array.isArray(data)) out=out.concat(data);
+    });
+  }catch(e){}
+  return out;
+}
 function applySetup(){
   var h=location.hash||""; if(h.indexOf("#setup=")!==0) return;
+  var extra=bookingsFromHash(h);
   var done=[];
   try{
     decodeURIComponent(h.slice(7)).split("|").forEach(function(part){
       var i=part.indexOf("~"); if(i<1) return;
-      var name=part.slice(0,i).trim(), b64=part.slice(i+1).replace(/\s/g,""); if(!/^[A-Za-z0-9+\/=_-]+$/.test(b64)) return;
+      var name=part.slice(0,i).trim();
+      if(name.toLowerCase()==="bookings") return;
+      var b64=part.slice(i+1).replace(/\s/g,""); if(!/^[A-Za-z0-9+\/=_-]+$/.test(b64)) return;
       b64=b64.replace(/-/g,"+").replace(/_/g,"/");
       var k=null; S.kids.forEach(function(x){ if(x.name.toLowerCase()===name.toLowerCase()) k=x; });
       if(!k&&/^\d+$/.test(name)) k=S.kids[+name-1]||null;
@@ -917,7 +997,14 @@ function applySetup(){
     });
   }catch(e){}
   try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){ location.hash=""; }
-  if(done.length){ save(); setTimeout(function(){ toast("Photo saved on this device for "+done.join(" & ")); },300); }
+  var bkChanged=mergeSetupBookings(extra);
+  if(done.length||bkChanged){
+    save();
+    var msg=[];
+    if(done.length) msg.push("Photo saved on this device for "+done.join(" & "));
+    if(bkChanged) msg.push("Bookings saved on this device");
+    setTimeout(function(){ toast(msg.join(". ")); },300);
+  }
 }
 load(); applySetup(); render();
 var start=document.querySelector(".cell.todaycol.nav:not(.done)")||document.querySelector(".mday.today")||document.querySelector("#board .nav"); if(start) start.focus();

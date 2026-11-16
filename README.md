@@ -3,14 +3,14 @@
 A single file (`index.html`, about 117 KB). Everything is inside it: the app, the art, the sounds and both default photos. It works offline, needs no build step, and saves to the browser's localStorage.
 
 ## What it does
-- Weekly board, Monday to Sunday, with a Morning ☀️ and an Afternoon 🌙 job for each kid each day. Today's column is highlighted. Bookings (for example 🎾 Tennis 8:30) also show in the morning or afternoon cell, sorted by time. Times before 12:00 are morning; 12:00 and later are afternoon. Bookings are not ticked and do not earn coins.
+- Weekly board, Monday to Sunday, with a Morning ☀️ and an Afternoon 🌙 job for each kid each day. Today's column is highlighted. Bookings (for example 🎾 Tennis 8:30–9:30am) also show in the morning or afternoon cell, sorted by time, with am/pm. Long titles wrap onto a second line in the week cell. Times before 12:00 are morning; 12:00 and later are afternoon. Bookings are not ticked and do not earn coins.
 - Tick a job (OK/Enter on the remote, or tap) to earn 1 coin. That plays the celebration: the kid's face on a little runner jumps, hits a ? block, a coin pops out, flies over and lands on their coin pile, then confetti and a "Super star, Charlie!" banner. Press OK or Back to skip it.
 - Each kid's coins for the week show as a growing pile with a number, plus an 🏆 all-time total.
 - **+1 Bonus** gives a coin for anything that isn't on the board.
 - **Undo** reverses the last coin. Choosing a job that's already ticked asks whether to untick it.
 - **Kids:** Charlie, Pip and Jack by default, with a compact layout so all three fit on a 1080p screen.
 - **Week view always opens first.** **Month** is a secondary button: the month view is a Mon–Sun grid with today highlighted. Each day shows a dot for each kid with ☀/☾ ticks for the morning and afternoon jobs plus the coins earned that day, and a 📅 mark if that day has bookings. Use ‹ Prev / Next › / Today to move between months. Choose a day to see its jobs and bookings; this week's jobs can be ticked or unticked from there. History is kept in a date log, so past months stay visible after the weekly reset.
-- **Settings** (⚙): kid names, photo upload, colour, jobs for each day and slot, reset to example jobs, copy jobs to the other kids, add or remove kids (up to 4), bookings (one-off on a date, or weekly on a weekday, for one kid or the whole family), sound on/off, auto-reset each Monday (on by default), start a fresh week now (all-time totals are kept), erase everything. An example weekly Saturday 8:30 tennis booking for Pip is included to start with.
+- **Settings** (⚙): kid names, photo upload, colour, jobs for each day and slot, reset to example jobs, copy jobs to the other kids, add or remove kids (up to 4), bookings (one-off on a date, or weekly on a weekday, for one kid or the whole family), sound on/off, auto-reset each Monday (on by default), start a fresh week now (all-time totals are kept), erase everything.
 - Remote controls: arrow keys move between the big buttons, OK selects, and Back (Samsung key 10009) or Esc closes settings and pop-ups.
 
 ## Getting it onto the Samsung TV (simplest first)
@@ -33,11 +33,11 @@ All the art (character, block, coins, scenery) and the sounds (WebAudio synth ch
 ## Using a real photo without publishing it
 The public app only ever contains the stock photos. To put a real photo on a device:
 - **Phone/laptop:** go to Settings → Choose photo.
-- **Setup link:** opening `…/index.html#setup=Charlie~<base64 jpeg>` saves that photo into that device's browser storage, then removes it from the address bar. The part after `#` is never sent to the web server.
+- **Setup link:** opening `…/index.html#setup=Charlie~<base64 jpeg>` (optionally with `|bookings~<base64 json>`) saves those photos and bookings into that device's browser storage, then removes them from the address bar. The part after `#` is never sent to the web server.
 - `cd private && python3 make_private.py Jack=photos/jack.png [Charlie=photos/charlie.jpg] [Pip=photos/pip.jpg]` (git-ignored, never published) creates:
   - `private/<name>.jpg` face crops
   - `private/index-private.html`, with the real photos embedded and stock photos for any kid not given
-  - `private/setup.html` and `private/setup-link.txt`, one link that sets all the given photos at once
+  - `private/setup.html` and `private/setup-link.txt`, one link that sets all the given photos (and any private bookings) at once
 - **To get the photos onto the TV:** on a home computer, run `python3 -m http.server 8080` inside `private/`. On the TV, open `http://<computer-ip>:8080/setup.html` once.
 
 ## Limitations
