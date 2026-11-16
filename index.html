@@ -228,9 +228,11 @@ header h1{font-size:2.6rem!important}
 
 /* running animals: a small animal wanders a maze along the margins and gaps between board cells. On any stretch where it would
    touch a job, booking, label or button it ducks BEHIND the board (z-index under #app), so it never covers them */
-#critter{position:fixed;left:0;top:0;width:42px;height:32px;z-index:3;pointer-events:none;display:none;will-change:transform;transition-property:transform;transition-timing-function:linear}
+#critter{position:fixed;left:0;top:0;width:42px;height:32px;z-index:40;pointer-events:none;display:none;will-change:transform;transition-property:transform;transition-timing-function:linear}
 #critter.on{display:block}
-#critter.under{z-index:0} /* inside a "wall": goes behind the board so it never covers a job, booking or button */
+/* v4.3: animals and riders run IN FRONT of everything on the page (z 40), under only the full-screen layers (modal, Settings, keypad: z 50).
+   pointer-events:none so clicks, D-pad focus and the focus ring are never blocked; it fades while crossing the focused job. */
+#critter{transition-property:transform,opacity}#critter.near{opacity:.45}
 #critter .cIn{width:100%;height:100%;transition:transform .15s}
 #critter.left .cIn{transform:scaleX(-1)}
 #critter svg{width:100%;height:100%;display:block;overflow:visible}
@@ -243,6 +245,23 @@ header h1{font-size:2.6rem!important}
 @keyframes legB{0%{visibility:hidden}50%{visibility:visible}}
 @keyframes bob{0%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
 @keyframes sniff{0%,100%{transform:rotate(0)}50%{transform:rotate(9deg) translateY(1.5px)}}
+/* RIDERS-CSS-BEGIN */
+#critter.rider{width:80px;height:34px}
+#critter .hd{animation:wobble .9s ease-in-out infinite}
+#critter .wh{animation:spin .35s linear infinite}
+#critter .bk{animation:bounce .3s ease-in-out infinite}
+#critter .pt{opacity:0;transform-box:fill-box;transform-origin:center}
+#critter.moving .dirt .pt{animation:dirt 1s linear infinite}
+#critter.moving .dust .pt{animation:dust 1.3s ease-out infinite}
+#critter:not(.moving) .wh,#critter:not(.moving) .bk{animation-play-state:paused}
+@keyframes wobble{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2px)}}
+@keyframes dirt{0%{opacity:1;transform:translate(0,0) scale(.6)}60%{opacity:.75}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5)}}
+@keyframes dust{0%{opacity:.95;transform:translate(0,0) scale(.5)}55%{opacity:.7}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(2.2)}}
+/* RIDERS-CSS-END */
+#critter .hf{transform-box:fill-box;transform-origin:center}
+#critter.left .hf{transform:scaleX(-1)}
 @media (prefers-reduced-motion:reduce){#critter{display:none!important}}
 
 
@@ -977,11 +996,12 @@ function renderSettings(){
   h+='<h3>App</h3><div class="card"><div class="row">';
   h+='<button class="btn nav" data-fid="snd" id="sSound">🔊 Sound: '+(S.sound?"On":"Off")+'</button>';
   h+='<button class="btn nav" data-fid="animals" id="sAnimals">🐄 Running animals: '+(S.animals!==false?"On":"Off")+'</button>';
+  h+='<button class="btn nav" data-fid="riders" id="sRiders">🏍️ Kid riders: '+(S.riders!==false?"On":"Off")+'</button>';
   h+='<button class="btn nav" data-fid="auto" id="sAuto">📅 New week auto-reset: '+(S.autoReset?"On":"Off")+'</button>';
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v4.2. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4.3. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -1002,6 +1022,7 @@ function renderSettings(){
   if($("sCopy")) $("sCopy").onclick=function(){ S.kids.forEach(function(o){ if(o!==k) o.tasks=JSON.parse(JSON.stringify(k.tasks)); }); save(); toast("Jobs copied"); };
   $("sSound").onclick=function(){ S.sound=!S.sound; save(); renderSettings(); if(S.sound) sfxCoin(); };
   $("sAnimals").onclick=function(){ S.animals=(S.animals===false); save(); applyAnimals(); renderSettings(); };
+  $("sRiders").onclick=function(){ S.riders=(S.riders===false); save(); if(critJ&&critJ.kid&&S.riders===false){ critStop(); critSchedule(false); } renderSettings(); };
   $("sAuto").onclick=function(){ S.autoReset=!S.autoReset; save(); renderSettings(); };
   $("sResetWk").onclick=function(){ confirmBox("Start a fresh week?<br><span style='font-size:.7em;font-weight:normal'>Clears this week's ticks and coin piles. All-time totals are kept.</span>",[["Yes, fresh week","orange",function(){ S.done={}; S.bonus={}; S.history=[]; S.week=weekKey(); for(var d=0;d<7;d++) delete S.log[dateOfIdx(d)]; save(); toast("Fresh week started!"); }],["Cancel","green",null]]); };
   $("sResetAll").onclick=function(){ confirmBox("Erase ALL data, names, photos and totals?",[["Erase","red",function(){ S=freshState(); selKid=0; save(); renderSettings(); toast("Everything reset"); }],["Cancel","green",null]]); };
@@ -1447,6 +1468,68 @@ function animalSVG(a){
   }
   return s+'</svg>';
 }
+/* RIDERS-BEGIN: kid riders (v4.3). Bobblehead = the kid's own stored photo (S.kids[].photo, only present after the private .bin is
+   unlocked on this device), else a drawn cartoon face with their initial. Inline SVG + CSS animation only, no focus. */
+var riderUid=0;
+function riderHead(k,cx,cy,r,uid){
+  var col=(k&&k.colour)||"#3a86ff", ini=esc(((k&&k.name)||"?").charAt(0).toUpperCase()), s='<g class="hd" style="transform-origin:'+cx+'px '+(cy+r)+'px"><g class="hf">';
+  if(k&&k.photo){
+    s+='<clipPath id="rh'+uid+'"><circle cx="'+cx+'" cy="'+cy+'" r="'+r+'"/></clipPath>'
+      +'<circle cx="'+cx+'" cy="'+cy+'" r="'+(r+1.6)+'" fill="#fff"/>'
+      +'<image href="'+k.photo+'" x="'+(cx-r)+'" y="'+(cy-r)+'" width="'+(2*r)+'" height="'+(2*r)+'" preserveAspectRatio="xMidYMid slice" clip-path="url(#rh'+uid+')"/>'
+      +'<circle cx="'+cx+'" cy="'+cy+'" r="'+(r+0.8)+'" fill="none" stroke="'+col+'" stroke-width="1.6"/>';
+  } else {
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#ffd8b0" stroke="#7a4a26" stroke-width="1"/>'
+      +'<path d="M'+(cx-r)+' '+(cy-1)+' A'+r+' '+r+' 0 0 1 '+(cx+r)+' '+(cy-1)+' L'+(cx+r+2.5)+' '+(cy+0.5)+' L'+(cx-r)+' '+(cy+0.5)+'z" fill="'+col+'" stroke="#1d1b4b" stroke-width=".8"/>'
+      +'<text x="'+cx+'" y="'+(cy-r*0.25)+'" font-size="'+(r*0.95)+'" font-family="Arial,sans-serif" font-weight="bold" text-anchor="middle" fill="#fff" stroke="#1d1b4b" stroke-width=".5">'+ini+'</text>'
+      +'<circle cx="'+(cx-r*0.35)+'" cy="'+(cy+r*0.35)+'" r="1.3" fill="#222"/><circle cx="'+(cx+r*0.4)+'" cy="'+(cy+r*0.35)+'" r="1.3" fill="#222"/>'
+      +'<path d="M'+(cx-r*0.35)+' '+(cy+r*0.62)+' q'+(r*0.4)+' '+(r*0.32)+' '+(r*0.8)+' 0" stroke="#8a2a2a" stroke-width="1.1" fill="none" stroke-linecap="round"/>'
+      +'<circle cx="'+(cx-r*0.62)+'" cy="'+(cy+r*0.55)+'" r="1.6" fill="#f59a9a" opacity=".6"/><circle cx="'+(cx+r*0.68)+'" cy="'+(cy+r*0.55)+'" r="1.6" fill="#f59a9a" opacity=".6"/>';
+  }
+  return s+'</g></g>';
+}
+function riderTrail(dust){ // a long stream of particles kicked back from the wheels/hooves, growing and fading (CSS keyframes, staggered delays)
+  var s='<g class="'+(dust?"dust":"dirt")+'">', n=dust?14:16, dur=dust?1.3:1.0;
+  for(var i=0;i<n;i++){ var j=(i*37)%n/n, y=dust?(42-j*5):(44-j*3), r=dust?(3.2+j*2.6):(1.8+j*1.6), dx=-(34+j*20), dy=dust?-(5+j*12):-(2+j*9);
+    s+='<circle class="pt" cx="'+(dust?22:27)+'" cy="'+y.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+(dust?["#e6d6b3","#f1e6cf","#d9c49a"][i%3]:["#6e3f1b","#8b5a2b","#a8743f","#5a3214"][i%4])+'" style="--dx:'+dx.toFixed(0)+'px;--dy:'+dy.toFixed(0)+'px;animation-delay:-'+(i*dur/n).toFixed(2)+'s"/>'; }
+  return s+'</g>';
+}
+function riderSVG(kind,k){
+  var uid=++riderUid, col=(k&&k.colour)||"#3a86ff", dark=shade(col,-0.3), ini=esc(((k&&k.name)||"?").charAt(0).toUpperCase());
+  var s='<svg viewBox="-34 -1 114 49" aria-hidden="true" focusable="false">';
+  if(kind==="bike"){
+    var wheel=function(cx){ return '<circle cx="'+cx+'" cy="39" r="7.5" fill="#2b2b2b"/><circle cx="'+cx+'" cy="39" r="4.6" fill="#9aa3ad"/>'
+      +'<g class="wh" style="transform-origin:'+cx+'px 39px"><path d="M'+(cx-4.4)+' 39h8.8M'+cx+' 34.6v8.8M'+(cx-3.1)+' 35.9l6.2 6.2M'+(cx+3.1)+' 35.9l-6.2 6.2" stroke="#2b2b2b" stroke-width="1"/></g><circle cx="'+cx+'" cy="39" r="1.3" fill="#2b2b2b"/>'; };
+    s+=riderTrail(false)+'<g class="bk">'+wheel(33)+wheel(64)
+      +'<path d="M33 39 L42 30 L57 29 L64 39" stroke="#555" stroke-width="2.2" fill="none" stroke-linejoin="round"/>'
+      +'<path d="M38 29 Q46 23 58 25 L60 30 L40 32z" fill="'+col+'" stroke="'+dark+'" stroke-width="1"/>'
+      +'<path d="M28 33 Q31 28 38 29 L37 31 Q32 31 30 34z" fill="'+col+'" stroke="'+dark+'" stroke-width=".8"/>'
+      +'<path d="M60 31 Q66 28 70 33" stroke="'+col+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+      +'<path d="M58 25 L61 18 L65 17" stroke="#333" stroke-width="1.8" fill="none" stroke-linecap="round"/>'
+      +'<g class="hf"><rect x="61.5" y="21.5" width="7" height="6" rx="1.5" fill="#fff" stroke="#333" stroke-width=".7"/><text x="65" y="26.4" font-size="5" font-family="Arial" font-weight="bold" text-anchor="middle" fill="#1d1b4b">'+ini+'</text></g>'
+      +'<rect x="40" y="31" width="9" height="4" rx="1" fill="#777"/>'
+      +'<path d="M46 25 L51 32 L47 36" stroke="#1d3557" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+      +'<path d="M46 25 L50 16" stroke="'+dark+'" stroke-width="5" stroke-linecap="round"/>'
+      +'<path d="M50 18 L58 20 L63 18" stroke="'+dark+'" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+      +riderHead(k,51,10.5,10,uid)+'</g>';
+  } else { // pony: galloping legs, rider on top, dust behind
+    s+=riderTrail(true)+'<g transform="translate(14,4)">'+legs4([15,20,41,46],28,14,"#7a4a26",4)+'</g><g class="bd"><g transform="translate(14,4)">'
+      +'<path d="M10 20 Q2 24 5 36 Q9 28 12 24z" fill="#2a1a10"/>'
+      +'<ellipse cx="29" cy="24" rx="19" ry="8" fill="#9a5c2e"/>'
+      +'<path d="M42 21 L50 8 L58 10 L56 16 L50 16 L47 26z" fill="#9a5c2e"/><path d="M42 20 L49 7 L46 6 L39 18z" fill="#2a1a10"/>'
+      +'<path d="M51 8 l1 -4 l2 4z" fill="#9a5c2e"/><circle cx="53" cy="11" r="1.1" fill="#222"/><circle cx="57" cy="14" r=".7" fill="#222"/>'
+      +'<path d="M22 16 Q29 13 35 16 L34 20 L23 20z" fill="'+col+'" stroke="'+dark+'" stroke-width=".8"/>'
+      +'<path d="M52 13 L38 18" stroke="#5a2d14" stroke-width=".8"/></g>'
+      +'<path d="M40 21 L43 29 L40 33" stroke="#1d3557" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+      +'<path d="M39 22 L40 15" stroke="'+dark+'" stroke-width="5" stroke-linecap="round"/>'
+      +'<path d="M40 17 L47 20 L52 18" stroke="'+dark+'" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+      +riderHead(k,39,10.5,10,uid)+'</g>';
+  }
+  return s+'</svg>';
+}
+/* RIDERS-END */
+function riderKind(k){ return /^pip\b/i.test((k&&k.name)||"")?"horse":"bike"; } // Pip rides her horse; Charlie, Jack (and anyone else) ride dirt bikes
+var riderIdx=Math.floor(Math.random()*3), castRider=Math.random()<0.5;
 /* the animal's maze: corridors are the page margins and the gaps between board cells; it runs BEHIND #app */
 var critT=null, critJ=null;
 function critEl(){ return document.getElementById("critter"); }
@@ -1474,21 +1557,24 @@ function critNbrs(g,n){ var o=[], xi=n[0], yi=n[1], outer=(xi===0||xi===g.X.leng
   if(xi>0) o.push([xi-1,yi]); if(xi<g.X.length-1) o.push([xi+1,yi]);
   if(yi>0&&(yi>1||outer)) o.push([xi,yi-1]); if(yi<g.Y.length-1&&(yi>0||outer)) o.push([xi,yi+1]); // across the header only at the screen edges
   return o; }
-function critGo(force){
+function critGo(force,who){
   critStop();
   if(S.animals===false||critReduced()){ return; }
   if(!force&&(document.hidden||anim||S.view!=="week"||isShown("settings")||isShown("modal")||isShown("codepad"))){ critSchedule(false); return; }
   var g=critGraph(); if(!g){ critSchedule(false); return; }
-  var c=critEl(), a=ANIMALS[animalIdx%ANIMALS.length]; animalIdx=(animalIdx+1)%ANIMALS.length;
-  c.querySelector(".cIn").innerHTML=animalSVG(a); c.setAttribute("data-animal",a);
+  // the cast takes turns: a farm animal, then a kid rider (when Kid riders is on), then an animal...
+  var c=critEl(), rk=null, a;
+  if(who!=="animal"&&S.kids.length&&S.riders!==false&&(who==="rider"||castRider)){ rk=S.kids[riderIdx%S.kids.length]; riderIdx=(riderIdx+1)%S.kids.length; a="rider-"+riderKind(rk); castRider=false; }
+  else { a=ANIMALS[animalIdx%ANIMALS.length]; animalIdx=(animalIdx+1)%ANIMALS.length; castRider=true; }
+  c.querySelector(".cIn").innerHTML=rk?riderSVG(riderKind(rk),rk):animalSVG(a); c.setAttribute("data-animal",a); c.setAttribute("data-kid",rk?rk.id:"");
   var nx=g.X.length-1, ny=g.Y.length-1, corners=[[0,0],[nx,0],[0,ny],[nx,ny]];
   var si=Math.floor(Math.random()*4), ei=Math.random()<0.75?3-si:(si+1+Math.floor(Math.random()*3))%4, cur=corners[si].slice(), goal=corners[ei];
-  var prev=null, steps=0, speed=a==="chook"?170:a==="horse"?190:140, w=42, hh=32;
-  function pos(n){ return [g.X[n[0]]-w/2, g.Y[n[1]]-hh/2]; }
+  var prev=null, steps=0, speed=a==="rider-bike"?210:a==="chook"?170:(a==="horse"||a==="rider-horse")?190:140, w=rk?80:42, hh=rk?34:32, rc=rk?" rider":"";
+  function pos(n){ var x=g.X[n[0]]-w/2; if(rk) x=Math.max(2,Math.min(window.innerWidth-w-2,x)); return [x, g.Y[n[1]]-hh/2]; }
   function place(n,dur){ var p=pos(n); c.style.transitionDuration=(dur||0)+"s"; c.style.transform="translate3d("+p[0].toFixed(1)+"px,"+p[1].toFixed(1)+"px,0)"; }
   function d(n){ return Math.abs(n[0]-goal[0])+Math.abs(n[1]-goal[1]); }
-  critJ={t:null,animal:a,from:si,to:ei,path:[cur.slice()]};
-  c.className="on"+(critHits(g,pos(cur)[0],pos(cur)[1],pos(cur)[0],pos(cur)[1],w,hh)?" under":""); place(cur,0); void c.offsetWidth;
+  critJ={t:null,animal:a,kid:rk?rk.name:null,w:w,h:hh,from:si,to:ei,path:[cur.slice()]};
+  c.className="on"+rc+(critHits(g,pos(cur)[0],pos(cur)[1],pos(cur)[0],pos(cur)[1],w,hh)?" under":""); place(cur,0); void c.offsetWidth;
   var J=critJ, backTo=null;
   function pick(list){ var ws=list.map(function(n){ var a=pos(cur), b=pos(n); return critHits(g,a[0],a[1],b[0],b[1],w,hh)?1:4; }), t=0, i; ws.forEach(function(x){ t+=x; }); var r=Math.random()*t; for(i=0;i<list.length;i++){ r-=ws[i]; if(r<=0) return list[i]; } return list[list.length-1]; }
   function next(){
@@ -1504,7 +1590,9 @@ function critGo(force){
     }
     var p0=pos(cur), p1=pos(to), dist=Math.abs(p1[0]-p0[0])+Math.abs(p1[1]-p0[1]);
     if(p1[0]<p0[0]-1) c.classList.add("left"); else if(p1[0]>p0[0]+1) c.classList.remove("left");
-    var under=critHits(g,p0[0],p0[1],p1[0],p1[1],w,hh); c.classList.toggle("under",under); J.under=(J.under||0)+(under?1:0); J.over=(J.over||0)+(under?0:1);
+    var under=critHits(g,p0[0],p0[1],p1[0],p1[1],w,hh); c.classList.toggle("under",under);
+    var fe=document.activeElement, fr=fe&&fe!==document.body&&fe.getBoundingClientRect?fe.getBoundingClientRect():null;
+    c.classList.toggle("near",!!(fr&&fr.width&&critHits({obs:[{left:fr.left-6,right:fr.right+6,top:fr.top-6,bottom:fr.bottom+6}]},p0[0],p0[1],p1[0],p1[1],w,hh))); J.under=(J.under||0)+(under?1:0); J.over=(J.over||0)+(under?0:1);
     c.classList.remove("sniff"); c.classList.add("moving");
     place(to,Math.max(0.2,dist/speed)); prev=cur; cur=to; steps++; J.path.push(cur.slice());
     J.t=setTimeout(arrive,Math.max(200,dist/speed*1000)+30);
@@ -1561,6 +1649,9 @@ function bookingFromSetup(src){
   if(src.end) rec.end=padTime(src.end);
   return rec;
 }
+/* bookings that came from a TV code (ids "bpriv-…") belong to that code: when it is reloaded, ones no longer in it are removed */
+function pruneCodeBookings(list){ var keep={}; (list||[]).forEach(function(b){ if(b&&b.id) keep[b.id]=1; });
+  var before=(S.bookings||[]).length; S.bookings=(S.bookings||[]).filter(function(b){ return !(b&&b.id&&/^bpriv-/.test(b.id)&&!keep[b.id]); }); return before-S.bookings.length; }
 function mergeSetupBookings(extra){
   S.bookings=S.bookings||[];
   var list=extra||[], changed=false;
@@ -1656,7 +1747,7 @@ function applyPayload(p,code){
     if(k&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(ph[name])){ k.photo=ph[name]; photos.push(k.name); }
   });
   var before=(S.bookings||[]).length;
-  if(p&&Array.isArray(p.bookings)){ mergeSetupBookings(p.bookings); n=p.bookings.length; }
+  if(p&&Array.isArray(p.bookings)){ pruneCodeBookings(p.bookings); mergeSetupBookings(p.bookings); n=p.bookings.length; }
   S.tvCode=normCode(code); save();
   return (photos.length?"Photos for "+photos.join(" & ")+". ":"")+(n?n+" bookings loaded.":"");
 }
@@ -1714,7 +1805,7 @@ var start=document.querySelector(".task.todaycol:not(.done)")||document.querySel
 if(FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
   setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
 }
-window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i){ if(i!=null) animalIdx=i; critGo(true); return critJ; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
+window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i){ if(i!=null) animalIdx=i; critGo(true,"animal"); return critJ; }, riderNow:function(i){ if(i!=null) riderIdx=i; critGo(true,"rider"); return critJ; }, castNext:function(){ critGo(true); return critJ; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
 })();
 </script>
 </body>
