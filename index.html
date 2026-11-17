@@ -260,6 +260,18 @@ header h1{font-size:2.6rem!important}
 @keyframes dirt{0%{opacity:1;transform:translate(0,0) scale(.6)}60%{opacity:.75}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5)}}
 @keyframes dust{0%{opacity:.95;transform:translate(0,0) scale(.5)}55%{opacity:.7}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(2.2)}}
 /* RIDERS-CSS-END */
+/* v4.4: large brick-arch portals, hung off the extreme screen corners so only the
+   mouth shows. The opening is tall enough for every animal and rider (with helmet) plus
+   headroom. Back (dark mouth) under the runner, front lip over it. */
+#tunTL-back,#tunBR-back,#tunTL-front,#tunBR-front{
+  position:fixed;left:0;top:0;width:132px;height:106px;pointer-events:none;display:none;
+}
+#tunTL-back.on,#tunBR-back.on,#tunTL-front.on,#tunBR-front.on{display:block}
+#tunTL-back,#tunBR-back{z-index:39}
+#tunTL-front,#tunBR-front{z-index:41}
+#tunTL-back svg,#tunBR-back svg,#tunTL-front svg,#tunBR-front svg{width:100%;height:100%;display:block;overflow:visible}
+@media (prefers-reduced-motion:reduce){#tunTL-back,#tunBR-back,#tunTL-front,#tunBR-front{display:none!important}}
+
 #critter .hf{transform-box:fill-box;transform-origin:center}
 #critter.left .hf{transform:scaleX(-1)}
 @media (prefers-reduced-motion:reduce){#critter{display:none!important}}
@@ -336,6 +348,11 @@ header h1{font-size:2.6rem!important}
 <div class="layer" id="modal"><div class="mbox"><p id="mtext"></p><div id="mbtns"></div></div></div>
 <div id="toast"></div>
 <div id="critter" aria-hidden="true"><div class="cIn"></div></div>
+<div id="tunTL-back" aria-hidden="true"></div>
+<div id="tunBR-back" aria-hidden="true"></div>
+<div id="tunTL-front" aria-hidden="true"></div>
+<div id="tunBR-front" aria-hidden="true"></div>
+
 
 <script>
 (function(){
@@ -595,6 +612,7 @@ function render(){
   else if(S.view==="history") renderHistory();
   else { renderWeek(); fitBoard(); }
   if(fid){ var f=document.querySelector('[data-fid="'+fid+'"]'); if(f&&f.offsetParent!==null) f.focus(); }
+  if(typeof placeTunnels==="function") placeTunnels();
 }
 /* extra jobs make cells taller: shrink job/booking text a step at a time until the board fits */
 function fitBoard(){
@@ -1001,7 +1019,7 @@ function renderSettings(){
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v4.3. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4.4. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -1534,7 +1552,7 @@ var riderIdx=Math.floor(Math.random()*3), castRider=Math.random()<0.5;
 var critT=null, critJ=null;
 function critEl(){ return document.getElementById("critter"); }
 function critReduced(){ try{ return window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; } }
-function applyAnimals(){ if(S.animals===false){ critStop(); clearTimeout(critT); critT=null; } else if(!critT&&!critJ) critSchedule(true); }
+function applyAnimals(){ if(S.animals===false){ critStop(); clearTimeout(critT); critT=null; } else if(!critT&&!critJ) critSchedule(true); placeTunnels(); }
 function critSchedule(first){ clearTimeout(critT); var ms=first?(60+Math.random()*120)*1000:(180+Math.random()*300)*1000; critT=setTimeout(function(){ critT=null; critGo(); },ms); }
 function critStop(){ if(critJ){ clearTimeout(critJ.t); critJ=null; } var c=critEl(); if(c){ c.className=""; c.style.transitionDuration="0s"; } }
 function critGraph(){
@@ -1557,30 +1575,194 @@ function critNbrs(g,n){ var o=[], xi=n[0], yi=n[1], outer=(xi===0||xi===g.X.leng
   if(xi>0) o.push([xi-1,yi]); if(xi<g.X.length-1) o.push([xi+1,yi]);
   if(yi>0&&(yi>1||outer)) o.push([xi,yi-1]); if(yi<g.Y.length-1&&(yi>0||outer)) o.push([xi,yi+1]); // across the header only at the screen edges
   return o; }
-function critGo(force,who){
+function tunnelSVG(front,flipX){
+  // Large brick archway. Opening is sized so every farm animal and kid rider (helmets
+  // included) fits through with headroom. Most of the structure hangs off-screen; flipX
+  // is a horizontal mirror only (dome on top, ground at the bottom, opening faces the board).
+  // viewBox 0 0 200 160, displayed at 132x106 (scale 0.66). Inner opening ~64x66 px.
+  var id=(flipX?"R":"L")+(front?"F":"B");
+  var s='<svg viewBox="0 0 200 160" aria-hidden="true" focusable="false">';
+  if(flipX) s+='<g transform="translate(200,0) scale(-1,1)">';
+  var hole='M80 148 L80 94 Q80 52 134 48 Q188 52 188 94 L188 148 Z';
+  var body='M8 156 L8 90 Q8 34 92 18 Q152 10 198 48 L198 156 Z';
+  if(!front){
+    s+='<path d="M76 150 L76 94 Q76 50 134 45 Q192 50 192 94 L192 150 Z" fill="#2a1810"/>'
+      +'<path d="M92 148 L92 94 Q92 62 134 58 Q176 62 176 94 L176 148 Z" fill="#100a08"/>'
+      +'<ellipse cx="148" cy="92" rx="16" ry="20" fill="#080504" opacity=".55"/>';
+  } else {
+    s+='<defs><clipPath id="tunBody'+id+'"><path d="'+body+' '+hole+'" clip-rule="evenodd"/></clipPath></defs>'
+      +'<path fill="#c45d44" stroke="#5a2a20" stroke-width="1.4" fill-rule="evenodd" d="'+body+' '+hole+'"/>'
+      +'<path d="M8 146 h190 v12 h-190 z" fill="#8a4334" stroke="#5a2a20" stroke-width="1"/>'
+      +'<g stroke="#5a2a20" stroke-width="1.1" fill="none" clip-path="url(#tunBody'+id+')">';
+    var ys=[36,52,68,84,100,116,132], i, j, y, stagger;
+    for(i=0;i<ys.length;i++){
+      y=ys[i];
+      s+='<path d="M8 '+y+' H198"/>';
+      stagger=(i%2)*8;
+      for(j=12+stagger;j<198;j+=16){
+        s+='<path d="M'+j+' '+(i===0?18:ys[i-1])+' V'+y+'"/>';
+      }
+    }
+    s+='</g>';
+    s+='<g stroke="#5a2a20" stroke-width="1.3" fill="none">';
+    var cx=134, cy=100, n=11, a0=-Math.PI*0.98, a1=-Math.PI*0.02, k, a, ri=50, ro=72;
+    for(k=0;k<=n;k++){
+      a=a0+(a1-a0)*k/n;
+      s+='<path d="M'+(cx+Math.cos(a)*ri).toFixed(1)+' '+(cy+Math.sin(a)*ri).toFixed(1)+' L'+(cx+Math.cos(a)*ro).toFixed(1)+' '+(cy+Math.sin(a)*ro).toFixed(1)+'"/>';
+    }
+    s+='</g>';
+    var aA=-Math.PI/2-0.12, aB=-Math.PI/2+0.12;
+    s+='<path fill="#d4a05a" stroke="#5a2a20" stroke-width=".9" d="M'+(cx+Math.cos(aA)*ri).toFixed(1)+' '+(cy+Math.sin(aA)*ri).toFixed(1)
+      +' L'+(cx+Math.cos(aA)*ro).toFixed(1)+' '+(cy+Math.sin(aA)*ro).toFixed(1)
+      +' L'+(cx+Math.cos(aB)*ro).toFixed(1)+' '+(cy+Math.sin(aB)*ro).toFixed(1)
+      +' L'+(cx+Math.cos(aB)*ri).toFixed(1)+' '+(cy+Math.sin(aB)*ri).toFixed(1)+' Z"/>';
+    s+='<path d="'+hole.replace(" Z","")+'" fill="none" stroke="#4a2018" stroke-width="1.8"/>';
+    s+='<g clip-path="url(#tunBody'+id+')" opacity=".28" fill="#8a3a2c">'
+      +'<rect x="24" y="68.5" width="14" height="14"/>'
+      +'<rect x="48" y="100.5" width="14" height="14"/>'
+      +'<rect x="28" y="116.5" width="14" height="14"/>'
+      +'<rect x="56" y="52.5" width="14" height="14"/>'
+      +'</g>';
+    s+='<path d="M70 28 Q130 10 190 40" fill="none" stroke="#e8b09a" stroke-width="2" stroke-linecap="round" opacity=".4"/>';
+  }
+  if(flipX) s+='</g>';
+  return s+'</svg>';
+}
+/* viewBox 200x160 displayed at 132x106 (scale 0.66). Opening in vb: x 80–188, y 48–148. */
+var TUN={w:132,h:106,s:0.66,tl:null,br:null};
+function tunHole(flip,left,top){
+  var s=TUN.s, L, R, T=top+48*s, B=top+148*s;
+  if(!flip){ L=left+80*s; R=left+188*s; }
+  else { L=left+(200-188)*s; R=left+(200-80)*s; }
+  return {left:L,right:R,top:T,bottom:B,cx:(L+R)/2,cy:(T+B)/2,lipX:flip?L:R};
+}
+function placeTunnels(){
+  var ids=["tunTL-back","tunTL-front","tunBR-back","tunBR-front"], i, el, g;
+  el=document.getElementById("tunTL-back");
+  if(!el) return;
+  if(!el.getAttribute("data-ready")){
+    document.getElementById("tunTL-back").innerHTML=tunnelSVG(false,false);
+    document.getElementById("tunTL-front").innerHTML=tunnelSVG(true,false);
+    document.getElementById("tunBR-back").innerHTML=tunnelSVG(false,true);
+    document.getElementById("tunBR-front").innerHTML=tunnelSVG(true,true);
+    el.setAttribute("data-ready","1");
+  }
+  g=(S.view==="week"&&!critReduced())?critGraph():null;
+  for(i=0;i<ids.length;i++) document.getElementById(ids[i]).classList.toggle("on",!!g);
+  if(!g){ TUN.tl=TUN.br=null; return; }
+  var tw=TUN.w, th=TUN.h, s=TUN.s, W=window.innerWidth, H=window.innerHeight;
+  function put(id,left,top){
+    document.getElementById(id).style.transform="translate3d("+left.toFixed(1)+"px,"+top.toFixed(1)+"px,0)";
+  }
+  // Obstacles: logo, title, buttons, jobs, bookings, kid labels, and the footer *text* (not the full-width footer box)
+  var obs=[];
+  ["header h1","header .btn","#weeklbl","#board .task","#board .bk","#board .klbl","#board .fcell","#board .dh","#board .flbl","#board .corner"].forEach(function(sel){
+    [].forEach.call(document.querySelectorAll(sel),function(e){ if(e.getBoundingClientRect().width) obs.push(e.getBoundingClientRect()); });
+  });
+  var foot=document.getElementById("foot");
+  if(foot){ var rg=document.createRange(); rg.selectNodeContents(foot); [].forEach.call(rg.getClientRects(),function(r){ if(r.width) obs.push(r); }); }
+  function hits(l,t,r,b,pad){
+    pad=pad||2;
+    for(var i=0;i<obs.length;i++){
+      var o=obs[i];
+      if(o.left<r-pad&&o.right>l+pad&&o.top<b-pad&&o.bottom>t+pad) return true;
+    }
+    return false;
+  }
+  // Top-left: hang off the top and left so only the lower-right of the mouth shows,
+  // in the padding strip left of the coin, not over the logo or title.
+  var logo=document.querySelector("header h1").getBoundingClientRect();
+  var holeR=188*s, bodyR=198*s, floor=148*s, peak=48*s;
+  var tlL=logo.left-3-holeR;           // inner right of the opening just left of the coin
+  if(tlL+bodyR>logo.left-2) tlL=logo.left-2-bodyR;
+  var tlT=0-peak+6;                    // a sliver of the inner arch curve on screen at the top
+  // If the opening floor would cover Weekdays / the kid column, nudge up (hang off the top more)
+  var n=0;
+  while(hits(Math.max(0,tlL),Math.max(0,tlT),Math.min(W,tlL+tw),Math.min(H,tlT+th),2)&&n<20){ tlT-=2; n++; }
+  // Bottom-right: hang off the bottom and right; keep the visible mouth in the green corner.
+  // Prefer the opening's left lip just to the right of the last job cell, floor hanging off the bottom,
+  // with enough of the arch on screen for a rider to be seen inside it.
+  var brL=W-tw, brT=H-th;
+  // Try to place so the flipped opening's left lip is near the right edge and a good slab of opening is visible.
+  var flipHoleL=(200-188)*s, flipBodyL=(200-198)*s;
+  // start: lip near the right of the board, arch top just below the last cell if possible
+  var board=document.getElementById("board").getBoundingClientRect();
+  brL=Math.max(board.right-8, W-tw); // may sit in the green pocket at the board's right
+  brT=H-floor+8;                     // floor slightly off the bottom, most of the opening on screen
+  n=0;
+  while(hits(Math.max(0,brL+flipBodyL),Math.max(0,brT+peak*0.3),Math.min(W,brL+tw),Math.min(H,brT+th),2)&&n<30){ brL+=2; brT+=2; n++; }
+  put("tunTL-back",tlL,tlT); put("tunTL-front",tlL,tlT);
+  put("tunBR-back",brL,brT); put("tunBR-front",brL,brT);
+  var tlH=tunHole(false,tlL,tlT), brH=tunHole(true,brL,brT);
+  TUN.tl={left:tlL,top:tlT,mouth:[tlH.cx,tlH.cy],lipX:tlH.lipX,hole:tlH};
+  TUN.br={left:brL,top:brT,mouth:[brH.cx,brH.cy],lipX:brH.lipX,hole:brH};
+}
+function critGo(force,who,opts){
   critStop();
   if(S.animals===false||critReduced()){ return; }
   if(!force&&(document.hidden||anim||S.view!=="week"||isShown("settings")||isShown("modal")||isShown("codepad"))){ critSchedule(false); return; }
   var g=critGraph(); if(!g){ critSchedule(false); return; }
+  placeTunnels();
+  opts=opts||{};
   // the cast takes turns: a farm animal, then a kid rider (when Kid riders is on), then an animal...
   var c=critEl(), rk=null, a;
   if(who!=="animal"&&S.kids.length&&S.riders!==false&&(who==="rider"||castRider)){ rk=S.kids[riderIdx%S.kids.length]; riderIdx=(riderIdx+1)%S.kids.length; a="rider-"+riderKind(rk); castRider=false; }
   else { a=ANIMALS[animalIdx%ANIMALS.length]; animalIdx=(animalIdx+1)%ANIMALS.length; castRider=true; }
   c.querySelector(".cIn").innerHTML=rk?riderSVG(riderKind(rk),rk):animalSVG(a); c.setAttribute("data-animal",a); c.setAttribute("data-kid",rk?rk.id:"");
   var nx=g.X.length-1, ny=g.Y.length-1, corners=[[0,0],[nx,0],[0,ny],[nx,ny]];
-  var si=Math.floor(Math.random()*4), ei=Math.random()<0.75?3-si:(si+1+Math.floor(Math.random()*3))%4, cur=corners[si].slice(), goal=corners[ei];
+  // v4.4: always travel between the top-left and bottom-right tunnels
+  var si, ei;
+  if(opts.from!=null){ si=+opts.from; ei=opts.to!=null?+opts.to:(si===0?3:0); }
+  else { si=Math.random()<0.5?0:3; ei=si===0?3:0; }
+  var cur=corners[si].slice(), goal=corners[ei];
   var prev=null, steps=0, speed=a==="rider-bike"?210:a==="chook"?170:(a==="horse"||a==="rider-horse")?190:140, w=rk?80:42, hh=rk?34:32, rc=rk?" rider":"";
   function pos(n){ var x=g.X[n[0]]-w/2; if(rk) x=Math.max(2,Math.min(window.innerWidth-w-2,x)); return [x, g.Y[n[1]]-hh/2]; }
-  function place(n,dur){ var p=pos(n); c.style.transitionDuration=(dur||0)+"s"; c.style.transform="translate3d("+p[0].toFixed(1)+"px,"+p[1].toFixed(1)+"px,0)"; }
+  function tunSide(idx){ return (idx===0?TUN.tl:TUN.br); }
+  function mouthOf(idx){ var t=tunSide(idx); if(t&&t.mouth) return t.mouth; return [(idx===0?g.X[0]:g.X[g.X.length-1]),(idx===0?g.Y[0]:g.Y[g.Y.length-1])]; }
+  function mouthY(idx){
+    var t=tunSide(idx), cy=t&&t.hole?t.hole.cy:mouthOf(idx)[1];
+    // sit the figure in the opening with equal headroom, never clamp onto the dome or out the floor
+    return cy-hh/2;
+  }
+  function mouthIn(idx){ var t=tunSide(idx), lip=t&&t.lipX!=null?t.lipX:mouthOf(idx)[0], y=mouthY(idx); return idx===0?[lip-w-6,y]:[lip+6,y]; }
+  function mouthOut(idx,out){ var t=tunSide(idx), lip=t&&t.lipX!=null?t.lipX:mouthOf(idx)[0], y=mouthY(idx), e=out==null?18:out; return idx===0?[lip-w/2+e,y]:[lip-w/2-e,y]; }
+  function placeAt(xy,dur){ c.style.transitionDuration=(dur||0)+"s"; c.style.transform="translate3d("+xy[0].toFixed(1)+"px,"+xy[1].toFixed(1)+"px,0)"; }
+  function place(n,dur){ placeAt(pos(n),dur); }
+  function faceToward(p0,p1){ if(p1[0]<p0[0]-1) c.classList.add("left"); else if(p1[0]>p0[0]+1) c.classList.remove("left"); }
   function d(n){ return Math.abs(n[0]-goal[0])+Math.abs(n[1]-goal[1]); }
   critJ={t:null,animal:a,kid:rk?rk.name:null,w:w,h:hh,from:si,to:ei,path:[cur.slice()]};
-  c.className="on"+rc+(critHits(g,pos(cur)[0],pos(cur)[1],pos(cur)[0],pos(cur)[1],w,hh)?" under":""); place(cur,0); void c.offsetWidth;
-  var J=critJ, backTo=null;
+  var enterP=mouthIn(si), startP=pos(cur);
+  faceToward(enterP,startP);
+  c.className="on"+rc; placeAt(enterP,0); void c.offsetWidth;
+  var J=critJ, backTo=null, emerging=true, entering=false;
   function pick(list){ var ws=list.map(function(n){ var a=pos(cur), b=pos(n); return critHits(g,a[0],a[1],b[0],b[1],w,hh)?1:4; }), t=0, i; ws.forEach(function(x){ t+=x; }); var r=Math.random()*t; for(i=0;i<list.length;i++){ r-=ws[i]; if(r<=0) return list[i]; } return list[list.length-1]; }
+  if(opts.pose==="emerge"||opts.pose==="enter"){
+    var p0,p1,mid,k=opts.pose;
+    if(k==="emerge"){ p0=mouthIn(si); p1=mouthOut(si, rk?12:8); mid=p1; }
+    else { cur=goal.slice(); p0=mouthOut(ei, rk?28:16); p1=mouthIn(ei); mid=mouthOut(ei, rk?-10:-4); }
+    faceToward(p0,p1); c.className="on"+rc+" moving"; placeAt(mid,0);
+    return;
+  }
   function next(){
     if(J!==critJ) return;
     if(document.hidden||S.animals===false){ critStop(); critSchedule(false); return; }
-    if(cur[0]===goal[0]&&cur[1]===goal[1]){ c.classList.remove("moving"); c.classList.add("sniff"); J.t=setTimeout(function(){ if(J===critJ){ critStop(); critSchedule(false); } },1400); return; }
+    if(entering){ c.classList.remove("moving"); J.t=setTimeout(function(){ if(J===critJ){ critStop(); critSchedule(false); } },420); return; }
+    if(emerging){
+      emerging=false;
+      var p0=mouthIn(si), p1=mouthOut(si, rk?22:18), dist=Math.abs(p1[0]-p0[0])+Math.abs(p1[1]-p0[1]);
+      faceToward(p0,p1); c.classList.remove("sniff"); c.classList.add("moving");
+      placeAt(p1,Math.max(0.55,dist/speed));
+      J.t=setTimeout(arrive,Math.max(550,dist/speed*1000)+30);
+      return;
+    }
+    if(cur[0]===goal[0]&&cur[1]===goal[1]){
+      entering=true;
+      var p0=pos(cur), p1=mouthIn(ei), dist=Math.abs(p1[0]-p0[0])+Math.abs(p1[1]-p0[1]);
+      faceToward(p0,p1); c.classList.remove("sniff"); c.classList.add("moving");
+      placeAt(p1,Math.max(0.5,dist/speed));
+      J.t=setTimeout(next,Math.max(500,dist/speed*1000)+30);
+      return;
+    }
     var nb=critNbrs(g,cur), to;
     if(backTo){ to=backTo; backTo=null; }
     else {
@@ -1603,10 +1785,11 @@ function critGo(force,who){
     var pause=backTo?(700+Math.random()*900):(Math.random()<0.22?600+Math.random()*1400:0);
     if(pause){ c.classList.add("sniff"); J.t=setTimeout(next,pause); } else next();
   }
-  J.t=setTimeout(next,500+Math.random()*700);
+  J.t=setTimeout(next,280);
 }
+
 document.addEventListener("visibilitychange",function(){ if(document.hidden&&critJ){ critStop(); critSchedule(false); } });
-window.addEventListener("resize",function(){ if(critJ){ critStop(); critSchedule(false); } });
+window.addEventListener("resize",function(){ if(critJ){ critStop(); critSchedule(false); } placeTunnels(); });
 
 var rt; window.addEventListener("resize",function(){ clearTimeout(rt); rt=setTimeout(render,150); });
 setInterval(function(){ var wk=S.week; checkWeek(); if(S.week!==wk&&!anim) render(); },60000);
@@ -1805,7 +1988,7 @@ var start=document.querySelector(".task.todaycol:not(.done)")||document.querySel
 if(FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
   setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
 }
-window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i){ if(i!=null) animalIdx=i; critGo(true,"animal"); return critJ; }, riderNow:function(i){ if(i!=null) riderIdx=i; critGo(true,"rider"); return critJ; }, castNext:function(){ critGo(true); return critJ; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
+window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i,opts){ if(i!=null) animalIdx=i; critGo(true,"animal",opts||{}); return critJ; }, riderNow:function(i,opts){ if(i!=null) riderIdx=i; critGo(true,"rider",opts||{}); return critJ; }, castNext:function(){ critGo(true); return critJ; }, placeTunnels:placeTunnels, tunnels:function(){ return TUN; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i){ celebrate(S.kids[i||0],render); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
 })();
 </script>
 </body>
