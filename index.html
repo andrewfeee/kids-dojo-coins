@@ -308,6 +308,85 @@ header h1{font-size:2.6rem!important}
 .hr .pos{color:#178a50;font-weight:bold}.hr .neg{color:#c0262f;font-weight:bold}
 .hr.rev span:nth-child(3){font-style:italic;opacity:.8}
 @media (max-width:900px){.mbody{grid-template-columns:1fr}.mkids{flex-wrap:wrap}.hr{grid-template-columns:1fr 1fr;font-size:1rem}}
+
+/* v4.6: TV view-only + Dad's phone parent view */
+body.tv-locked #undoBtn{display:none!important}
+#tvLockBadge{display:none;align-items:center;gap:.35rem;background:#1d1b4b;color:#fff;font-weight:bold;font-size:1.15rem;padding:.35rem .8rem;border-radius:1.2rem;margin-left:.2rem;white-space:nowrap}
+body.tv-locked #tvLockBadge{display:inline-flex}
+.task.locked{cursor:default}
+.task .tlock{position:absolute;top:.1rem;right:.2rem;font-size:.7rem;line-height:1;opacity:.75}
+body.tv-locked .task:not(.done){background:#fff;opacity:.96}
+.askdad{font-size:1.4rem;background:#1d1b4b;color:#fff;border-radius:1.2rem;padding:.6rem 1rem;margin:.6rem 0;display:flex;align-items:center;gap:.6rem}
+.lockhint{display:inline-flex;align-items:center;gap:.35rem;background:rgba(29,27,75,.08);border-radius:1rem;padding:.25rem .7rem;font-size:1.1rem;font-weight:bold;margin:.3rem 0}
+#settings.ro .txt,#settings.ro input{background:rgba(255,255,255,.35);pointer-events:none;opacity:.9}
+body.tv-locked .btn.bonus{display:none}
+.mlock{display:block;margin:.2rem 0 .5rem;font-size:1.3rem;font-weight:bold;color:#1d1b4b}
+
+/* Parent phone UI — force readable type even though the TV board scales html by viewport */
+html.parent-ui{font-size:16px!important}
+body.parent-mode{background:linear-gradient(180deg,#1d1b4b 0%,#4361ee 40%,#7b2cbf 100%);overflow:auto}
+body.parent-mode #app,body.parent-mode #celebrate,body.parent-mode #tunTL-back,body.parent-mode #tunBR-back,body.parent-mode #tunTL-front,body.parent-mode #tunBR-front,body.parent-mode #critter,body.parent-mode .cloud{display:none!important}
+#parent.layer.show{display:flex;flex-direction:column;background:transparent;z-index:40}
+#parentApp,#pinGate{max-width:430px;width:100%;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+#pinGate{background:#1d1b4b;color:#fff;padding:2rem 1.4rem 2.5rem;justify-content:center}
+#pinGate h1{font-size:1.8rem;margin:0 0 .4rem;text-align:center}
+#pinGate p{text-align:center;opacity:.85;margin:0 0 1.4rem;font-size:1rem}
+#pinDots{display:flex;justify-content:center;gap:.7rem;margin:0 0 1.4rem}
+#pinDots i{width:1.1rem;height:1.1rem;border-radius:50%;border:.2rem solid #fff;display:block}
+#pinDots i.on{background:#ffbe0b;border-color:#ffbe0b}
+#pinPad{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;max-width:20rem;margin:0 auto;width:100%}
+#pinPad button{height:4.2rem;border:0;border-radius:1.4rem;background:rgba(255,255,255,.12);color:#fff;font-size:1.8rem;font-weight:bold;box-shadow:0 .25rem 0 rgba(0,0,0,.25)}
+#pinPad button:active{transform:translateY(.15rem);box-shadow:none}
+#pinPad button.ok{background:#178a50}
+#pinPad button.del{background:rgba(255,255,255,.08);font-size:1.2rem}
+#pinErr{min-height:1.4rem;text-align:center;color:#ff8a8a;font-weight:bold;margin:.8rem 0 0}
+#parentApp{background:#f3f0ff;color:#1d1b4b}
+#parentApp>header{background:#1d1b4b;color:#fff;padding:.75rem 1rem .65rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+#parentApp>header h1{font-size:1.15rem;margin:0;flex:1;color:#fff;text-shadow:none;letter-spacing:0;white-space:nowrap}
+#parentApp .sync{font-size:.75rem;background:rgba(255,255,255,.14);border-radius:999px;padding:.25rem .65rem;font-weight:bold}
+#parentApp .when{width:100%;font-size:.95rem;opacity:.85}
+#parentBody{flex:1;overflow:auto;padding:.65rem .8rem 5.4rem}
+.pkid{background:#fff;border-radius:1.2rem;margin:0 0 .8rem;box-shadow:0 .2rem .6rem rgba(29,27,75,.08);overflow:hidden;border-top:.45rem solid var(--kc,#4361ee)}
+.pkid .phd{display:flex;align-items:center;gap:.7rem;padding:.7rem .8rem .5rem}
+.pkid .phd img{width:3.2rem;height:3.2rem;border-radius:50%;object-fit:cover;border:.2rem solid var(--kc)}
+.pkid .phd .pn{font-weight:bold;font-size:1.15rem}
+.pkid .phd .pb{margin-left:auto;font-weight:bold;background:#fff6c2;border-radius:999px;padding:.25rem .7rem;font-size:1rem}
+.pslot{padding:0 .8rem .7rem;font-size:.8rem;font-weight:bold;opacity:.6}
+.prow{display:flex;align-items:center;gap:.65rem;width:100%;border:0;background:#f6f7ff;margin:.35rem 0;padding:.65rem .7rem;border-radius:1rem;text-align:left;font:inherit;color:inherit;box-shadow:0 .15rem 0 rgba(0,0,0,.08)}
+.prow:active{transform:translateY(.1rem)}
+.prow .box{width:2.1rem;height:2.1rem;border-radius:.6rem;border:.2rem solid #1d1b4b;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.prow.on .box{background:#ffd23f;border-color:#b06f00}
+.prow .pt{flex:1;font-weight:bold;font-size:1.05rem;line-height:1.2}
+.prow .pc{font-weight:bold;color:#c98a00;font-size:1rem}
+#parentNav{position:fixed;left:0;right:0;bottom:0;max-width:430px;margin:0 auto;background:#fff;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 -.2rem .8rem rgba(29,27,75,.12);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom))}
+#parentNav button{border:0;background:transparent;padding:.45rem .2rem;font:inherit;font-weight:bold;font-size:.72rem;color:#1d1b4b;opacity:.55}
+#parentNav button.on{opacity:1;color:#4c1d95}
+#parentNav button span{display:block;font-size:1.25rem;margin-bottom:.1rem}
+.psheet h2{font-size:1.1rem;margin:0 0 .4rem}
+.psheet label{display:block;font-size:.8rem;font-weight:bold;margin:.45rem 0 .2rem;opacity:.7}
+.ppills{display:flex;flex-wrap:wrap;gap:.4rem}
+.ppills button,.pact{border:0;background:#fff;border-radius:999px;padding:.55rem .85rem;font:inherit;font-weight:bold;box-shadow:0 .15rem 0 rgba(0,0,0,.1)}
+.ppills button.on{background:#1d1b4b;color:#fff}
+.pact.green{background:#178a50;color:#fff;width:100%;margin-top:.65rem;padding:.8rem;border-radius:1rem;font-size:1.05rem}
+.pact.orange{background:#ffbe0b;color:#3d2a00;width:100%;margin-top:.5rem;padding:.8rem;border-radius:1rem}
+.pnote{font-size:.85rem;opacity:.75;margin:.6rem 0}
+input.ptxt{width:100%;font:inherit;font-size:1.05rem;padding:.7rem .8rem;border-radius:.8rem;border:.15rem solid #c9c4e8;background:#fff}
+
+
+#tvLockBadge{cursor:pointer;border:0;font-family:inherit}
+#tvLockBadge.on{background:#178a50}
+#pinCodeWrap{max-width:20rem;margin:0 auto 1rem;width:100%}
+#pinCodeIn{width:100%;font:inherit;font-size:1.4rem;letter-spacing:.2rem;text-align:center;padding:.8rem .6rem;border-radius:.9rem;border:0;text-transform:uppercase}
+#tvPin.layer.show{display:flex;align-items:center;justify-content:center;background:rgba(15,12,40,.55);z-index:70}
+#tvPin .tvpinbox{background:#1d1b4b;color:#fff;padding:1.6rem 1.4rem 1.4rem;border-radius:1.4rem;width:min(24rem,92vw);text-align:center}
+#tvPin h2{margin:0 0 .4rem;font-size:1.5rem}
+#tvPin #tvPinPad{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:.8rem 0}
+#tvPin #tvPinPad button{height:3.6rem;border:0;border-radius:1.1rem;background:rgba(255,255,255,.12);color:#fff;font-size:1.5rem;font-weight:bold}
+#tvPinDots{display:flex;justify-content:center;gap:.6rem;margin:.6rem 0}
+#tvPinDots i{width:1rem;height:1rem;border-radius:50%;border:.2rem solid #fff;display:block}
+#tvPinDots i.on{background:#ffbe0b;border-color:#ffbe0b}
+#tvPinErr{min-height:1.2rem;color:#ff8a8a;font-weight:bold}
+
 </style>
 </head>
 <body>
@@ -327,6 +406,7 @@ header h1{font-size:2.6rem!important}
   <button class="btn vt nav" id="viewHistory">📜 History</button>
   <button class="btn orange nav" id="undoBtn">&#8630; Undo</button>
   <button class="btn nav" id="settingsBtn">&#9881; Settings</button>
+  <button type="button" id="tvLockBadge" aria-live="polite">🔒 View only</button>
  </header>
  <div id="boardwrap"><div id="board"></div></div>
  <div id="rewards" style="display:none"></div>
@@ -354,6 +434,46 @@ header h1{font-size:2.6rem!important}
 <div id="tunBR-front" aria-hidden="true"></div>
 
 
+<div class="layer" id="tvPin">
+  <div class="tvpinbox">
+    <h2>Dad's remote</h2>
+    <p style="opacity:.85;margin:.2rem 0 .4rem">Enter your parent PIN to tick from this TV until you close the page.</p>
+    <div id="tvPinDots"><i></i><i></i><i></i><i></i></div>
+    <div id="tvPinPad"></div>
+    <div id="tvPinErr"></div>
+    <button type="button" class="pact" id="tvPinCancel" style="margin-top:.8rem;background:rgba(255,255,255,.12);color:#fff">Cancel</button>
+  </div>
+</div>
+<div class="layer" id="parent">
+  <div id="pinGate">
+    <h1 id="pinTitle">🔒 Dad's phone</h1>
+    <p id="pinLead">Enter your family setup code once. It's remembered on this phone. Then you'll set or enter a 4-digit PIN the kids don't know.</p>
+    <div id="pinCodeWrap">
+      <input id="pinCodeIn" class="ptxt" maxlength="9" placeholder="ABCD-1234" autocomplete="off" autocapitalize="characters" spellcheck="false">
+      <button type="button" class="pact green" id="pinCodeGo">Continue</button>
+    </div>
+    <div id="pinPadWrap" style="display:none">
+      <div id="pinDots"><i></i><i></i><i></i><i></i></div>
+      <div id="pinPad"></div>
+    </div>
+    <div id="pinErr"></div>
+  </div>
+  <div id="parentApp" style="display:none">
+    <header>
+      <h1>Dad's phone</h1>
+      <div class="sync" id="parentSync">● On this device</div>
+      <div class="when" id="parentWhen"></div>
+    </header>
+    <div id="parentBody"></div>
+    <nav id="parentNav">
+      <button type="button" data-ptab="today" class="on"><span>✅</span>Today</button>
+      <button type="button" data-ptab="add"><span>➕</span>Add job</button>
+      <button type="button" data-ptab="coins"><span>🪙</span>Coins</button>
+      <button type="button" data-ptab="buy"><span>🛒</span>Buy</button>
+    </nav>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.81.1/dist/umd/supabase.js"></script>
 <script>
 (function(){
 "use strict";
@@ -395,6 +515,14 @@ function freshState(){
 }
 var S;
 var FIRST_RUN=false;
+/* v4.6: TV is view-only; all changes come from Dad's phone (#parent) or a session PIN on the TV. */
+var PARENT=false, PARENT_PIN_OK=false, PARENT_TAB="today", PIN_BUF="", PIN_MODE="enter", PIN_FIRST="";
+var TV_WRITE=false, TV_PIN_BUF="";
+function isParent(){ return PARENT&&PARENT_PIN_OK; }
+function tvLocked(){ return !isParent() && !TV_WRITE; }
+function askDad(msg){ toast(msg||"Ask Dad to do this on his phone"); }
+function unlockTvWrite(){ TV_WRITE=true; render(); }
+
 function hashView(){ var h=(location.hash||"").toLowerCase(); return h==="#rewards"?"rewards":h==="#market"?"market":h==="#history"?"history":"week"; }
 function load(){
   var raw=null; try{ raw=localStorage.getItem(KEY); }catch(e){}
@@ -419,6 +547,7 @@ function load(){
 function save(){
   try{ localStorage.setItem(KEY,JSON.stringify(S)); }
   catch(e){ toast("Couldn't save – storage full? Try a smaller photo."); }
+  if(!syncApplying) scheduleSyncPush();
 }
 function checkWeek(){
   var wk=weekKey();
@@ -588,6 +717,7 @@ function setView(v){
   render();
 }
 function render(){
+  updateLockChrome();
   var a=document.activeElement, fid=a&&a.getAttribute?a.getAttribute("data-fid"):null;
   var mon=viewMonday(), sun=new Date(mon); sun.setDate(mon.getDate()+6);
   var wl=document.getElementById("weeklbl"); wl.className="weeklbl"+(WEEK_OFF?" other":"");
@@ -605,8 +735,12 @@ function render(){
   var board=document.getElementById("board"), bw=document.getElementById("boardwrap"), rw=document.getElementById("rewards");
   bw.style.display=S.view==="week"?"":"none"; rw.style.display=S.view==="rewards"?"":"none"; document.getElementById("market").style.display=S.view==="market"?"":"none"; document.getElementById("history").style.display=S.view==="history"?"":"none";
   if(S.view!=="week") board.innerHTML=""; if(S.view!=="rewards") rw.innerHTML=""; if(S.view!=="market") document.getElementById("market").innerHTML=""; if(S.view!=="history") document.getElementById("history").innerHTML="";
-  document.getElementById("foot").innerHTML=S.view==="market"?"Spend coins on treats &middot; OK to choose, Back to cancel":S.view==="history"?"Every coin in and out &middot; ◀ ▶ change kid &middot; ▲ ▼ scroll":S.view==="rewards"?"Coins land here when a job is ticked &middot; open this page as <b>#rewards</b> on a second screen"
-    :"Arrows to move &middot; OK/Enter to tick a job"+(split?(PAGE==="wd"?" &middot; ▶ past Friday: weekend &middot; ◀ before Monday: last week":" &middot; ◀ before Saturday: Mon–Fri &middot; ▶ past Sunday: next week"):" &middot; ◀ ▶ at the edges: other weeks")+" &middot; finish a job to earn a coin!";
+  if(tvLocked()){
+    document.getElementById("foot").innerHTML="🔒 This TV is view-only &middot; Ask Dad to tick jobs on his phone &middot; You can still look around with the arrows";
+  } else {
+    document.getElementById("foot").innerHTML=S.view==="market"?"Spend coins on treats &middot; OK to choose, Back to cancel":S.view==="history"?"Every coin in and out &middot; ◀ ▶ change kid &middot; ▲ ▼ scroll":S.view==="rewards"?"Coins land here when a job is ticked &middot; open this page as <b>#rewards</b> on a second screen"
+      :"Arrows to move &middot; OK/Enter to tick a job"+(split?(PAGE==="wd"?" &middot; ▶ past Friday: weekend &middot; ◀ before Monday: last week":" &middot; ◀ before Saturday: Mon–Fri &middot; ▶ past Sunday: next week"):" &middot; ◀ ▶ at the edges: other weeks")+" &middot; finish a job to earn a coin!";
+  }
   if(S.view==="rewards") renderRewards();
   else if(S.view==="market") renderMarket();
   else if(S.view==="history") renderHistory();
@@ -653,9 +787,11 @@ function renderWeek(){
           var b=el("button","task nav"+(done?" done":"")+(d===ti?" todaycol":"")+(d<ti?" past":""));
           b.setAttribute("data-fid",k.id+"-"+key); b.setAttribute("data-kid",k.id); b.setAttribute("data-slot",slot); b.setAttribute("data-day",d); b.setAttribute("data-key",key);
           var tvv=done&&cur?kidCoinsDone(k,key):taskValue(task);
-          b.innerHTML=(done?'<span class="ti">🪙</span>'+esc(task)+' ✓':'<span class="ti">'+iconFor(task)+'</span>'+esc(task))+'<span class="tval" aria-hidden="true">'+tvv+'</span>';
-          b.setAttribute("aria-label",k.name+" "+DAYS_LONG[d]+" "+(slot==="am"?"morning":"afternoon")+": "+task+", "+tvv+" coins"+(done?" (done)":""));
+          b.innerHTML=(done?'<span class="ti">🪙</span>'+esc(task)+' ✓':'<span class="ti">'+iconFor(task)+'</span>'+esc(task))+'<span class="tval" aria-hidden="true">'+tvv+'</span>'+(tvLocked()?'<span class="tlock" aria-hidden="true">🔒</span>':'');
+          if(tvLocked()) b.className+=" locked";
+          b.setAttribute("aria-label",k.name+" "+DAYS_LONG[d]+" "+(slot==="am"?"morning":"afternoon")+": "+task+", "+tvv+" coins"+(done?" (done)":"")+(tvLocked()?", view only":""));
           b.onclick=function(){
+            if(tvLocked()){ askDad("Ask Dad to tick this on his phone"); return; }
             if(!cur){ toast(WEEK_OFF<0?"That week is finished – only this week's jobs can be ticked":"Not yet! Jobs can be ticked in their own week"); return; }
             if(done){ confirmBox("Untick “"+esc(task)+"” for "+esc(k.name)+"?<br><span style='font-size:.7em;font-weight:normal'>This takes the coin back.</span>",[["Yes, untick","red",function(){ untick(k,key); }],["No","green",null]]); }
             else award(k,{type:"task",key:key});
@@ -681,8 +817,9 @@ function renderRewards(){
     c.appendChild(el("div","rsub","coins to spend · +"+weekPoints(k)+" this week"));
     var cv=el("canvas","rpile"); cv.setAttribute("data-kid",k.id); c.appendChild(cv);
     var bot=el("div","rbot"); bot.appendChild(el("div","lifetime","🏆 All-time earned: "+k.lifetime));
-    var bb=el("button","btn bonus nav","+"+coinValue()+" Bonus"); bb.setAttribute("data-fid","bonus-"+k.id); bb.onclick=function(){ award(k,{type:"bonus"}); };
-    bot.appendChild(bb); c.appendChild(bot); R.appendChild(c);
+    if(tvLocked()){ bot.appendChild(el("div","lockhint","🔒 Bonus is on Dad's phone")); }
+    else { var bb=el("button","btn bonus nav","+"+coinValue()+" Bonus"); bb.setAttribute("data-fid","bonus-"+k.id); bb.onclick=function(){ award(k,{type:"bonus"}); }; bot.appendChild(bb); }
+    c.appendChild(bot); R.appendChild(c);
   });
   var cvs=R.querySelectorAll("canvas.rpile");
   for(var i=0;i<cvs.length;i++){ paintPileCanvas(cvs[i],balance(kidById(cvs[i].getAttribute("data-kid")))); }
@@ -691,6 +828,7 @@ function shade(hex,p){ var n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&
 
 /* ---------- actions ---------- */
 function award(k,act){
+  if(tvLocked()){ askDad("Ask Dad to tick this on his phone"); return; }
   var today=ymd(new Date());
   var v=act.type==="task"?taskValue(jobOfKey(k,act.key)):coinValue();
   if(act.type==="task"){ S.done[k.id]=S.done[k.id]||{}; S.done[k.id][act.key]=v; logTask(k.id,act.key,true); logCoins(k.id,dateOfIdx(+act.key[0]),v); ledgerAdd(k,"earn",v,"✅ "+taskText(k,act.key),{key:act.key}); }
@@ -698,17 +836,21 @@ function award(k,act){
   k.lifetime+=v; S.history.push({kid:k.id,type:act.type,key:act.key||null,date:today,t:Date.now(),coins:v});
   if(S.history.length>50) S.history.shift();
   save();
+  // On Dad's phone, keep it instant (no celebration canvas) so ticks stay one-tap.
+  if(isParent()){ render(); renderParent(); toast(k.name+" +"+v); return; }
   celebrate(k, function(){ render(); }, v);
 }
 function untick(k,key){
+  if(tvLocked()){ askDad("Ask Dad to change ticks on his phone"); return; }
   var v=kidCoinsDone(k,key);
   if(S.done[k.id]) delete S.done[k.id][key];
   logTask(k.id,key,false); logCoins(k.id,dateOfIdx(+key[0]),-v); ledgerAdd(k,"unearn",-v,"↩ Unticked: "+taskText(k,key),{key:key});
   k.lifetime=Math.max(0,k.lifetime-v);
   for(var i=S.history.length-1;i>=0;i--){ var h=S.history[i]; if(h.kid===k.id&&h.type==="task"&&h.key===key){ S.history.splice(i,1); break; } }
-  save(); render(); toast("Coin taken back from "+k.name);
+  save(); render(); if(isParent()) renderParent(); toast("Coin taken back from "+k.name);
 }
 function undo(){
+  if(tvLocked()){ askDad("Ask Dad — there's no Undo on the TV"); return; }
   var h=S.history.pop(); if(!h) return;
   var k=kidById(h.kid); if(!k){ save(); render(); return; }
   var v=h.coins||coinValue();
@@ -718,6 +860,7 @@ function undo(){
   save(); render();
   var what=h.type==="task"?((k.tasks[+h.key[0]]||{})[h.key.slice(1)]||"task")+" ("+DAYS[+h.key[0]]+")":"bonus coin";
   toast("Undone: "+what+" for "+k.name);
+  if(isParent()) renderParent();
 }
 document.getElementById("undoBtn").onclick=undo;
 document.getElementById("viewWeek").onclick=function(){ setView("week"); };
@@ -730,7 +873,7 @@ document.getElementById("pgWe").onclick=function(){ PAGE="we"; setView("week"); 
 document.getElementById("viewRewards").onclick=function(){ setView(S.view==="rewards"?"week":"rewards"); };
 document.getElementById("viewMarket").onclick=function(){ setView(S.view==="market"?"week":"market"); };
 document.getElementById("viewHistory").onclick=function(){ setView(S.view==="history"?"week":"history"); };
-window.addEventListener("hashchange",function(){ var v=hashView(); if(v!==S.view&&(location.hash||"").indexOf("#setup=")!==0){ S.view=v; render(); } });
+window.addEventListener("hashchange",function(){ routeParent(); var v=hashView(); if(!PARENT && v!==S.view&&(location.hash||"").indexOf("#setup=")!==0){ S.view=v; render(); } });
 
 document.getElementById("settingsBtn").onclick=function(){ openSettings(); };
 
@@ -972,9 +1115,42 @@ function celebrate(k,done,gain){
 
 /* ---------- settings ---------- */
 var selKid=0, bkDraft=null, itDraft=null, ITEM_EMOJI=["🎬","📱","🎮","🍦","🍕","🍿","🏊","⚽","🎁","🛝","📚","🧁"];
-function openSettings(){ document.getElementById("settings").className="layer show"; renderSettings(); var f=document.querySelector("#sbox .nav"); if(f) f.focus(); }
+function openSettings(){ document.getElementById("settings").className="layer show"+(tvLocked()?" ro":""); renderSettings(); var f=document.querySelector("#sbox .nav"); if(f) f.focus(); }
+function renderSettingsLocked(){
+  if(selKid>=S.kids.length) selKid=0;
+  var k=S.kids[selKid], box=document.getElementById("sbox");
+  var h='<h2>⚙️ Settings<span class="sp"></span><button class="btn green nav" data-fid="close" id="sClose">✓ Done</button></h2>';
+  h+='<div class="askdad">🔒 View only — Ask Dad to change settings on his phone</div>';
+  h+='<div class="row">'; S.kids.forEach(function(kk,i){ h+='<button class="btn kidtab nav'+(i===selKid?" sel":"")+'" data-fid="tab'+i+'" data-tab="'+i+'">'+esc(kk.name)+'</button>'; }); h+='</div>';
+  h+='<div class="card"><div class="row"><img class="sav" src="'+avatarSrc(k)+'" alt=""><div style="flex:1"><label class="lbl">Name</label><div class="timeadj" style="min-width:auto;text-align:left">'+esc(k.name)+'</div></div></div></div>';
+  h+='<h3>Jobs for '+esc(k.name)+'</h3><div class="card">';
+  for(var d=0;d<7;d++){ h+='<p class="small" style="margin:.3rem 0"><b>'+DAYS[d]+'</b> · ☀️ '+esc(k.tasks[d].am||"—")+' · 🌙 '+esc(k.tasks[d].pm||"—")+'</p>'; }
+  h+='</div>';
+  h+='<h3>📅 Bookings</h3><div class="card">';
+  if(!(S.bookings||[]).length) h+='<p class="small">No bookings yet.</p>';
+  (S.bookings||[]).forEach(function(bk){ h+='<div class="bkline"><span>'+esc(bookingLabel(bk))+' · '+esc(bookingWhoName(bk))+' · '+esc(bookingWhenText(bk))+'</span></div>'; });
+  h+='</div>';
+  h+='<h3>🪙 Coins</h3><div class="card"><p>Default for new jobs and bonus: <b>'+coinValue()+'</b></p>';
+  allTaskNames().forEach(function(nm){ h+='<p class="small" style="margin:.25rem 0">'+iconFor(nm)+' '+esc(nm)+' · <b>'+taskValue(nm)+' 🪙</b></p>'; });
+  h+='</div>';
+  h+='<h3>🛒 Marketplace</h3><div class="card">';
+  (S.items||[]).forEach(function(it){ h+='<div class="bkline"><span>'+(it.emoji||"🎁")+' '+esc(it.name)+' · '+it.price+' coins'+(it.type==="group"?' each · group':'')+'</span></div>'; });
+  if(!(S.items||[]).length) h+='<p class="small">No items yet.</p>';
+  h+='</div>';
+  h+='<h3>App</h3><div class="card"><p class="small">Sound: '+(S.sound?"On":"Off")+' · Running animals: '+(S.animals!==false?"On":"Off")+' · Kid riders: '+(S.riders!==false?"On":"Off")+' · New week auto-reset: '+(S.autoReset?"On":"Off")+'</p>';
+  h+='<p class="small">Main screen: '+(S.layout==="all"?"All 7 days":"Mon–Fri + Sat–Sun")+'</p>';
+  h+='<p class="small">Dojo Coins v4.6. This TV is view-only. Dad ticks jobs and changes coins on his phone.</p>';
+  if(TV_WRITE) h+='<p class="small">Remote is unlocked for this visit.</p><button class="btn grey nav" type="button" id="sTvUnlock">Lock the remote again</button>';
+  else h+='<button class="btn green nav" type="button" id="sTvUnlock">Enter PIN to use the remote</button>';
+  h+='</div>';
+  box.innerHTML=h;
+  document.getElementById("sClose").onclick=closeSettings;
+  document.getElementById("sTvUnlock").onclick=function(){ if(TV_WRITE){ TV_WRITE=false; renderSettings(); toast("TV is view-only again"); } else openTvPin(); };
+  [].forEach.call(box.querySelectorAll("[data-tab]"),function(btn){ btn.onclick=function(){ selKid=+btn.getAttribute("data-tab"); renderSettings(); }; });
+}
 function closeSettings(){ bkDraft=null; itDraft=null; document.getElementById("settings").className="layer"; render(); var b=document.getElementById("settingsBtn"); b.focus(); }
 function renderSettings(){
+  if(tvLocked()){ renderSettingsLocked(); return; }
   if(selKid>=S.kids.length) selKid=0;
   var k=S.kids[selKid], box=document.getElementById("sbox"), a=document.activeElement, fid=a&&a.getAttribute?a.getAttribute("data-fid"):null;
   var h='<h2>⚙️ Settings<span class="sp"></span><button class="btn green nav" data-fid="close" id="sClose">✓ Done</button></h2>';
@@ -1064,7 +1240,7 @@ function renderSettings(){
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v4.5. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4.6. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -1200,6 +1376,7 @@ function kidCoinsDone(k,key){ var v=S.done[k.id]&&S.done[k.id][key]; return v===
 
 /* marketplace actions (confirm first: OK confirms, Back cancels) */
 function buyItem(it,k){
+  if(tvLocked()){ askDad("Ask Dad to buy this on his phone"); return; }
   var bal=balance(k);
   if(bal<it.price){ toast(k.name+" needs "+(it.price-bal)+" more coins for "+it.name); return; }
   confirmBox(it.emoji+" Buy <b>"+esc(it.name)+"</b> for "+esc(k.name)+"?<br><span style='font-size:.7em;font-weight:normal'>"+it.price+" coins · "+esc(k.name)+" has "+bal+"</span>",
@@ -1211,6 +1388,7 @@ function buyItem(it,k){
     }]]);
 }
 function pledge(it,k){
+  if(tvLocked()){ askDad("Ask Dad to do this on his phone"); return; }
   var pl=S.pledges[it.id]=S.pledges[it.id]||{};
   if(pl[k.id]){ // withdraw (allowed until it unlocks)
     var c=pl[k.id]; delete pl[k.id]; ledgerAdd(k,"unpledge",c,"↩ Withdrew from "+it.emoji+" "+it.name,{item:it.id}); save(); render(); toast(k.name+" took back "+c+" coins"); return;
@@ -1231,6 +1409,7 @@ function pledge(it,k){
     }]]);
 }
 function undoPurchase(p){
+  if(tvLocked()){ askDad("Ask Dad — purchases are changed on his phone"); return; }
   var names=Object.keys(p.kids).map(function(id){ var k=kidById(id); return k?k.name:"?"; }).join(", ");
   confirmBox("↶ Undo "+p.emoji+" <b>"+esc(p.name)+"</b>?<br><span style='font-size:.7em;font-weight:normal'>Gives the coins back to "+esc(names)+" (parent only).</span>",
     [["Cancel","grey",null],["↶ Undo purchase","orange",function(){
@@ -1266,6 +1445,7 @@ function celebrateUnlock(it,done){
 function fmtStamp(t){ var d=new Date(t), h=d.getHours(), m=("0"+d.getMinutes()).slice(-2); return DAYS[(d.getDay()+6)%7]+" "+d.getDate()+" "+MONTHS[d.getMonth()]+" · "+((h%12)||12)+":"+m+(h<12?"am":"pm"); }
 function renderMarket(){
   var M=document.getElementById("market"); M.innerHTML="";
+  if(tvLocked()){ var ban=el("div","askdad"); ban.innerHTML="🔒 View only — Ask Dad to buy treats on his phone"; M.appendChild(ban); }
   var top=el("div","mkids");
   S.kids.forEach(function(k){ var c=el("div","mkid"); c.style.borderColor=k.colour;
     c.innerHTML='<img src="'+avatarSrc(k)+'" alt=""><div><div class="mkn">'+esc(k.name)+'</div><div class="mkb">🪙 '+balance(k)+'</div></div>';
@@ -1280,18 +1460,26 @@ function renderMarket(){
     if(it.type==="group"){
       var pl=S.pledges[it.id]||{}, got=kids.filter(function(k){return pl[k.id];}).length;
       info.appendChild(el("div","mip",it.price+" coins each · everyone joins to unlock · <b>"+got+" of "+kids.length+" in</b>"));
-      var row=el("div","mbtns");
-      kids.forEach(function(k){ var inn=!!pl[k.id], bal=balance(k);
-        var b=el("button","btn nav "+(inn?"green":(bal>=it.price?"":"short")),inn?("✅ "+esc(k.name)+" is in · take back"):(esc(k.name)+": commit "+it.price+(bal>=it.price?"":" · needs "+(it.price-bal))));
-        b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ pledge(it,k); }; row.appendChild(b); });
-      info.appendChild(row);
+      if(tvLocked()){
+        var who=kids.map(function(k){ return (pl[k.id]?"✓ ":"")+k.name; }).join(" · ");
+        info.appendChild(el("div","mlock","🔒 "+(who||"No one in yet")+" — changes are on Dad's phone"));
+      } else {
+        var row=el("div","mbtns");
+        kids.forEach(function(k){ var inn=!!pl[k.id], bal=balance(k);
+          var b=el("button","btn nav "+(inn?"green":(bal>=it.price?"":"short")),inn?("✅ "+esc(k.name)+" is in · take back"):(esc(k.name)+": commit "+it.price+(bal>=it.price?"":" · needs "+(it.price-bal))));
+          b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ pledge(it,k); }; row.appendChild(b); });
+        info.appendChild(row);
+      }
     } else {
       info.appendChild(el("div","mip",it.price+" coins"));
-      var row2=el("div","mbtns");
-      kids.forEach(function(k){ var bal=balance(k);
-        var b=el("button","btn nav "+(bal>=it.price?"":"short"),"Buy for "+esc(k.name)+(bal>=it.price?"":" · needs "+(it.price-bal)));
-        b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ buyItem(it,k); }; row2.appendChild(b); });
-      info.appendChild(row2);
+      if(tvLocked()){ info.appendChild(el("div","mlock","🔒 Ask Dad to buy this on his phone")); }
+      else {
+        var row2=el("div","mbtns");
+        kids.forEach(function(k){ var bal=balance(k);
+          var b=el("button","btn nav "+(bal>=it.price?"":"short"),"Buy for "+esc(k.name)+(bal>=it.price?"":" · needs "+(it.price-bal)));
+          b.setAttribute("data-fid","mi-"+it.id+"-"+k.id); b.onclick=function(){ buyItem(it,k); }; row2.appendChild(b); });
+        info.appendChild(row2);
+      }
     }
     card.appendChild(info); items.appendChild(card);
   });
@@ -1303,7 +1491,7 @@ function renderMarket(){
   ps.forEach(function(p){ var r=el("div","mlr"+(p.undone?" undone":""));
     var who=Object.keys(p.kids).map(function(id){ var k=kidById(id); return (k?esc(k.name):"?")+" −"+p.kids[id]; }).join(", ");
     r.appendChild(el("div","mlt",'<b>'+(p.emoji||"")+" "+esc(p.name)+'</b><br><span>'+fmtStamp(p.t)+" · "+who+(p.undone?" · undone":"")+'</span>'));
-    if(!p.undone){ var u=el("button","btn grey nav","↶ Undo purchase"); u.setAttribute("data-fid","pu-"+p.id); u.onclick=function(){ undoPurchase(p); }; r.appendChild(u); }
+    if(!p.undone && !tvLocked()){ var u=el("button","btn grey nav","↶ Undo purchase"); u.setAttribute("data-fid","pu-"+p.id); u.onclick=function(){ undoPurchase(p); }; r.appendChild(u); }
     log.appendChild(r); });
   body.appendChild(log); M.appendChild(body);
   [].forEach.call(M.querySelectorAll("canvas.mpile"),function(cv){ paintPileCanvas(cv,balance(kidById(cv.getAttribute("data-kid")))); });
@@ -1481,7 +1669,7 @@ function tagNavs(){ [].forEach.call(document.querySelectorAll(".nav:not([tabinde
 try{ new MutationObserver(function(){ tagNavs(); ensureFocusSoon(); }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class","style","disabled"]}); }catch(x){}
 document.addEventListener("focusout",function(){ ensureFocusSoon(); });
 window.addEventListener("focus",ensureFocusSoon);
-document.addEventListener("visibilitychange",function(){ if(!document.hidden) ensureFocusSoon(); });
+document.addEventListener("visibilitychange",function(){ if(!document.hidden){ ensureFocusSoon(); pollRemote(); } });
 setInterval(ensureFocus,1000);
 document.addEventListener("pointerdown",function(){ ac(); },{passive:true});
 document.addEventListener("keydown",function(){ ac(); },{passive:true});
@@ -1976,7 +2164,7 @@ function applyPayload(p,code){
   });
   var before=(S.bookings||[]).length;
   if(p&&Array.isArray(p.bookings)){ pruneCodeBookings(p.bookings); mergeSetupBookings(p.bookings); n=p.bookings.length; }
-  S.tvCode=normCode(code); save();
+  rememberCode(code); save(); startSync();
   return (photos.length?"Photos for "+photos.join(" & ")+". ":"")+(n?n+" bookings loaded.":"");
 }
 function runCode(code,report){
@@ -2027,13 +2215,533 @@ window.addEventListener("storage",function(e){
   var gained=null, gainAmt=0; if(S.view==="rewards") S.kids.forEach(function(k){ var d=weekPoints(k)-(before[k.id]||0); if(d>0){ gained=k; gainAmt=d; } });
   if(gained) celebrate(gained,render,gainAmt); else render();
 });
-load(); applySetup(); render();
+
+/* ---------- v4.6: encrypted family sync (Supabase) ---------- */
+var SYNC_SALT="dojo-coins-sync-v1";
+var SYNC_ID_PREFIX="dojo-coins-family-id-v1:";
+var PIN_PREFIX="dojo-parent-pin-v1:";
+var FAMILY_CODE_LS="kidsDojo.familyCode";
+var SB_URL="https://blrahfyuegzygzpkvyqr.supabase.co";
+var SB_KEY="sb_publishable_YJSCVwK1Nv1N5jn4hBCNEQ_Fi1uZitC";
+var sb=null, familyId=null, familyKey=null, familyCode=null;
+var syncReady=false, syncApplying=false, syncTimer=null, syncPoll=null, syncChan=null;
+var lastRemoteAt=null, justPushedUntil=0, syncKind="device";
+
+function rememberedCode(){
+  var c=normCode(S.tvCode);
+  if(c.length===CODE_LEN) return c;
+  try{ c=normCode(localStorage.getItem(FAMILY_CODE_LS)||""); }catch(e){ c=""; }
+  return c.length===CODE_LEN?c:"";
+}
+function rememberCode(code){
+  code=normCode(code);
+  if(code.length!==CODE_LEN) return;
+  S.tvCode=code;
+  try{ localStorage.setItem(FAMILY_CODE_LS,code); }catch(e){}
+}
+function b64enc(u8){
+  var s="", i=0, n=u8.length;
+  for(;i<n;i+=0x8000) s+=String.fromCharCode.apply(null,u8.subarray(i,Math.min(i+0x8000,n)));
+  return btoa(s);
+}
+function b64dec(s){
+  var bin=atob(s), u=new Uint8Array(bin.length), i;
+  for(i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
+  return u;
+}
+function pinHash(pin){
+  return crypto.subtle.digest("SHA-256",utf8(PIN_PREFIX+String(pin))).then(function(d){ return hexOf(d); });
+}
+function deriveFamily(code){
+  code=normCode(code);
+  if(code.length!==CODE_LEN) return Promise.reject(new Error("bad code"));
+  if(!(window.crypto&&crypto.subtle)) return Promise.reject(new Error("no crypto"));
+  return crypto.subtle.digest("SHA-256",utf8(SYNC_ID_PREFIX+code)).then(function(d){
+    familyId=hexOf(d);
+    familyCode=code;
+    return crypto.subtle.importKey("raw",utf8(code),{name:"PBKDF2"},false,["deriveKey"]);
+  }).then(function(base){
+    return crypto.subtle.deriveKey({name:"PBKDF2",salt:utf8(SYNC_SALT),iterations:CODE_ITER,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);
+  }).then(function(key){ familyKey=key; return {id:familyId,key:familyKey}; });
+}
+function packShared(){
+  return {
+    v:1,
+    kids:(S.kids||[]).map(function(k){ return {id:k.id,name:k.name,colour:k.colour,avatarIdx:k.avatarIdx,lifetime:k.lifetime,tasks:k.tasks}; }),
+    done:S.done, bonus:S.bonus, history:S.history, log:S.log,
+    ledger:S.ledger, taskValues:S.taskValues, coinValue:S.coinValue,
+    items:S.items, pledges:S.pledges, purchases:S.purchases,
+    layout:S.layout, sound:S.sound, animals:S.animals, riders:S.riders,
+    autoReset:S.autoReset, weekStart:S.weekStart, parentPinHash:S.parentPinHash||""
+  };
+}
+function applyShared(p){
+  if(!p) return;
+  var localById={}, localByName={};
+  (S.kids||[]).forEach(function(k){ localById[k.id]=k; localByName[(k.name||"").toLowerCase()]=k; });
+  var seenId={}, seenName={}, kids=(p.kids||[]).map(function(rk){
+    var loc=localById[rk.id]||localByName[(rk.name||"").toLowerCase()]||{};
+    seenId[rk.id]=true; if(loc.id) seenId[loc.id]=true;
+    seenName[(rk.name||"").toLowerCase()]=true; if(loc.name) seenName[(loc.name||"").toLowerCase()]=true;
+    return {id:rk.id,name:rk.name||loc.name||"Kid",colour:rk.colour||loc.colour||COLOURS[0],avatarIdx:rk.avatarIdx!=null?rk.avatarIdx:loc.avatarIdx,photo:loc.photo||"",lifetime:rk.lifetime!=null?rk.lifetime:(loc.lifetime||0),tasks:rk.tasks||loc.tasks||{}};
+  });
+  (S.kids||[]).forEach(function(k){
+    if(seenId[k.id]||seenName[(k.name||"").toLowerCase()]) return;
+    if(k.photo||(k.lifetime||0)>0) kids.push(k);
+  });
+  if(kids.length) S.kids=kids;
+  if(p.done) S.done=p.done;
+  if(p.bonus) S.bonus=p.bonus;
+  if(p.history) S.history=p.history;
+  if(p.log) S.log=p.log;
+  if(p.ledger) S.ledger=p.ledger;
+  if(p.taskValues) S.taskValues=p.taskValues;
+  if(p.coinValue!=null) S.coinValue=p.coinValue;
+  if(p.items) S.items=p.items;
+  if(p.pledges) S.pledges=p.pledges;
+  if(p.purchases) S.purchases=p.purchases;
+  if(p.layout) S.layout=p.layout;
+  if(p.sound!=null) S.sound=p.sound;
+  if(p.animals!=null) S.animals=p.animals;
+  if(p.riders!=null) S.riders=p.riders;
+  if(p.autoReset!=null) S.autoReset=p.autoReset;
+  if(p.weekStart) S.weekStart=p.weekStart;
+  if(p.parentPinHash) S.parentPinHash=p.parentPinHash;
+}
+function localHasBoard(){
+  if(S.ledger&&S.ledger.length) return true;
+  if(S.done&&Object.keys(S.done).length) return true;
+  if(S.history&&S.history.length) return true;
+  if((S.bookings||[]).length) return true;
+  if((S.kids||[]).some(function(k){ return k.photo; })) return true;
+  if(!FIRST_RUN) return true;
+  return false;
+}
+function getSb(){
+  if(sb) return sb;
+  if(window.supabase&&supabase.createClient) sb=supabase.createClient(SB_URL,SB_KEY);
+  return sb;
+}
+function encryptShared(){
+  var iv=crypto.getRandomValues(new Uint8Array(12));
+  return crypto.subtle.encrypt({name:"AES-GCM",iv:iv},familyKey,utf8(JSON.stringify(packShared()))).then(function(ct){
+    var out=new Uint8Array(12+ct.byteLength);
+    out.set(iv,0); out.set(new Uint8Array(ct),12);
+    return b64enc(out);
+  });
+}
+function decryptShared(data){
+  var buf=b64dec(data);
+  if(buf.length<13) return Promise.reject(new Error("short"));
+  return crypto.subtle.decrypt({name:"AES-GCM",iv:buf.subarray(0,12)},familyKey,buf.subarray(12)).then(function(plain){
+    return JSON.parse(new TextDecoder().decode(plain));
+  });
+}
+function setSyncStatus(kind){
+  if(kind) syncKind=kind;
+  var el=document.getElementById("parentSync");
+  if(!el) return;
+  kind=syncKind;
+  if(kind==="synced") el.textContent="● Synced";
+  else if(kind==="waiting") el.textContent="● Waiting for TV";
+  else if(kind==="error") el.textContent="● Sync retrying";
+  else if(kind==="offline") el.textContent="● Offline – saved here";
+  else if(kind==="syncing") el.textContent="● Syncing…";
+  else el.textContent="● On this device";
+}
+function pullRemote(){
+  var client=getSb();
+  if(!client||!familyId) return Promise.resolve(null);
+  return client.from("family_state").select("id,data,updated_at").eq("id",familyId).maybeSingle().then(function(res){
+    if(res.error){ console.warn("dojo sync pull",res.error); return null; }
+    return res.data||null;
+  });
+}
+function applyRemoteRow(row,opts){
+  opts=opts||{};
+  if(!row||!row.data) return Promise.resolve(false);
+  var at=row.updated_at||"";
+  if(lastRemoteAt&&at&&at<=lastRemoteAt&&!opts.force) return Promise.resolve(false);
+  return decryptShared(row.data).then(function(p){
+    var before={};
+    S.kids.forEach(function(k){ before[k.id]=weekPoints(k); });
+    syncApplying=true;
+    try{ applyShared(p); lastRemoteAt=at; save(); }
+    finally{ syncApplying=false; }
+    var gained=null, gainAmt=0;
+    var skip=opts.silent||Date.now()<justPushedUntil||isParent()||PARENT;
+    if(!skip) S.kids.forEach(function(k){ var d=weekPoints(k)-(before[k.id]||0); if(d>0){ gained=k; gainAmt=d; } });
+    if(gained&&!anim) celebrate(gained,render,gainAmt);
+    else render();
+    if(PARENT&&PARENT_PIN_OK) renderParent();
+    setSyncStatus("synced");
+    return true;
+  }).catch(function(e){ console.warn("dojo sync decrypt",e); return false; });
+}
+function pushRemote(){
+  if(!syncReady||syncApplying||!familyId||!familyKey) return Promise.resolve();
+  if(!localHasBoard()&&!lastRemoteAt){ setSyncStatus("waiting"); return Promise.resolve(); }
+  setSyncStatus("syncing");
+  return encryptShared().then(function(data){
+    var at=new Date().toISOString();
+    var client=getSb();
+    if(!client){ setSyncStatus("offline"); return; }
+    return client.from("family_state").upsert({id:familyId,data:data,updated_at:at},{onConflict:"id"}).then(function(res){
+      if(res.error){ console.warn("dojo sync push",res.error); setSyncStatus("error"); return; }
+      lastRemoteAt=at;
+      justPushedUntil=Date.now()+2500;
+      setSyncStatus("synced");
+    });
+  }).catch(function(e){ console.warn("dojo sync push",e); setSyncStatus("error"); });
+}
+function scheduleSyncPush(){
+  if(window.__DOJO_SYNC_OFF||!syncReady) return;
+  if(syncTimer) clearTimeout(syncTimer);
+  syncTimer=setTimeout(function(){ syncTimer=null; pushRemote(); },400);
+}
+function pollRemote(){
+  if(!syncReady) return;
+  pullRemote().then(function(row){ if(row) applyRemoteRow(row); });
+}
+function listenRealtime(){
+  var client=getSb();
+  if(!client||!familyId) return;
+  try{
+    if(syncChan){ try{ client.removeChannel(syncChan); }catch(e){} }
+    syncChan=client.channel("family-"+familyId);
+    syncChan.on("postgres_changes",{event:"*",schema:"public",table:"family_state",filter:"id=eq."+familyId},function(payload){
+      var row=payload.new||payload.record;
+      if(row) applyRemoteRow(row);
+    }).subscribe();
+  }catch(e){ console.warn("dojo realtime",e); }
+}
+function startSync(){
+  if(window.__DOJO_SYNC_OFF) return Promise.resolve();
+  var code=rememberedCode();
+  if(!code) return Promise.resolve();
+  rememberCode(code);
+  if(!getSb()){ setSyncStatus("offline"); return Promise.resolve(); }
+  setSyncStatus("syncing");
+  return deriveFamily(code).then(function(){
+    syncReady=true;
+    return pullRemote();
+  }).then(function(row){
+    if(row) return applyRemoteRow(row,{force:true,silent:true});
+    if(localHasBoard()) return pushRemote();
+    setSyncStatus("waiting");
+  }).then(function(){
+    listenRealtime();
+    if(syncPoll) clearInterval(syncPoll);
+    syncPoll=setInterval(pollRemote,30000);
+  }).catch(function(e){ console.warn("dojo sync start",e); setSyncStatus("error"); });
+}
+function updateLockChrome(){
+  document.body.classList.toggle("tv-locked",tvLocked());
+  document.body.classList.toggle("parent-mode",PARENT);
+  document.documentElement.classList.toggle("parent-ui",PARENT);
+  var b=document.getElementById("tvLockBadge");
+  if(!b) return;
+  if(TV_WRITE&&!PARENT){ b.textContent="🔓 Remote on"; b.classList.add("on"); }
+  else { b.textContent="🔒 View only"; b.classList.remove("on"); }
+}
+
+/* ---------- v4.6: Dad's phone (#parent) ---------- */
+function routeParent(){
+  var h=(location.hash||"").toLowerCase();
+  PARENT=h==="#parent"||h==="#dad"||h.indexOf("#parent")===0;
+  var gate=document.getElementById("pinGate"), app=document.getElementById("parentApp"), layer=document.getElementById("parent");
+  updateLockChrome();
+  if(!layer) return;
+  layer.className=PARENT?"layer show":"layer";
+  if(!PARENT){ PARENT_PIN_OK=false; PIN_BUF=""; PIN_MODE="enter"; PIN_FIRST=""; return; }
+  try{ if(sessionStorage.getItem("dojoParentPin")==="1") PARENT_PIN_OK=true; }catch(e){}
+  if(PARENT_PIN_OK){ gate.style.display="none"; app.style.display="flex"; startSync(); renderParent(); }
+  else { gate.style.display="flex"; app.style.display="none"; beginParentUnlock(); }
+}
+function beginParentUnlock(){
+  var code=rememberedCode();
+  var wrap=document.getElementById("pinCodeWrap");
+  var padw=document.getElementById("pinPadWrap");
+  var title=document.getElementById("pinTitle");
+  var lead=document.getElementById("pinLead");
+  var err=document.getElementById("pinErr");
+  if(err) err.textContent="";
+  if(!code){
+    if(wrap) wrap.style.display="block";
+    if(padw) padw.style.display="none";
+    if(title) title.textContent="🔒 Dad's phone";
+    if(lead) lead.textContent="Enter your family setup code once. It's remembered on this phone. Then you'll set or enter a 4-digit PIN the kids don't know.";
+    return;
+  }
+  if(wrap) wrap.style.display="none";
+  if(lead) lead.textContent="Unlocking…";
+  startSync().then(showPinPad);
+}
+function showPinPad(){
+  var wrap=document.getElementById("pinCodeWrap");
+  var padw=document.getElementById("pinPadWrap");
+  var title=document.getElementById("pinTitle");
+  var lead=document.getElementById("pinLead");
+  if(wrap) wrap.style.display="none";
+  if(padw) padw.style.display="block";
+  PIN_BUF=""; PIN_FIRST="";
+  if(S.parentPinHash){
+    PIN_MODE="enter";
+    if(title) title.textContent="🔒 Dad's phone";
+    if(lead) lead.textContent="Enter your 4-digit PIN to tick jobs, add work or change coins. Kids can't use this page.";
+  } else {
+    PIN_MODE="set";
+    if(title) title.textContent="🔒 Choose a PIN";
+    if(lead) lead.textContent="Pick a 4-digit PIN only you know. You'll type it twice. This is saved in the family sync, not hard-coded.";
+  }
+  drawPin();
+}
+function parentCodeGo(){
+  var inp=document.getElementById("pinCodeIn");
+  var err=document.getElementById("pinErr");
+  var code=normCode(inp&&inp.value);
+  if(code.length!==CODE_LEN){ if(err) err.textContent="The family code has 8 characters. Check it and try again."; return; }
+  rememberCode(code); save();
+  if(err) err.textContent="";
+  beginParentUnlock();
+}
+function drawPin(){
+  var pad=document.getElementById("pinPad");
+  if(pad && !pad.getAttribute("data-ready")){
+    pad.setAttribute("data-ready","1");
+    [1,2,3,4,5,6,7,8,9,"del",0,"go"].forEach(function(n){
+      var b=document.createElement("button"); b.type="button";
+      if(n==="del"){ b.className="del"; b.textContent="⌫"; b.onclick=function(){ PIN_BUF=PIN_BUF.slice(0,-1); paintPin(); }; }
+      else if(n==="go"){ b.className="ok"; b.textContent="OK"; b.onclick=tryPin; }
+      else { b.textContent=String(n); b.onclick=function(){ if(PIN_BUF.length<4) PIN_BUF+=String(n); paintPin(); if(PIN_BUF.length===4) tryPin(); }; }
+      pad.appendChild(b);
+    });
+  }
+  paintPin();
+}
+function paintPin(){
+  var dots=document.querySelectorAll("#pinDots i");
+  for(var i=0;i<dots.length;i++) dots[i].className=i<PIN_BUF.length?"on":"";
+}
+function parentUnlocked(){
+  PARENT_PIN_OK=true; PIN_BUF=""; PIN_FIRST="";
+  var err=document.getElementById("pinErr"); if(err) err.textContent="";
+  try{ sessionStorage.setItem("dojoParentPin","1"); }catch(e){}
+  document.getElementById("pinGate").style.display="none";
+  document.getElementById("parentApp").style.display="flex";
+  renderParent();
+}
+function tryPin(){
+  var err=document.getElementById("pinErr");
+  if(PIN_BUF.length!==4){ if(err) err.textContent="Enter all 4 digits."; return; }
+  if(PIN_MODE==="set"){
+    PIN_FIRST=PIN_BUF; PIN_BUF=""; PIN_MODE="confirm"; paintPin();
+    var lead=document.getElementById("pinLead");
+    if(lead) lead.textContent="Type the same PIN again to confirm.";
+    if(err) err.textContent="";
+    return;
+  }
+  if(PIN_MODE==="confirm"){
+    if(PIN_BUF!==PIN_FIRST){
+      if(err) err.textContent="Those PINs didn't match. Try again.";
+      PIN_BUF=""; PIN_FIRST=""; PIN_MODE="set"; paintPin();
+      var lead=document.getElementById("pinLead");
+      if(lead) lead.textContent="Pick a 4-digit PIN only you know. You'll type it twice.";
+      return;
+    }
+    pinHash(PIN_BUF).then(function(h){ S.parentPinHash=h; save(); parentUnlocked(); });
+    return;
+  }
+  pinHash(PIN_BUF).then(function(h){
+    if(h===S.parentPinHash) parentUnlocked();
+    else { if(err) err.textContent="That's not the PIN. Try again."; PIN_BUF=""; paintPin(); }
+  });
+}
+function openTvPin(){
+  if(PARENT) return;
+  if(!S.parentPinHash){ toast("Set a parent PIN on Dad's phone first"); return; }
+  TV_PIN_BUF="";
+  paintTvPin();
+  var err=document.getElementById("tvPinErr"); if(err) err.textContent="";
+  document.getElementById("tvPin").className="layer show";
+}
+function closeTvPin(){ document.getElementById("tvPin").className="layer"; TV_PIN_BUF=""; }
+function paintTvPin(){
+  var dots=document.querySelectorAll("#tvPinDots i");
+  for(var i=0;i<dots.length;i++) dots[i].className=i<TV_PIN_BUF.length?"on":"";
+}
+function tryTvPin(){
+  if(TV_PIN_BUF.length!==4) return;
+  pinHash(TV_PIN_BUF).then(function(h){
+    if(h===S.parentPinHash){ TV_WRITE=true; closeTvPin(); render(); toast("Remote unlocked until you close this page"); }
+    else { var err=document.getElementById("tvPinErr"); if(err) err.textContent="That's not the PIN."; TV_PIN_BUF=""; paintTvPin(); }
+  });
+}
+function drawTvPin(){
+  var pad=document.getElementById("tvPinPad");
+  if(!pad||pad.getAttribute("data-ready")) return;
+  pad.setAttribute("data-ready","1");
+  [1,2,3,4,5,6,7,8,9,"del",0,"go"].forEach(function(n){
+    var b=document.createElement("button"); b.type="button";
+    if(n==="del"){ b.textContent="⌫"; b.onclick=function(){ TV_PIN_BUF=TV_PIN_BUF.slice(0,-1); paintTvPin(); }; }
+    else if(n==="go"){ b.textContent="OK"; b.onclick=tryTvPin; }
+    else { b.textContent=String(n); b.onclick=function(){ if(TV_PIN_BUF.length<4) TV_PIN_BUF+=String(n); paintTvPin(); if(TV_PIN_BUF.length===4) tryTvPin(); }; }
+    pad.appendChild(b);
+  });
+  var c=document.getElementById("tvPinCancel"); if(c) c.onclick=closeTvPin;
+  var badge=document.getElementById("tvLockBadge"); if(badge) badge.onclick=function(){ if(tvLocked()) openTvPin(); else toast("Remote is on for this visit"); };
+  var go=document.getElementById("pinCodeGo"); if(go) go.onclick=parentCodeGo;
+  var inp=document.getElementById("pinCodeIn");
+  if(inp) inp.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); parentCodeGo(); } });
+}
+
+function parentAddJob(k,day,slot,name,coins){
+  name=(name||"").trim(); if(!name){ toast("Type or pick a job first"); return; }
+  var jobs=splitJobs((k.tasks[day]||{})[slot]);
+  if(jobs.some(function(j){ return taskKeyName(j)===taskKeyName(name); })){ toast(k.name+" already has that job"); return; }
+  k.tasks[day][slot]=joinJobs(jobs.concat([name]));
+  S.taskValues=S.taskValues||{}; S.taskValues[taskKeyName(name)]=Math.max(1,Math.min(50,+coins||coinValue()));
+  save(); render(); renderParent(); toast("Added “"+name+"” for "+k.name);
+}
+function parentAdjust(k,delta){
+  if(!delta) return;
+  var today=ymd(new Date());
+  if(delta>0){
+    S.bonus[k.id]=(S.bonus[k.id]||0)+delta;
+    logBonus(k.id,today,1); logCoins(k.id,today,delta); ledgerAdd(k,"bonus",delta,"⭐ Dad added coins");
+    k.lifetime+=delta;
+  } else {
+    var take=Math.min(-delta,balance(k));
+    if(!take){ toast(k.name+" has no coins to take"); return; }
+    ledgerAdd(k,"adjust",-take,"↩ Dad took coins back"); logCoins(k.id,today,-take);
+    k.lifetime=Math.max(0,k.lifetime-take);
+  }
+  save(); render(); renderParent(); toast((delta>0?"+":"")+delta+" for "+k.name);
+}
+function renderParent(){
+  if(!isParent()) return;
+  var body=document.getElementById("parentBody"); if(!body) return;
+  var d=todayIdx(), now=new Date(), tab=PARENT_TAB||"today";
+  document.getElementById("parentWhen").textContent="Today · "+DAYS_LONG[d]+" "+now.getDate()+" "+MONTHS[now.getMonth()];
+  setSyncStatus();
+  [].forEach.call(document.querySelectorAll("#parentNav button"),function(b){ b.className=b.getAttribute("data-ptab")===tab?"on":""; });
+  if(tab==="today") renderParentToday(body,d);
+  else if(tab==="add") renderParentAdd(body,d);
+  else if(tab==="coins") renderParentCoins(body);
+  else renderParentBuy(body);
+}
+function renderParentToday(body,d){
+  var h="";
+  S.kids.forEach(function(k){
+    h+='<div class="pkid" style="--kc:'+k.colour+'"><div class="phd"><img src="'+avatarSrc(k)+'" alt=""><div class="pn">'+esc(k.name)+'</div><div class="pb">🪙 '+balance(k)+'</div></div>';
+    ["am","pm"].forEach(function(slot){
+      var jobs=splitJobs((k.tasks[d]||{})[slot]);
+      h+='<div class="pslot">'+(slot==="am"?"☀️ Morning":"🌙 Afternoon")+'</div>';
+      if(!jobs.length) h+='<div class="pnote" style="padding:0 .8rem .4rem">No job</div>';
+      jobs.forEach(function(task,ji){
+        var key=d+slot+(ji||""), done=!!(S.done[k.id]&&S.done[k.id][key]);
+        var tvv=done?kidCoinsDone(k,key):taskValue(task);
+        h+='<button type="button" class="prow'+(done?" on":"")+'" data-tick="'+k.id+'" data-key="'+key+'"><span class="box">'+(done?"✓":"")+'</span><span class="pt">'+(done?"🪙 ":"")+esc(task)+'</span><span class="pc">'+tvv+'</span></button>';
+      });
+    });
+    h+='</div>';
+  });
+  h+='<p class="pnote">Tap a job to tick it (tap again to undo). The TV is view-only, so the kids can watch but can\'t change a thing.</p>';
+  body.innerHTML=h;
+  [].forEach.call(body.querySelectorAll("[data-tick]"),function(btn){
+    btn.onclick=function(){
+      var k=kidById(btn.getAttribute("data-tick")), key=btn.getAttribute("data-key");
+      if(!k) return;
+      if(S.done[k.id]&&S.done[k.id][key]) untick(k,key);
+      else award(k,{type:"task",key:key});
+    };
+  });
+}
+function renderParentAdd(body,d){
+  var jobs=allTaskNames();
+  var h='<div class="psheet"><h2>Quick-add a job</h2>';
+  h+='<label>Who</label><div class="ppills" id="paKid">';
+  S.kids.forEach(function(k,i){ h+='<button type="button" data-k="'+k.id+'" class="'+(i===0?"on":"")+'">'+esc(k.name)+'</button>'; });
+  h+='</div><label>Day</label><div class="ppills" id="paDay">';
+  for(var i=0;i<7;i++) h+='<button type="button" data-d="'+i+'" class="'+(i===d?"on":"")+'">'+(i===d?"Today":DAYS[i])+'</button>';
+  h+='</div><label>Morning or afternoon</label><div class="ppills" id="paSlot">';
+  h+='<button type="button" data-s="am" class="on">☀️ Morning</button><button type="button" data-s="pm">🌙 Afternoon</button>';
+  h+='</div><label>Job</label><div class="ppills" id="paJob">';
+  jobs.forEach(function(n){ h+='<button type="button" data-j="'+esc(n)+'">'+iconFor(n)+" "+esc(n)+'</button>'; });
+  h+='</div><label>Or type a new one</label><input class="ptxt" id="paCustom" maxlength="40" placeholder="e.g. Water the garden">';
+  h+='<label>Coins</label><div class="ppills" id="paCoins"><button type="button" id="paMinus">−</button><button type="button" class="on" id="paVal">5</button><button type="button" id="paPlus">+</button></div>';
+  h+='<button type="button" class="pact green" id="paGo">Add job</button>';
+  h+='<p class="pnote">This adds it to their list for that day. It will show on the TV once sync is on.</p></div>';
+  body.innerHTML=h;
+  function onPill(id,attr){ var box=document.getElementById(id); box.onclick=function(e){ var b=e.target.closest("button"); if(!b) return; [].forEach.call(box.querySelectorAll("button"),function(x){ x.classList.remove("on"); }); b.classList.add("on"); if(attr==="data-j"){ var c=document.getElementById("paCustom"); if(c) c.value=""; } }; }
+  onPill("paKid"); onPill("paDay"); onPill("paSlot"); onPill("paJob");
+  var val=5;
+  document.getElementById("paMinus").onclick=function(){ val=Math.max(1,val-1); document.getElementById("paVal").textContent=val; };
+  document.getElementById("paPlus").onclick=function(){ val=Math.min(50,val+1); document.getElementById("paVal").textContent=val; };
+  document.getElementById("paGo").onclick=function(){
+    var k=kidById(document.querySelector("#paKid .on").getAttribute("data-k"));
+    var day=+document.querySelector("#paDay .on").getAttribute("data-d");
+    var slot=document.querySelector("#paSlot .on").getAttribute("data-s");
+    var pick=document.querySelector("#paJob .on");
+    var name=(document.getElementById("paCustom").value||"").trim()||(pick?pick.getAttribute("data-j"):"");
+    parentAddJob(k,day,slot,name,val);
+  };
+}
+function renderParentCoins(body){
+  var h='<div class="psheet"><h2>Quick coins</h2><p class="pnote">Add a bonus or take coins back. One tap.</p>';
+  S.kids.forEach(function(k){
+    h+='<div class="pkid" style="--kc:'+k.colour+'"><div class="phd"><img src="'+avatarSrc(k)+'" alt=""><div class="pn">'+esc(k.name)+'</div><div class="pb">🪙 '+balance(k)+'</div></div>';
+    h+='<div class="ppills" style="padding:.2rem .8rem 1rem">';
+    h+='<button type="button" data-adj="'+k.id+'" data-d="5">+5 bonus</button>';
+    h+='<button type="button" data-adj="'+k.id+'" data-d="1">+1</button>';
+    h+='<button type="button" data-adj="'+k.id+'" data-d="-1">−1</button>';
+    h+='<button type="button" data-adj="'+k.id+'" data-d="-5">−5</button>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  body.innerHTML=h;
+  [].forEach.call(body.querySelectorAll("[data-adj]"),function(b){
+    b.onclick=function(){ parentAdjust(kidById(b.getAttribute("data-adj")), +b.getAttribute("data-d")); };
+  });
+}
+function renderParentBuy(body){
+  var h='<div class="psheet"><h2>Buy (parent only)</h2><p class="pnote">Kids can look at the Market on the TV, but only you can buy or commit coins.</p>';
+  (S.items||[]).forEach(function(it){
+    var kids=itemKids(it), pl=S.pledges[it.id]||{};
+    h+='<div class="pkid" style="--kc:#7b2cbf"><div class="phd"><div class="pn">'+(it.emoji||"🎁")+" "+esc(it.name)+'</div><div class="pb">'+it.price+' 🪙'+(it.type==="group"?" each":"")+'</div></div>';
+    h+='<div class="ppills" style="padding:.2rem .8rem 1rem">';
+    kids.forEach(function(k){
+      if(it.type==="group"){
+        h+='<button type="button" data-pledge="'+it.id+'" data-k="'+k.id+'">'+(pl[k.id]?"Take back "+k.name:k.name+" joins")+'</button>';
+      } else {
+        h+='<button type="button" data-buy="'+it.id+'" data-k="'+k.id+'">Buy for '+esc(k.name)+'</button>';
+      }
+    });
+    h+='</div></div>';
+  });
+  if(!(S.items||[]).length) h+='<p class="pnote">No marketplace items yet.</p>';
+  h+='</div>';
+  body.innerHTML=h;
+  [].forEach.call(body.querySelectorAll("[data-buy]"),function(b){
+    b.onclick=function(){ var it=itemById(b.getAttribute("data-buy")); buyItem(it,kidById(b.getAttribute("data-k"))); };
+  });
+  [].forEach.call(body.querySelectorAll("[data-pledge]"),function(b){
+    b.onclick=function(){ var it=itemById(b.getAttribute("data-pledge")); pledge(it,kidById(b.getAttribute("data-k"))); };
+  });
+}
+document.getElementById("parentNav").onclick=function(e){
+  var b=e.target.closest("[data-ptab]"); if(!b) return;
+  PARENT_TAB=b.getAttribute("data-ptab"); renderParent();
+};
+
+load(); applySetup(); render(); routeParent(); drawTvPin(); startSync();
+
 applyAnimals();
 var start=document.querySelector(".task.todaycol:not(.done)")||document.querySelector("#board .nav")||document.querySelector("#rewards .nav"); if(start) start.focus();
-if(FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
+if(!PARENT&&FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
   setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
 }
-window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i,opts){ if(i!=null) animalIdx=i; critGo(true,"animal",opts||{}); return critJ; }, riderNow:function(i,opts){ if(i!=null) riderIdx=i; critGo(true,"rider",opts||{}); return critJ; }, castNext:function(){ critGo(true); return critJ; }, placeTunnels:placeTunnels, tunnels:function(){ return TUN; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i,gain){ celebrate(S.kids[i||0],render,gain); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode};
+window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i,opts){ if(i!=null) animalIdx=i; critGo(true,"animal",opts||{}); return critJ; }, riderNow:function(i,opts){ if(i!=null) riderIdx=i; critGo(true,"rider",opts||{}); return critJ; }, castNext:function(){ critGo(true); return critJ; }, placeTunnels:placeTunnels, tunnels:function(){ return TUN; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i,gain){ celebrate(S.kids[i||0],render,gain); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode, tvLocked:function(){ return tvLocked(); }, parent:function(){ return isParent(); }, routeParent:routeParent, askDad:askDad, setParentPin:function(ok){ PARENT_PIN_OK=!!ok; try{ sessionStorage.setItem("dojoParentPin",ok?"1":""); }catch(e){} }, unlockTvWrite:unlockTvWrite, startSync:startSync, familyId:function(){ return familyId; }, syncReady:function(){ return !!syncReady; }, setFamilyCode:function(c){ rememberCode(c); save(); return startSync(); }, setParentPinDigits:function(pin){ return pinHash(pin).then(function(h){ S.parentPinHash=h; save(); }); } };
 })();
 </script>
 </body>
