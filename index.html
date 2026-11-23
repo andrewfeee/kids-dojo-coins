@@ -309,7 +309,7 @@ header h1{font-size:2.6rem!important}
 .hr.rev span:nth-child(3){font-style:italic;opacity:.8}
 @media (max-width:900px){.mbody{grid-template-columns:1fr}.mkids{flex-wrap:wrap}.hr{grid-template-columns:1fr 1fr;font-size:1rem}}
 
-/* v4.6: TV view-only + Dad's phone parent view */
+/* v4.7: Changed / bed, remove Tidy room, calendar tab, bookings sync, one-time coin reset */
 body.tv-locked #undoBtn{display:none!important}
 #tvLockBadge{display:none;align-items:center;gap:.35rem;background:#1d1b4b;color:#fff;font-weight:bold;font-size:1.15rem;padding:.35rem .8rem;border-radius:1.2rem;margin-left:.2rem;white-space:nowrap}
 body.tv-locked #tvLockBadge{display:inline-flex}
@@ -358,8 +358,8 @@ body.parent-mode #app,body.parent-mode #celebrate,body.parent-mode #tunTL-back,b
 .prow.on .box{background:#ffd23f;border-color:#b06f00}
 .prow .pt{flex:1;font-weight:bold;font-size:1.05rem;line-height:1.2}
 .prow .pc{font-weight:bold;color:#c98a00;font-size:1rem}
-#parentNav{position:fixed;left:0;right:0;bottom:0;max-width:430px;margin:0 auto;background:#fff;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 -.2rem .8rem rgba(29,27,75,.12);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom))}
-#parentNav button{border:0;background:transparent;padding:.45rem .2rem;font:inherit;font-weight:bold;font-size:.72rem;color:#1d1b4b;opacity:.55}
+#parentNav{position:fixed;left:0;right:0;bottom:0;max-width:430px;margin:0 auto;background:#fff;display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 -.2rem .8rem rgba(29,27,75,.12);padding:.35rem .2rem calc(.35rem + env(safe-area-inset-bottom))}
+#parentNav button{border:0;background:transparent;padding:.45rem .15rem;font:inherit;font-weight:bold;font-size:.62rem;color:#1d1b4b;opacity:.55}
 #parentNav button.on{opacity:1;color:#4c1d95}
 #parentNav button span{display:block;font-size:1.25rem;margin-bottom:.1rem}
 .psheet h2{font-size:1.1rem;margin:0 0 .4rem}
@@ -369,6 +369,17 @@ body.parent-mode #app,body.parent-mode #celebrate,body.parent-mode #tunTL-back,b
 .ppills button.on{background:#1d1b4b;color:#fff}
 .pact.green{background:#178a50;color:#fff;width:100%;margin-top:.65rem;padding:.8rem;border-radius:1rem;font-size:1.05rem}
 .pact.orange{background:#ffbe0b;color:#3d2a00;width:100%;margin-top:.5rem;padding:.8rem;border-radius:1rem}
+.pact.red{background:#c0392b;color:#fff;width:100%;margin-top:.5rem;padding:.8rem;border-radius:1rem}
+.pcalhead{display:flex;align-items:center;gap:.5rem;margin:0 0 .7rem}
+.pcalhead button{border:0;background:#fff;border-radius:999px;width:2.4rem;height:2.4rem;font:inherit;font-weight:bold;box-shadow:0 .15rem 0 rgba(0,0,0,.1);flex-shrink:0}
+.pcalwk{flex:1;text-align:center;font-weight:bold;font-size:1rem}
+.pcalday{background:#fff;border-radius:1rem;margin:0 0 .55rem;padding:.55rem .7rem .5rem;box-shadow:0 .15rem .4rem rgba(29,27,75,.07)}
+.pcalday.today{box-shadow:0 0 0 .2rem #ffbe0b}
+.pcalhd{font-weight:bold;font-size:.9rem;margin:0 0 .35rem}
+.pcalbk{display:block;width:100%;border:0;background:#f6f7ff;border-radius:.8rem;padding:.5rem .6rem;margin:.25rem 0;text-align:left;font:inherit;color:inherit}
+.pcalbk.fam{background:#1d1b4b;color:#fff}
+.pcalbk .pcalmeta{display:block;font-size:.8rem;opacity:.75;margin-top:.15rem}
+
 .pnote{font-size:.85rem;opacity:.75;margin:.6rem 0}
 input.ptxt{width:100%;font:inherit;font-size:1.05rem;padding:.7rem .8rem;border-radius:.8rem;border:.15rem solid #c9c4e8;background:#fff}
 
@@ -470,6 +481,7 @@ input.ptxt{width:100%;font:inherit;font-size:1.05rem;padding:.7rem .8rem;border-
       <button type="button" data-ptab="add"><span>➕</span>Add job</button>
       <button type="button" data-ptab="coins"><span>🪙</span>Coins</button>
       <button type="button" data-ptab="buy"><span>🛒</span>Buy</button>
+      <button type="button" data-ptab="cal"><span>📅</span>Calendar</button>
     </nav>
   </div>
 </div>
@@ -483,10 +495,11 @@ var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 var DAYS_LONG = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var AM_DEFAULT = ["Stack dishwasher","Sort laundry","Pack lunch"];
-var PM_DEFAULT = ["","Homework / reading","Tidy room"];
+var PM_DEFAULT = ["","Homework / reading",""]; /* Tidy room removed in v4.7; keep a 3-day cycle so Homework days do not shift */
 var DAILY_PM = "Unpack bag"; /* every kid, every afternoon, alongside their other afternoon job */
+var DAILY_AM = "Changed / bed"; /* every kid, every morning, at the top of the morning jobs (one line) */
 /* per-job coin values (by job name, any kid/day); anything not listed earns the Settings default */
-var TASK_VALUE_SEED = {"stack dishwasher":5,"pack lunch":7,"pack lunches":7,"sort laundry":2,"feed chooks":6,"unpack bag":1};
+var TASK_VALUE_SEED = {"stack dishwasher":5,"pack lunch":7,"pack lunches":7,"sort laundry":2,"feed chooks":6,"unpack bag":1,"changed / bed":5};
 var COLOURS = ["#3a86ff","#f15bb5","#ffc93c","#2bb673","#ff8c1a","#7b2cbf","#e63946"]; // Charlie blue, Pip pink, Jack yellow
 var MAX_KIDS = 4;
 
@@ -497,13 +510,13 @@ function todayIdx(){ return (new Date().getDay()+6)%7; }
 function weekKey(){ return ymd(mondayOf(new Date())); }
 
 /* ---------- state ---------- */
-/* a slot may hold several jobs, written "Tidy room + Unpack bag"; job i in a slot has key day+slot+(i||"") e.g. "3pm", "3pm1" */
+/* a slot may hold several jobs, written "Homework / reading + Unpack bag"; job i in a slot has key day+slot+(i||"") e.g. "3pm", "3pm1" */
 function splitJobs(s){ return String(s||"").split(/\s*\+\s*/).map(function(x){ return x.trim(); }).filter(Boolean); }
 function joinJobs(a){ return a.filter(function(x){ return x&&x.trim(); }).join(" + "); }
 function parseKey(key){ var m=/^(\d)(am|pm)(\d*)$/.exec(key||""); return m?{d:+m[1],s:m[2],i:m[3]?+m[3]:0}:null; }
 function jobOfKey(k,key){ var p=parseKey(key); if(!p) return ""; return splitJobs((k.tasks[p.d]||{})[p.s])[p.i]||""; }
 function defaultTasks(offset){
-  var t=[]; for(var i=0;i<7;i++){ var am=AM_DEFAULT[(i+offset)%3]; if(i>=5&&am==="Pack lunch") am="Feed chooks"; t.push({am:am, pm:joinJobs([PM_DEFAULT[(i+offset)%3],DAILY_PM])}); } return t;
+  var t=[]; for(var i=0;i<7;i++){ var am=AM_DEFAULT[(i+offset)%3]; if(i>=5&&am==="Pack lunch") am="Feed chooks"; t.push({am:joinJobs([DAILY_AM, am]), pm:joinJobs([PM_DEFAULT[(i+offset)%3],DAILY_PM])}); } return t;
 }
 function newKid(i,name){
   return {id:"k"+Date.now().toString(36)+i, name:name, photo:null, avatarIdx:i%DEFAULT_AVATARS.length, colour:COLOURS[i%COLOURS.length], lifetime:0, tasks:defaultTasks(i)};
@@ -515,8 +528,8 @@ function freshState(){
 }
 var S;
 var FIRST_RUN=false;
-/* v4.6: TV is view-only; all changes come from Dad's phone (#parent) or a session PIN on the TV. */
-var PARENT=false, PARENT_PIN_OK=false, PARENT_TAB="today", PIN_BUF="", PIN_MODE="enter", PIN_FIRST="";
+/* v4.7: TV is view-only; all changes come from Dad's phone (#parent) or a session PIN on the TV. */
+var PARENT=false, PARENT_PIN_OK=false, PARENT_TAB="today", PIN_BUF="", PIN_MODE="enter", PIN_FIRST="", PARENT_CAL_OFF=0, CAL_DRAFT=null;
 var TV_WRITE=false, TV_PIN_BUF="";
 function isParent(){ return PARENT&&PARENT_PIN_OK; }
 function tvLocked(){ return !isParent() && !TV_WRITE; }
@@ -540,7 +553,7 @@ function load(){
   }
   if(S.layout!=="all") S.layout="split";
   S.view=hashView();
-  migrateEconomy(false); migrateTaskValues(); migrateDailyPm(); S.ledger=S.ledger||[]; S.items=S.items||[]; S.pledges=S.pledges||{}; S.purchases=S.purchases||[];
+  migrateEconomy(false); migrateTaskValues(); migrateDailyPm(); migrateChangedBed(); migrateRemoveTidyRoom(); migrateReset2026(); S.ledger=S.ledger||[]; S.items=S.items||[]; S.pledges=S.pledges||{}; S.purchases=S.purchases||[]; S.migrations=S.migrations||{}; S.archive=S.archive||{};
   S.v=7; save();
   checkWeek();
 }
@@ -1139,7 +1152,7 @@ function renderSettingsLocked(){
   h+='</div>';
   h+='<h3>App</h3><div class="card"><p class="small">Sound: '+(S.sound?"On":"Off")+' · Running animals: '+(S.animals!==false?"On":"Off")+' · Kid riders: '+(S.riders!==false?"On":"Off")+' · New week auto-reset: '+(S.autoReset?"On":"Off")+'</p>';
   h+='<p class="small">Main screen: '+(S.layout==="all"?"All 7 days":"Mon–Fri + Sat–Sun")+'</p>';
-  h+='<p class="small">Dojo Coins v4.6. This TV is view-only. Dad ticks jobs and changes coins on his phone.</p>';
+  h+='<p class="small">Dojo Coins v4.7. This TV is view-only. Dad ticks jobs and changes coins on his phone.</p>';
   if(TV_WRITE) h+='<p class="small">Remote is unlocked for this visit.</p><button class="btn grey nav" type="button" id="sTvUnlock">Lock the remote again</button>';
   else h+='<button class="btn green nav" type="button" id="sTvUnlock">Enter PIN to use the remote</button>';
   h+='</div>';
@@ -1162,7 +1175,7 @@ function renderSettings(){
   h+='<div class="row"><label class="lbl">Colour</label>'; COLOURS.forEach(function(c,i){ h+='<button class="sw nav'+(k.colour===c?" sel":"")+'" data-fid="col'+i+'" data-col="'+c+'" style="background:'+c+'" aria-label="colour '+(i+1)+'"></button>'; }); h+='</div></div>';
   h+='<h3>Jobs for '+esc(k.name)+'</h3><div class="card"><div class="tgrid"><div></div><div class="h">☀️ Morning</div><div class="h">🌙 Afternoon</div>';
   for(var d=0;d<7;d++){ h+='<div class="h">'+DAYS[d]+'</div><input class="txt nav" data-fid="t'+d+'am" data-d="'+d+'" data-s="am" maxlength="80" value="'+esc(k.tasks[d].am)+'" placeholder="(no job)"><input class="txt nav" data-fid="t'+d+'pm" data-d="'+d+'" data-s="pm" maxlength="80" value="'+esc(k.tasks[d].pm)+'" placeholder="(no job)">'; }
-  h+='</div><p class="small">More than one job in a slot? Join them with + (e.g. “Tidy room + Unpack bag”). Each gets its own tick and coins.</p><div class="row" style="margin-top:.8rem"><button class="btn grey nav" data-fid="deftasks" id="sDefTasks">Reset to example jobs</button>';
+  h+='</div><p class="small">More than one job in a slot? Join them with + (e.g. “Homework / reading + Unpack bag”). Each gets its own tick and coins.</p><div class="row" style="margin-top:.8rem"><button class="btn grey nav" data-fid="deftasks" id="sDefTasks">Reset to example jobs</button>';
   if(S.kids.length>1) h+='<button class="btn grey nav" data-fid="copytasks" id="sCopy">Copy these jobs to other kids</button>';
   h+='</div></div>';
   h+='<h3>📅 Bookings</h3><div class="card" id="bkCard">';
@@ -1240,7 +1253,7 @@ function renderSettings(){
   h+='<button class="btn orange nav" data-fid="resetwk" id="sResetWk">Start fresh week now</button>';
   h+='</div><div class="row"><button class="btn red nav" data-fid="setall" id="sResetAll">Erase everything</button>';
   if(S.kids.length>1) h+='<button class="btn red nav" data-fid="rmkid" id="sRemove">Remove '+esc(k.name)+'</button>';
-  h+='</div><p class="small">Dojo Coins v4.6. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
+  h+='</div><p class="small">Dojo Coins v4.7. Weekly reset clears the ticks and this week\'s coins but keeps each kid\'s balance, purchases and history. Data is saved only in this browser on this device.</p>';
   h+='<p class="small">Default photos: Bruno Curly, Manda ANDRIA and Aibek Skakov on Pexels (Pexels licence). Original artwork and sounds.</p></div>';
   box.innerHTML=h;
   function $(id){ return document.getElementById(id); }
@@ -1345,6 +1358,160 @@ function migrateDailyPm(){
   if((S.v||0)>=7) return;
   S.taskValues=S.taskValues||{}; if(S.taskValues["unpack bag"]==null) S.taskValues["unpack bag"]=1;
   S.kids.forEach(function(k){ (k.tasks||[]).forEach(function(d){ if(!d) return; var j=splitJobs(d.pm); if(!j.some(function(x){ return taskKeyName(x)==="unpack bag"; })){ j.push(DAILY_PM); d.pm=joinJobs(j); } }); });
+}
+function jobNameIn(jobs,name){ var n=taskKeyName(name); return (jobs||[]).some(function(x){ return taskKeyName(x)===n; }); }
+function mapSlotKey(key,day,slot,delta){
+  var p=parseKey(key); if(!p||p.d!==day||p.s!==slot) return key;
+  var i=p.i+delta; return day+slot+(i||"");
+}
+function shiftSlotKeys(kidId,day,slot,delta){
+  if(!delta) return;
+  if(S.done&&S.done[kidId]){
+    var old=S.done[kidId], nd={}, keys=Object.keys(old);
+    keys.sort(function(a,b){ var pa=parseKey(a),pb=parseKey(b); return ((pb&&pb.i)||0)-((pa&&pa.i)||0); });
+    keys.forEach(function(key){ nd[mapSlotKey(key,day,slot,delta)]=old[key]; });
+    S.done[kidId]=nd;
+  }
+  (S.history||[]).forEach(function(h){ if(h.kid===kidId&&h.key) h.key=mapSlotKey(h.key,day,slot,delta); });
+  Object.keys(S.log||{}).forEach(function(date){
+    if(weekdayOfYmd(date)!==day) return;
+    var e=(S.log[date]||{})[kidId]; if(!e) return;
+    var items=[];
+    Object.keys(e).forEach(function(k){
+      if(k===slot) items.push({i:0,v:e[k]});
+      else if(k.indexOf(slot)===0 && /^\d+$/.test(k.slice(slot.length))) items.push({i:+k.slice(slot.length),v:e[k]});
+    });
+    if(!items.length) return;
+    items.forEach(function(it){ delete e[it.i?slot+it.i:slot]; });
+    items.sort(function(a,b){ return b.i-a.i; });
+    items.forEach(function(it){ var ni=it.i+delta; e[ni?slot+ni:slot]=it.v; });
+  });
+}
+/* v4.7: add "Changed / bed" at the top of every morning, once per slot, without losing existing ticks */
+function migrateChangedBed(){
+  S.migrations=S.migrations||{};
+  S.taskValues=S.taskValues||{};
+  if(S.taskValues["changed / bed"]==null) S.taskValues["changed / bed"]=5;
+  var added=false;
+  (S.kids||[]).forEach(function(k){
+    (k.tasks||[]).forEach(function(d,day){
+      if(!d) return;
+      var j=splitJobs(d.am);
+      if(jobNameIn(j,DAILY_AM)) return;
+      shiftSlotKeys(k.id,day,"am",1);
+      j.unshift(DAILY_AM);
+      d.am=joinJobs(j);
+      added=true;
+    });
+  });
+  S.migrations["changed-bed"]=true;
+  return added;
+}
+function remapSlotKeys(kidId,day,slot,oldToNew){
+  /* oldToNew[oldIndex] = new index, or -1 to drop that key (do not slide it onto another job) */
+  function newKey(key){
+    var p=parseKey(key); if(!p||p.d!==day||p.s!==slot) return key;
+    if(!Object.prototype.hasOwnProperty.call(oldToNew,p.i)) return key;
+    var ni=oldToNew[p.i];
+    if(ni==null||ni<0) return null;
+    return day+slot+(ni||"");
+  }
+  if(S.done&&S.done[kidId]){
+    var old=S.done[kidId], nd={};
+    Object.keys(old).forEach(function(key){
+      var nk=newKey(key);
+      if(nk==null) return;
+      nd[nk]=old[key];
+    });
+    S.done[kidId]=nd;
+  }
+  S.history=(S.history||[]).filter(function(h){
+    if(h.kid!==kidId||!h.key) return true;
+    var p=parseKey(h.key); if(!p||p.d!==day||p.s!==slot) return true;
+    if(!Object.prototype.hasOwnProperty.call(oldToNew,p.i)) return true;
+    var ni=oldToNew[p.i];
+    if(ni==null||ni<0) return false; /* drop undo entries for the removed job; leave the ledger alone */
+    h.key=day+slot+(ni||"");
+    return true;
+  });
+  Object.keys(S.log||{}).forEach(function(date){
+    if(weekdayOfYmd(date)!==day) return;
+    var e=(S.log[date]||{})[kidId]; if(!e) return;
+    var items=[];
+    Object.keys(e).forEach(function(k){
+      if(k===slot) items.push({i:0,v:e[k]});
+      else if(k.indexOf(slot)===0 && /^\d+$/.test(k.slice(slot.length))) items.push({i:+k.slice(slot.length),v:e[k]});
+    });
+    if(!items.length) return;
+    items.forEach(function(it){ delete e[it.i?slot+it.i:slot]; });
+    items.forEach(function(it){
+      var ni=Object.prototype.hasOwnProperty.call(oldToNew,it.i)?oldToNew[it.i]:it.i;
+      if(ni==null||ni<0) return;
+      e[ni?slot+ni:slot]=it.v;
+    });
+  });
+}
+/* v4.7: remove "Tidy room" from every afternoon, including slots joined with " + ". Remaining jobs keep their own ticks. Ledger coins are not touched. */
+var TIDY_ID="remove-tidy-room";
+function migrateRemoveTidyRoom(){
+  S.migrations=S.migrations||{};
+  var changed=false;
+  (S.kids||[]).forEach(function(k){
+    (k.tasks||[]).forEach(function(d,day){
+      if(!d) return;
+      var j=splitJobs(d.pm);
+      if(!jobNameIn(j,"Tidy room")) return;
+      var kept=[], oldToNew={}, ni=0;
+      j.forEach(function(name,oi){
+        if(taskKeyName(name)==="tidy room"){ oldToNew[oi]=-1; }
+        else { oldToNew[oi]=ni; kept.push(name); ni++; }
+      });
+      d.pm=joinJobs(kept);
+      remapSlotKeys(k.id,day,"pm",oldToNew);
+      changed=true;
+    });
+  });
+  S.migrations[TIDY_ID]=true;
+  return changed;
+}
+/* Midnight Mon 23 Nov 2026 in Australia/Brisbane (UTC+10) */
+var RESET_CUTOFF=Date.parse("2026-11-22T14:00:00Z");
+var RESET_ID="reset-2026-11-23";
+function snapshotCoins(){
+  return {
+    savedAt:new Date().toISOString(),
+    week:S.week||"",
+    kids:(S.kids||[]).map(function(k){ return {id:k.id,name:k.name,lifetime:k.lifetime||0}; }),
+    ledger:JSON.parse(JSON.stringify(S.ledger||[])),
+    done:JSON.parse(JSON.stringify(S.done||{})),
+    bonus:JSON.parse(JSON.stringify(S.bonus||{})),
+    history:JSON.parse(JSON.stringify(S.history||[])),
+    log:JSON.parse(JSON.stringify(S.log||{})),
+    pledges:JSON.parse(JSON.stringify(S.pledges||{})),
+    purchases:JSON.parse(JSON.stringify(S.purchases||[]))
+  };
+}
+function migrateReset2026(){
+  if(window.__DOJO_NO_RESET) return false;
+  S.migrations=S.migrations||{};
+  if(S.migrations[RESET_ID]) return false;
+  S.archive=S.archive||{};
+  if(!S.archive[RESET_ID]) S.archive[RESET_ID]=snapshotCoins();
+  var cutDate="2026-11-23";
+  S.ledger=(S.ledger||[]).filter(function(e){ return +e.t>=RESET_CUTOFF; });
+  S.history=(S.history||[]).filter(function(h){ return (h.date&&h.date>=cutDate) || (!h.date&&+h.t>=RESET_CUTOFF); });
+  S.purchases=(S.purchases||[]).filter(function(p){ return +p.t>=RESET_CUTOFF; });
+  S.pledges={};
+  if((S.week||"")<cutDate){ S.done={}; S.bonus={}; S.history=[]; }
+  Object.keys(S.log||{}).forEach(function(date){ if(date<cutDate) delete S.log[date]; });
+  (S.kids||[]).forEach(function(k){
+    var life=0;
+    (S.ledger||[]).forEach(function(e){ if(e.kid===k.id&&e.coins>0) life+=e.coins; });
+    k.lifetime=life;
+  });
+  S.week=weekKey();
+  S.migrations[RESET_ID]=true;
+  return true;
 }
 function coinValue(){ var v=+S.coinValue; return v>=1&&v<=50?Math.round(v):5; }
 function nowT(){ return Date.now(); }
@@ -2272,7 +2439,8 @@ function packShared(){
     ledger:S.ledger, taskValues:S.taskValues, coinValue:S.coinValue,
     items:S.items, pledges:S.pledges, purchases:S.purchases,
     layout:S.layout, sound:S.sound, animals:S.animals, riders:S.riders,
-    autoReset:S.autoReset, weekStart:S.weekStart, parentPinHash:S.parentPinHash||""
+    autoReset:S.autoReset, weekStart:S.weekStart, parentPinHash:S.parentPinHash||"",
+    bookings:S.bookings||[], migrations:S.migrations||{}, archive:S.archive||{}
   };
 }
 function applyShared(p){
@@ -2307,6 +2475,15 @@ function applyShared(p){
   if(p.autoReset!=null) S.autoReset=p.autoReset;
   if(p.weekStart) S.weekStart=p.weekStart;
   if(p.parentPinHash) S.parentPinHash=p.parentPinHash;
+  if(p.bookings&&p.bookings.length) S.bookings=p.bookings;
+  S.migrations=S.migrations||{};
+  if(p.migrations) Object.keys(p.migrations).forEach(function(k){ S.migrations[k]=S.migrations[k]||p.migrations[k]; });
+  S.archive=S.archive||{};
+  if(p.archive) Object.keys(p.archive).forEach(function(k){ if(!S.archive[k]) S.archive[k]=p.archive[k]; });
+  var bedAdded=migrateChangedBed();
+  var tidyRemoved=migrateRemoveTidyRoom();
+  var didReset=migrateReset2026();
+  return {bedAdded:bedAdded, tidyRemoved:tidyRemoved, didReset:didReset};
 }
 function localHasBoard(){
   if(S.ledger&&S.ledger.length) return true;
@@ -2366,8 +2543,12 @@ function applyRemoteRow(row,opts){
     var before={};
     S.kids.forEach(function(k){ before[k.id]=weekPoints(k); });
     syncApplying=true;
-    try{ applyShared(p); lastRemoteAt=at; save(); }
+    var hadReset=!!(S.migrations&&S.migrations[RESET_ID]), hadBed=!!(S.migrations&&S.migrations["changed-bed"]), hadTidy=!!(S.migrations&&S.migrations[TIDY_ID]);
+    var mig={};
+    try{ mig=applyShared(p)||{}; lastRemoteAt=at; save(); }
     finally{ syncApplying=false; }
+    var needPush=(S.migrations&&S.migrations[RESET_ID]&&!hadReset)||(S.migrations&&S.migrations["changed-bed"]&&!hadBed)||(S.migrations&&S.migrations[TIDY_ID]&&!hadTidy)||mig.tidyRemoved||mig.bedAdded||mig.didReset;
+    if(needPush) scheduleSyncPush();
     var gained=null, gainAmt=0;
     var skip=opts.silent||Date.now()<justPushedUntil||isParent()||PARENT;
     if(!skip) S.kids.forEach(function(k){ var d=weekPoints(k)-(before[k.id]||0); if(d>0){ gained=k; gainAmt=d; } });
@@ -2628,7 +2809,92 @@ function renderParent(){
   if(tab==="today") renderParentToday(body,d);
   else if(tab==="add") renderParentAdd(body,d);
   else if(tab==="coins") renderParentCoins(body);
+  else if(tab==="cal") renderParentCal(body);
   else renderParentBuy(body);
+}
+function calMonday(){ var x=mondayOf(new Date()); x.setDate(x.getDate()+7*PARENT_CAL_OFF); return x; }
+function calWeekLabel(){
+  var mon=calMonday(), sun=new Date(mon); sun.setDate(mon.getDate()+6);
+  return (PARENT_CAL_OFF===0?"This week ":PARENT_CAL_OFF===-1?"Last week ":PARENT_CAL_OFF===1?"Next week ":"")+mon.getDate()+(mon.getMonth()!==sun.getMonth()?" "+MONTHS[mon.getMonth()]:"")+"–"+sun.getDate()+" "+MONTHS[sun.getMonth()];
+}
+function renderParentCal(body){
+  if(CAL_DRAFT){ renderParentCalEdit(body); return; }
+  document.getElementById("parentWhen").textContent=calWeekLabel();
+  var mon=calMonday(), h='<div class="pcalhead"><button type="button" id="calPrev">◀</button><div class="pcalwk">'+esc(calWeekLabel())+'</div><button type="button" id="calNext">▶</button></div>';
+  if(PARENT_CAL_OFF) h+='<button type="button" class="pact orange" id="calNow" style="margin:0 0 .55rem">This week</button>';
+  for(var i=0;i<7;i++){
+    var dt=new Date(mon); dt.setDate(mon.getDate()+i); var ds=ymd(dt);
+    var bks=bookingsOnDate(ds);
+    h+='<div class="pcalday'+(PARENT_CAL_OFF===0&&i===todayIdx()?" today":"")+'"><div class="pcalhd">'+DAYS_LONG[i]+" "+dt.getDate()+" "+MONTHS[dt.getMonth()]+'</div>';
+    if(!bks.length) h+='<div class="pnote" style="padding:0;margin:0 0 .15rem">Nothing on</div>';
+    bks.forEach(function(b){
+      h+='<button type="button" class="pcalbk'+(b.kid==="all"?" fam":"")+'" data-bk="'+esc(b.id)+'"><span>'+bookingIcon(b.title)+" "+esc(b.title||"Booking")+'</span><span class="pcalmeta">'+esc(bookingWhoName(b))+" · "+esc(fmtTimeRange(b.time,b.end))+(b.recur==="weekly"?" · weekly":"")+'</span></button>';
+    });
+    h+='</div>';
+  }
+  h+='<button type="button" class="pact green" id="calAdd">+ Add booking</button>';
+  body.innerHTML=h;
+  document.getElementById("calPrev").onclick=function(){ PARENT_CAL_OFF--; renderParent(); };
+  document.getElementById("calNext").onclick=function(){ PARENT_CAL_OFF++; renderParent(); };
+  var now=document.getElementById("calNow"); if(now) now.onclick=function(){ PARENT_CAL_OFF=0; renderParent(); };
+  document.getElementById("calAdd").onclick=function(){
+    var d=todayIdx();
+    CAL_DRAFT={id:null,title:"",time:"08:30",end:"09:00",kid:"all",recur:"weekly",weekday:d,date:ymd(new Date(calMonday().getTime()+d*86400000))};
+    renderParent();
+  };
+  [].forEach.call(body.querySelectorAll("[data-bk]"),function(btn){
+    btn.onclick=function(){
+      var id=btn.getAttribute("data-bk"), src=null;
+      (S.bookings||[]).forEach(function(x){ if(x.id===id) src=x; });
+      if(!src) return;
+      CAL_DRAFT={id:src.id,title:src.title||"",time:padTime(src.time),end:src.end?padTime(src.end):"",kid:src.kid||"all",recur:src.recur==="weekly"?"weekly":"once",weekday:src.weekday!=null?+src.weekday:weekdayOfYmd(src.date||ymd(new Date())),date:src.date||ymd(new Date())};
+      renderParent();
+    };
+  });
+}
+function renderParentCalEdit(body){
+  var d=CAL_DRAFT; if(!d) return;
+  document.getElementById("parentWhen").textContent=d.id?"Edit booking":"New booking";
+  var h='<div class="psheet"><h2>'+(d.id?"Edit booking":"New booking")+'</h2>';
+  h+='<label>Title</label><input class="ptxt" id="calTitle" maxlength="40" value="'+esc(d.title||"")+'" placeholder="e.g. Library">';
+  h+='<label>Who</label><div class="ppills" id="calWho">';
+  h+='<button type="button" data-who="all" class="'+(d.kid==="all"?"on":"")+'">Family</button>';
+  S.kids.forEach(function(k){ h+='<button type="button" data-who="'+k.id+'" class="'+(d.kid===k.id?"on":"")+'">'+esc(k.name)+'</button>'; });
+  h+='</div><label>Repeat weekly</label><div class="ppills" id="calRecur">';
+  h+='<button type="button" data-r="weekly" class="'+(d.recur==="weekly"?"on":"")+'">Every week</button>';
+  h+='<button type="button" data-r="once" class="'+(d.recur!=="weekly"?"on":"")+'">One-off</button></div>';
+  h+='<label>Day</label><div class="ppills" id="calDay">';
+  var sel=(d.recur==="weekly"?(d.weekday!=null?+d.weekday:todayIdx()):weekdayOfYmd(d.date||ymd(new Date())));
+  for(var i=0;i<7;i++) h+='<button type="button" data-d="'+i+'" class="'+(i===sel?"on":"")+'">'+DAYS[i]+'</button>';
+  h+='</div><label>Start</label><input class="ptxt" id="calStart" type="time" value="'+padTime(d.time||"08:30")+'">';
+  h+='<label>End</label><input class="ptxt" id="calEnd" type="time" value="'+(d.end?padTime(d.end):"")+'">';
+  h+='<button type="button" class="pact green" id="calSave">Save</button>';
+  h+='<button type="button" class="pact" id="calCancel" style="background:#fff;color:#1d1b4b">Cancel</button>';
+  if(d.id) h+='<button type="button" class="pact red" id="calDel">Delete</button>';
+  h+='</div>';
+  body.innerHTML=h;
+  function pill(id,attr,fn){ var box=document.getElementById(id); box.onclick=function(e){ var b=e.target.closest("button"); if(!b) return; [].forEach.call(box.querySelectorAll("button"),function(x){ x.classList.remove("on"); }); b.classList.add("on"); if(fn) fn(b.getAttribute(attr)); }; }
+  pill("calWho","data-who",function(v){ d.kid=v; });
+  pill("calRecur","data-r",function(v){ d.recur=v; });
+  pill("calDay","data-d",function(v){ d.weekday=+v; var mon=calMonday(), dt=new Date(mon); dt.setDate(mon.getDate()+d.weekday); d.date=ymd(dt); });
+  document.getElementById("calCancel").onclick=function(){ CAL_DRAFT=null; renderParent(); };
+  document.getElementById("calSave").onclick=function(){
+    var title=(document.getElementById("calTitle").value||"").trim();
+    if(!title){ toast("Give it a title first"); return; }
+    var start=padTime(document.getElementById("calStart").value||d.time||"08:30");
+    var endRaw=(document.getElementById("calEnd").value||"").trim();
+    var rec={id:d.id||("b"+Date.now().toString(36)), title:title, time:start, kid:d.kid||"all", recur:d.recur==="weekly"?"weekly":"once", weekday:d.recur==="weekly"?(d.weekday!=null?+d.weekday:todayIdx()):null, date:d.recur==="weekly"?null:(d.date||ymd(new Date()))};
+    if(endRaw) rec.end=padTime(endRaw);
+    S.bookings=S.bookings||[];
+    var found=false;
+    for(var i=0;i<S.bookings.length;i++) if(S.bookings[i].id===rec.id){ S.bookings[i]=rec; found=true; break; }
+    if(!found) S.bookings.push(rec);
+    CAL_DRAFT=null; save(); render(); renderParent(); toast("Saved");
+  };
+  var del=document.getElementById("calDel");
+  if(del) del.onclick=function(){
+    confirmBox("Delete “"+esc(d.title||"this booking")+"”?",[["Delete","red",function(){ S.bookings=(S.bookings||[]).filter(function(x){ return x.id!==d.id; }); CAL_DRAFT=null; save(); render(); renderParent(); toast("Booking deleted"); }],["Cancel","grey",null]]);
+  };
 }
 function renderParentToday(body,d){
   var h="";
@@ -2741,7 +3007,7 @@ var start=document.querySelector(".task.todaycol:not(.done)")||document.querySel
 if(!PARENT&&FIRST_RUN&&S.view==="week"&&!(S.kids||[]).some(function(k){ return k.photo; })){
   setTimeout(function(){ confirmBox("Welcome to Dojo Coins! 👋<br><span style='font-size:.7em;font-weight:normal'>Got a family setup code? Enter it to load your photos and bookings.</span>",[["🔑 Enter code","green",function(){ openCodepad(""); }],["Not now","grey",null]]); },250);
 }
-window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i,opts){ if(i!=null) animalIdx=i; critGo(true,"animal",opts||{}); return critJ; }, riderNow:function(i,opts){ if(i!=null) riderIdx=i; critGo(true,"rider",opts||{}); return critJ; }, castNext:function(){ critGo(true); return critJ; }, placeTunnels:placeTunnels, tunnels:function(){ return TUN; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i,gain){ celebrate(S.kids[i||0],render,gain); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode, tvLocked:function(){ return tvLocked(); }, parent:function(){ return isParent(); }, routeParent:routeParent, askDad:askDad, setParentPin:function(ok){ PARENT_PIN_OK=!!ok; try{ sessionStorage.setItem("dojoParentPin",ok?"1":""); }catch(e){} }, unlockTvWrite:unlockTvWrite, startSync:startSync, familyId:function(){ return familyId; }, syncReady:function(){ return !!syncReady; }, setFamilyCode:function(c){ rememberCode(c); save(); return startSync(); }, setParentPinDigits:function(pin){ return pinHash(pin).then(function(h){ S.parentPinHash=h; save(); }); } };
+window.__dojo={taskValue:function(n){ return taskValue(n); }, focusedValue:function(){ var a=document.activeElement; if(!a||!a.classList.contains("task")) return null; var k=kidById(a.getAttribute("data-kid")); return taskValue(jobOfKey(k,a.getAttribute("data-key"))); }, pileCount:function(n){ return pileLayout(n).length; }, balance:function(i){ return balance(S.kids[i]); }, animalSVG:animalSVG, animalNow:function(i,opts){ if(i!=null) animalIdx=i; critGo(true,"animal",opts||{}); return critJ; }, riderNow:function(i,opts){ if(i!=null) riderIdx=i; critGo(true,"rider",opts||{}); return critJ; }, castNext:function(){ critGo(true); return critJ; }, placeTunnels:placeTunnels, tunnels:function(){ return TUN; }, critter:function(){ return critJ; }, critMap:function(){ var g=critGraph(); if(!g) return null; var w=42,hh=32,e=[]; for(var xi=0;xi<g.X.length;xi++) for(var yi=0;yi<g.Y.length;yi++) critNbrs(g,[xi,yi]).forEach(function(n){ if(n[0]<xi||n[1]<yi) return; e.push([xi,yi,n[0],n[1],critHits(g,g.X[xi]-w/2,g.Y[yi]-hh/2,g.X[n[0]]-w/2,g.Y[n[1]]-hh/2,w,hh)?1:0]); }); return {X:g.X,Y:g.Y,edges:e}; },state:function(){return S;}, celebrate:function(i,gain){ celebrate(S.kids[i||0],render,gain); }, page:function(p){ PAGE=p; setView("week"); }, unlock:unlockCode, tvLocked:function(){ return tvLocked(); }, parent:function(){ return isParent(); }, routeParent:routeParent, askDad:askDad, setParentPin:function(ok){ PARENT_PIN_OK=!!ok; try{ sessionStorage.setItem("dojoParentPin",ok?"1":""); }catch(e){} }, unlockTvWrite:unlockTvWrite, startSync:startSync, familyId:function(){ return familyId; }, syncReady:function(){ return !!syncReady; }, setFamilyCode:function(c){ rememberCode(c); save(); return startSync(); }, setParentPinDigits:function(pin){ return pinHash(pin).then(function(h){ S.parentPinHash=h; save(); }); }, migrations:function(){ return S.migrations||{}; }, archive:function(){ return S.archive||{}; } };
 })();
 </script>
 </body>
